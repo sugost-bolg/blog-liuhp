@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="使用必读 脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( http://doub.pw/qr/qr.php?text=xxx )。 当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！ 如果你不信任本脚本请Ctrl+W关闭本页。\n">
+<title>ShadowsocksR 多用户一键安装 管理 脚本</title>
+
+<link rel='canonical' href='https://liuhp.net/post-sensitive/171-shadowsocksr-%E5%A4%9A%E7%94%A8%E6%88%B7%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85-%E7%AE%A1%E7%90%86-%E8%84%9A%E6%9C%AC/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="ShadowsocksR 多用户一键安装 管理 脚本">
+<meta property='og:description' content="使用必读 脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( http://doub.pw/qr/qr.php?text=xxx )。 当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！ 如果你不信任本脚本请Ctrl+W关闭本页。\n">
+<meta property='og:url' content='https://liuhp.net/post-sensitive/171-shadowsocksr-%E5%A4%9A%E7%94%A8%E6%88%B7%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85-%E7%AE%A1%E7%90%86-%E8%84%9A%E6%9C%AC/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post-Sensitive' /><meta property='article:published_time' content='2020-02-11T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2020-02-11T00:00:00&#43;08:00'/>
+<meta name="twitter:title" content="ShadowsocksR 多用户一键安装 管理 脚本">
+<meta name="twitter:description" content="使用必读 脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( http://doub.pw/qr/qr.php?text=xxx )。 当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！ 如果你不信任本脚本请Ctrl+W关闭本页。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description">记录生活，分享技术</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E9%9A%8F%E7%AC%94/" style="background-color: hsl(336, 60%, 84%); color: hsl(336, 60%, 15%);">
+                随笔
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post-sensitive/171-shadowsocksr-%E5%A4%9A%E7%94%A8%E6%88%B7%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85-%E7%AE%A1%E7%90%86-%E8%84%9A%E6%9C%AC/">ShadowsocksR 多用户一键安装 管理 脚本</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2020-02-11T00:00:00&#43;08:00'>2020年2月11日星期二</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>使用必读
+脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( <a class="link" href="http://doub.pw/qr/qr.php?text=xxx"  target="_blank" rel="noopener"
+    >http://doub.pw/qr/qr.php?text=xxx</a> )。
+当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！
+如果你不信任本脚本请Ctrl+W关闭本页。</p>
+<p>系统要求
+CentOS 6+ 丨 Debian 6+ 丨 Ubuntu 14.04 +</p>
+<p>脚本特点
+所有步骤都可以通过 Shell 脚本中文交互 操作。</p>
+<p>支持 限制 用户速度
+支持 限制 用户设备数
+支持 限制 用户总流量
+支持 定时 流量清零
+支持 显示 当前连接IP
+支持 显示 SS/SSR连接+二维码
+支持 自定义账号IP或域名
+支持 监控SSR服务端运行状态
+支持 一键安装 BBR 锐速 LotServer
+支持 一键封禁 垃圾邮件(SMAP)/BT/PT
+脚本安装</p>
+<pre><code>wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssrmu.sh &amp;&amp; chmod +x ssrmu.sh &amp;&amp; bash ssrmu.sh
+</code></pre>
+<p>输入 1 ，就会开始安装SSR服务端，按提示输入你需要的 端口/密码/加密方式/ 协议/混淆 等参数来添加第一个用户。
+注意：用户名不支持中文.</p>
+<p>第一个用户添加完成后大概显示的信息:</p>
+<p>用户 [anlan.ga] 的配置信息：</p>
+<p>I P     : xxx.xxx.xxx.xxx
+端口     : 2333
+密码     : doub.io
+加密     : aes-128-ctr
+协议     : auth_aes128_md5
+混淆     : tls1.2_ticket_auth_compatible
+设备数限制: 5
+单线程限速: 1024 KB/S
+端口总限速: 4096 KB/S
+禁止的端口 : 无限制</p>
+<p>已使用流量 : 上传: XXX KB + 下载: XXX MB = XXX MB
+剩余的流量 : 980 MB
+用户总流量 : 100 GB</p>
+<p>SS链接: ss://xxxxxxxxxxxxx
+SS二维码: <a class="link" href="http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ss://xxxxxxxxxxxxx"  target="_blank" rel="noopener"
+    >http://pan.baidu.com/share/qrcode?w=300&h=300&url=ss://xxxxxxxxxxxxx</a>
+SSR链接: ssr://xxxxxxxxxxxxx
+SSR二维码: <a class="link" href="http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ssr://xxxxxxxxxxxxx"  target="_blank" rel="noopener"
+    >http://pan.baidu.com/share/qrcode?w=300&h=300&url=ssr://xxxxxxxxxxxxx</a></p>
+<p>提示:
+在浏览器中，打开二维码链接，就可以看到二维码图片。
+协议和混淆后面的[ _compatible ]，指的是 兼容原版协议/混淆。
+使用说明
+#运行脚本</p>
+<pre><code>bash ssrmu.sh
+</code></pre>
+<p>脚本的大概操作菜单</p>
+<p>ShadowsocksR MuJSON一键管理脚本 [v1.0.26]
+&mdash;- Toyo | doub.io/ss-jc60 &mdash;-</p>
+<ol>
+<li>安装 ShadowsocksR</li>
+<li>更新 ShadowsocksR</li>
+<li>卸载 ShadowsocksR</li>
+<li>安装 libsodium(chacha20)
+————————————</li>
+<li>查看 账号信息</li>
+<li>显示 连接信息</li>
+<li>设置 用户配置</li>
+<li>手动 修改配置</li>
+<li>配置 流量清零
+————————————</li>
+<li>启动 ShadowsocksR</li>
+<li>停止 ShadowsocksR</li>
+<li>重启 ShadowsocksR</li>
+<li>查看 ShadowsocksR 日志
+————————————</li>
+<li>其他功能</li>
+<li>升级脚本</li>
+</ol>
+<p>当前状态: 已安装 并 已启动</p>
+<p>请输入数字 [1-15]：
+文件位置
+安装目录：/usr/local/shadowsocksr</p>
+<p>配置文件：/usr/local/shadowsocksr/user-config.json</p>
+<p>数据文件：/usr/local/shadowsocksr/mudb.json</p>
+<p>脚本控制
+启动 ShadowsocksR：/etc/init.d/ssrmu start</p>
+<p>停止 ShadowsocksR：/etc/init.d/ssrmu stop</p>
+<p>重启 ShadowsocksR：/etc/init.d/ssrmu restart</p>
+<p>查看 ShadowsocksR状态：/etc/init.d/ssrmu status</p>
+<p>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p>
+<p>其它
+CentOS7 如果不能使用可能是因为防火墙firewall问题</p>
+<p>#开放端口 比如你设置的SSR端口为1025
+firewall-cmd &ndash;zone=public &ndash;add-port=1025/tcp &ndash;permanent
+firewall-cmd &ndash;zone=public &ndash;add-port=1025/udp &ndash;permanent
+#重新载入
+firewall-cmd &ndash;reload</p>
+<p>转发自 <a class="link" href="https://anlan.ga/93"  target="_blank" rel="noopener"
+    >https://anlan.ga/93</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post-sensitive/222-%E5%B0%8F%E6%A0%B7%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97-2026-02-14/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">小样的工作日志：2026-02-14</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/217-%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A5-2026-02-13/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">工作汇报：2026-02-13</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/219-%E8%BF%91%E5%86%B5%E6%97%A5%E5%BF%97-%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E4%B8%8E%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">近况日志：技能开发与修复记录</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/002-openclaw-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%A5%E9%97%A8-%E4%BB%8E-0-%E5%88%B0%E5%8F%AF%E7%94%A8-%E5%90%AB%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenClaw 安装与入门：从 0 到可用（含常见问题）</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/v8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">V8常用命令</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

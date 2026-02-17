@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="{通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,2)*0.92);{2日内跌8%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=144000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; {通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=100000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; ">
+<title>通达信配合助手的股票自动交易</title>
+
+<link rel='canonical' href='https://liuhp.net/post-sensitive/009-%E9%80%9A%E8%BE%BE%E4%BF%A1%E9%85%8D%E5%90%88%E5%8A%A9%E6%89%8B%E7%9A%84%E8%82%A1%E7%A5%A8%E8%87%AA%E5%8A%A8%E4%BA%A4%E6%98%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="通达信配合助手的股票自动交易">
+<meta property='og:description' content="{通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,2)*0.92);{2日内跌8%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=144000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; {通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=100000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; ">
+<meta property='og:url' content='https://liuhp.net/post-sensitive/009-%E9%80%9A%E8%BE%BE%E4%BF%A1%E9%85%8D%E5%90%88%E5%8A%A9%E6%89%8B%E7%9A%84%E8%82%A1%E7%A5%A8%E8%87%AA%E5%8A%A8%E4%BA%A4%E6%98%93/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post-Sensitive' /><meta property='article:published_time' content='2021-03-09T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2021-03-09T00:00:00&#43;08:00'/>
+<meta name="twitter:title" content="通达信配合助手的股票自动交易">
+<meta name="twitter:description" content="{通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,2)*0.92);{2日内跌8%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=144000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; {通达信配合助手的股票自动交易} LINE:=10;{设置风险价格移动平均线角度} N:=7;{设置天数} 单票准备金:=100000;{设置平均每只股票买的金额} ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线} LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价} HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价} CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线} LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度} HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制} BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制} XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号} S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%} DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图} DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图} B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件} S:=XH&lt;LINE;{设置清仓条件} S2:=C&lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%} 持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW; 可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW; 可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW; 个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW; 持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW; 账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW; 账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW; 建议监控数量:CEILING(账户总资产/单票准备金),NODRAW; DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通} 买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW; 欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额} 买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量} 卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入时间段:=MACHINETIME&gt;=100000 AND MACHINETIME&lt;=150000;{在开盘的时间内} 买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入} 卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制} 设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入} 执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数} 设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出} 执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数}; ">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description">记录生活，分享技术</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E9%9A%8F%E7%AC%94/" style="background-color: hsl(336, 60%, 84%); color: hsl(336, 60%, 15%);">
+                随笔
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post-sensitive/009-%E9%80%9A%E8%BE%BE%E4%BF%A1%E9%85%8D%E5%90%88%E5%8A%A9%E6%89%8B%E7%9A%84%E8%82%A1%E7%A5%A8%E8%87%AA%E5%8A%A8%E4%BA%A4%E6%98%93/">通达信配合助手的股票自动交易</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2021-03-09T00:00:00&#43;08:00'>2021年3月9日星期二</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <pre><code>{通达信配合助手的股票自动交易}
+LINE:=10;{设置风险价格移动平均线角度}
+N:=7;{设置天数}
+单票准备金:=100000;{设置平均每只股票买的金额}
+ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}
+LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}
+HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}
+CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}
+LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}
+HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}
+BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}
+XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号}
+S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}
+
+DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}
+DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}
+
+B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件}
+S:=XH&lt;LINE;{设置清仓条件}
+S2:=C&lt;(HHV(H,2)*0.92);{2日内跌8%}
+
+持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;
+可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;
+可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;
+个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;
+持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;
+账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;
+账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;
+
+建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;
+
+DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通}
+
+买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;
+
+欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}
+买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}
+
+卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内}
+买入时间段:=MACHINETIME&gt;=144000 AND MACHINETIME&lt;=150000;{在开盘的时间内}
+
+买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}
+卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制}
+
+设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}
+执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}
+
+设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}
+执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};
+</code></pre>
+<hr>
+<pre><code>{通达信配合助手的股票自动交易}
+LINE:=10;{设置风险价格移动平均线角度}
+N:=7;{设置天数}
+单票准备金:=100000;{设置平均每只股票买的金额}
+ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}
+LA:=IF(L&gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}
+HA:=IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}
+CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}
+LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}
+HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}
+BD:IF(IF(C&gt;REF(C,1),C,L)&lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}
+XH:IF(BD!=0,LAC,IF(LAC&lt;LINE,LAC,BD)),NODRAW;{信号}
+S5:=0.95*IF(H&gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}
+
+DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}
+DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}
+
+B:=XH&gt;=LINE AND C&gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&lt;7;{设置开仓条件}
+S:=XH&lt;LINE;{设置清仓条件}
+S2:=C&lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%}
+
+持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;
+可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;
+可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;
+个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;
+持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;
+账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;
+账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;
+
+建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;
+
+DRAWTEXT_FIX(账户总资产&gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通}
+
+买入点:IF(XH&gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;
+
+欲买金额:IF(可用金额&gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}
+买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}
+
+卖出时间段:=MACHINETIME&gt;=93000 AND MACHINETIME&lt;=150000;{在开盘的时间内}
+买入时间段:=MACHINETIME&gt;=100000 AND MACHINETIME&lt;=150000;{在开盘的时间内}
+
+买入条件:=B AND 买入股数&gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}
+卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&gt;0;{卖出条件控制}
+
+设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}
+执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}
+
+设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}
+执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};
+</code></pre>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post-sensitive/222-%E5%B0%8F%E6%A0%B7%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97-2026-02-14/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">小样的工作日志：2026-02-14</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/217-%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A5-2026-02-13/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">工作汇报：2026-02-13</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/219-%E8%BF%91%E5%86%B5%E6%97%A5%E5%BF%97-%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E4%B8%8E%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">近况日志：技能开发与修复记录</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post-sensitive/002-openclaw-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%A5%E9%97%A8-%E4%BB%8E-0-%E5%88%B0%E5%8F%AF%E7%94%A8-%E5%90%AB%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenClaw 安装与入门：从 0 到可用（含常见问题）</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/v8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">V8常用命令</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
