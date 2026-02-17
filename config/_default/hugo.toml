@@ -1,0 +1,15 @@
+baseURL      = "https://liuhp.net"
+languageCode = "zh-cn"
+title        = "My Life is Going On"
+defaultContentLanguage = "zh"
+hasCJKLanguage = true
+
+# Use local theme
+theme = "stack"
+
+[pagination]
+    pagerSize = 10
+
+[permalinks]
+    post = "/:slug/"
+    page = "/:slug/"
