@@ -1,5 +1,0 @@
-[zh]
-    languageName = "中文"
-    weight = 1
-    [zh.params]
-        languageCode = "zh-CN"
