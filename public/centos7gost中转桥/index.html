@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &gt;&gt; /dev/null 2&gt;&amp;1 &amp; 服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050 客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &raquo; /dev/null 2&gt;&amp;1 &amp;\n服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050\r客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
 <title>centos7gost中转桥</title>
 
 <link rel='canonical' href='https://liuhp.net/centos7gost%E4%B8%AD%E8%BD%AC%E6%A1%A5/'>
 
 <link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="centos7gost中转桥">
-<meta property='og:description' content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &gt;&gt; /dev/null 2&gt;&amp;1 &amp; 服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050 客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
+<meta property='og:description' content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &raquo; /dev/null 2&gt;&amp;1 &amp;\n服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050\r客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
 <meta property='og:url' content='https://liuhp.net/centos7gost%E4%B8%AD%E8%BD%AC%E6%A1%A5/'>
 <meta property='og:site_name' content='My Life is Going On'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-07-01T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2023-07-01T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="centos7gost中转桥">
-<meta name="twitter:description" content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &gt;&gt; /dev/null 2&gt;&amp;1 &amp; 服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050 客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
+<meta name="twitter:description" content="cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &raquo; /dev/null 2&gt;&amp;1 &amp;\n服务端监听19050端口\ncd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050\r客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口\n">
     </head>
     <body class="
     article-page
@@ -203,8 +203,7 @@
     <section class="article-content">
     
     
-    <pre><code>cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &gt;&gt; /dev/null 2&gt;&amp;1 &amp;
-</code></pre>
+    <p>cd /home/gost &amp;&amp; nohup ./gost -L relay+tls://用户名:密码@:19050 &raquo; /dev/null 2&gt;&amp;1 &amp;</p>
 <p>服务端监听19050端口</p>
 <pre><code>cd /home/gost &amp;&amp; nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050
 </code></pre>

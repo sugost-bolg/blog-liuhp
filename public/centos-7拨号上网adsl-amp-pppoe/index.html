@@ -226,7 +226,7 @@
 获取以太网卡代号</p>
 <p>复制代码
 1 [dsp@dsp Desktop]$ ifconfig
-2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500                # 有线网卡
+2 enp9s0: flags=4163  mtu 1500                # 有线网卡
 3         ether 20:1b:06:3d:22:05  txqueuelen 1000  (Ethernet)
 4         RX packets 0  bytes 0 (0.0 B)
 5         RX errors 0  dropped 2297  overruns 0  frame 0
@@ -234,16 +234,16 @@
 7         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 8         device interrupt 18<br>
 9
-10 lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+10 lo: flags=73  mtu 65536
 11         inet 127.0.0.1  netmask 255.0.0.0
-12         inet6 ::1  prefixlen 128  scopeid 0x10<host>
+12         inet6 ::1  prefixlen 128  scopeid 0x10
 13         loop  txqueuelen 0  (Local Loopback)
 14         RX packets 2  bytes 110 (110.0 B)
 15         RX errors 0  dropped 0  overruns 0  frame 0
 16         TX packets 2  bytes 110 (110.0 B)
 17         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 18
-19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+19 virbr0: flags=4099  mtu 1500
 20         inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
 21         ether 52:54:00:36:45:23  txqueuelen 0  (Ethernet)
 22         RX packets 0  bytes 0 (0.0 B)
@@ -251,9 +251,9 @@
 24         TX packets 0  bytes 0 (0.0 B)
 25         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 26
-27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500                 # 无线网卡
+27 wlp8s0: flags=4163  mtu 1500                 # 无线网卡
 28         inet 192.168.0.151  netmask 255.255.255.0  broadcast 192.168.0.255
-29         inet6 fe80::4ad2:24ff:fee8:f962  prefixlen 64  scopeid 0x20<link>
+29         inet6 fe80::4ad2:24ff:fee8:f962  prefixlen 64  scopeid 0x20
 30         ether 48:d2:24:e8:f9:62  txqueuelen 1000  (Ethernet)
 31         RX packets 20017  bytes 16100210 (15.3 MiB)
 32         RX errors 0  dropped 0  overruns 0  frame 0
@@ -359,7 +359,7 @@
  96 [root@dsp Desktop]# /sbin/ifup ppp0　　　　　　# 启动网络连接
  97 [root@dsp Desktop]# /sbin/pppoe-status　　　　# 查看网络连接状态
  98 pppoe-status: Link is up and running on interface ppp0
- 99 6: ppp0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu 1492 qdisc pfifo_fast state UNKNOWN qlen 3
+ 99 6: ppp0:  mtu 1492 qdisc pfifo_fast state UNKNOWN qlen 3
 100     link/ppp 
 101     inet 10.198.0.17 peer 10.198.1.1/32 scope global ppp0
 102        valid_lft forever preferred_lft forever
@@ -463,7 +463,7 @@
  96 [root@dsp Desktop]# /sbin/ifup ppp0　　　　　　# 启动网络连接
  97 [root@dsp Desktop]# /sbin/pppoe-status　　　　# 查看网络连接状态
  98 pppoe-status: Link is up and running on interface ppp0
- 99 6: ppp0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu 1492 qdisc pfifo_fast state UNKNOWN qlen 3
+ 99 6: ppp0:  mtu 1492 qdisc pfifo_fast state UNKNOWN qlen 3
 100     link/ppp 
 101     inet 10.198.0.17 peer 10.198.1.1/32 scope global ppp0
 102        valid_lft forever preferred_lft forever

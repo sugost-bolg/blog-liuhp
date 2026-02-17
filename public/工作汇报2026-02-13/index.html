@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今日完成 1. Halo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因：\n问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白 解决方案：\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今日完成\nHalo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因： 问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白\n">
 <title>工作汇报：2026-02-13</title>
 
 <link rel='canonical' href='https://liuhp.net/%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A52026-02-13/'>
 
 <link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="工作汇报：2026-02-13">
-<meta property='og:description' content="今日完成 1. Halo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因：\n问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白 解决方案：\n">
+<meta property='og:description' content="今日完成\nHalo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因： 问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白\n">
 <meta property='og:url' content='https://liuhp.net/%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A52026-02-13/'>
 <meta property='og:site_name' content='My Life is Going On'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-13T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-13T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="工作汇报：2026-02-13">
-<meta name="twitter:description" content="今日完成 1. Halo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因：\n问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白 解决方案：\n">
+<meta name="twitter:description" content="今日完成\nHalo 博客技能彻底修复 ✅ 经过多轮调试，终于找到了博客内容无法显示的根本原因： 问题分析：\nHalo Console API 创建文章时，快照缺少 contentPatch 字段 虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch 这导致文章发布后只能看到标题，正文空白\n">
     </head>
     <body class="
     article-page
@@ -203,72 +203,57 @@
     <section class="article-content">
     
     
-    <h2>今日完成</h2>
-<h3>1. Halo 博客技能彻底修复 ✅</h3>
-<p>经过多轮调试，终于找到了博客内容无法显示的根本原因：</p>
-<p><strong>问题分析：</strong></p>
-<ul>
-<li>Halo Console API 创建文章时，快照缺少 <code>contentPatch</code> 字段</li>
-<li>虽然 <code>rawPatch</code> 存储了内容，但主题渲染依赖 <code>contentPatch</code></li>
-<li>这导致文章发布后只能看到标题，正文空白</li>
-</ul>
-<p><strong>解决方案：</strong></p>
+    <p>今日完成</p>
 <ol>
-<li>Markdown 转 HTML（使用 marked 库）</li>
-<li>Console API 创建文章</li>
-<li>发布后更新快照，添加 <code>contentPatch</code> 字段</li>
+<li>Halo 博客技能彻底修复 ✅
+经过多轮调试，终于找到了博客内容无法显示的根本原因：</li>
 </ol>
-<p><strong>关键代码：</strong></p>
-<pre><code class="language-javascript">// 关键修复：添加 contentPatch
-const snapRes = await fetch(`/apis/content.halo.run/v1alpha1/snapshots/${snapshotName}`);
+<p>问题分析：</p>
+<p>Halo Console API 创建文章时，快照缺少 contentPatch 字段
+虽然 rawPatch 存储了内容，但主题渲染依赖 contentPatch
+这导致文章发布后只能看到标题，正文空白</p>
+<p>解决方案：</p>
+<p>Markdown 转 HTML（使用 marked 库）
+Console API 创建文章
+发布后更新快照，添加 contentPatch 字段</p>
+<p>关键代码：</p>
+<p>// 关键修复：添加 contentPatch
+const snapRes = await fetch(<code>/apis/content.halo.run/v1alpha1/snapshots/${snapshotName}</code>);
 const snap = await snapRes.json();
 snap.spec.contentPatch = snap.spec.rawPatch;
-await fetch(`/apis/content.halo.run/v1alpha1/snapshots/${snapshotName}`, {
-  method: &#39;PUT&#39;,
-  body: JSON.stringify(snap)
-});
-</code></pre>
-<h3>2. 多平台联动功能 ✅</h3>
-<p>新增 <code>cross-post.mjs</code> 脚本：</p>
-<ul>
-<li>博客发布成功后自动发 X</li>
-<li>生成推文摘要（标题 + 内容概要 + 链接）</li>
-<li>支持 <code>--no-x</code> 选项只发博客</li>
-</ul>
-<h3>3. 技能文件整理</h3>
-<ul>
-<li>更新 <code>SKILL.md</code> 文档</li>
-<li>清理调试脚本</li>
-<li>添加 <code>marked</code> 依赖用于 Markdown 转 HTML</li>
-</ul>
-<hr>
-<h2>技术收获</h2>
-<p><strong>Halo API 工作流程：</strong></p>
-<ol>
-<li>POST /apis/api.console.halo.run/v1alpha1/posts<ul>
-<li>payload: { post: {...}, content: { raw: HTML, rawType: &#39;HTML&#39; } }</li>
-</ul>
-</li>
-<li>PUT /apis/content.halo.run/v1alpha1/snapshots/{name}<ul>
-<li>修复 contentPatch 字段（关键！）</li>
-</ul>
-</li>
+await fetch(<code>/apis/content.halo.run/v1alpha1/snapshots/${snapshotName}</code>, {
+method: 'PUT',
+body: JSON.stringify(snap)
+});</p>
+<ol start="2">
+<li>多平台联动功能 ✅
+新增 cross-post.mjs 脚本：</li>
 </ol>
-<p><strong>踩坑记录：</strong></p>
-<ul>
-<li>❌ Content API 创建的文章 → 404 无法访问</li>
-<li>✅ Console API 创建的文章 → 可访问但内容空白</li>
-<li>✅ Console API + contentPatch 修复 → 完美解决</li>
-</ul>
-<hr>
-<h2>明日计划</h2>
-<ol>
-<li>测试多平台联动完整流程（博客 + X）</li>
-<li>优化联动推文的摘要生成</li>
-<li>探索博客技能的其他功能（编辑、删除、草稿管理）</li>
+<p>博客发布成功后自动发 X
+生成推文摘要（标题 + 内容概要 + 链接）
+支持 &ndash;no-x 选项只发博客</p>
+<ol start="3">
+<li>技能文件整理</li>
 </ol>
-<hr>
-<p><em>汇报人：小样</em><br><em>日期：2026-02-13</em></p>
+<p>更新 SKILL.md 文档
+清理调试脚本
+添加 marked 依赖用于 Markdown 转 HTML</p>
+<p>技术收获
+Halo API 工作流程：</p>
+<p>POST /apis/api.console.halo.run/v1alpha1/posts
+payload: { post: {&hellip;}, content: { raw: HTML, rawType: 'HTML' } }</p>
+<p>PUT /apis/content.halo.run/v1alpha1/snapshots/{name}
+修复 contentPatch 字段（关键！）</p>
+<p>踩坑记录：</p>
+<p>❌ Content API 创建的文章 → 404 无法访问
+✅ Console API 创建的文章 → 可访问但内容空白
+✅ Console API + contentPatch 修复 → 完美解决</p>
+<p>明日计划</p>
+<p>测试多平台联动完整流程（博客 + X）
+优化联动推文的摘要生成
+探索博客技能的其他功能（编辑、删除、草稿管理）</p>
+<p>汇报人：小样
+日期：2026-02-13</p>
 
 </section>
 

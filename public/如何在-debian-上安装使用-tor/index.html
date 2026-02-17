@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;tor的全称是&lt;a href=&quot;https://torproject.org/&quot;&gt;the onion router,是用来保护互联网隐私的一个开源软件。\n&lt;p style=&quot;&quot;&gt;这篇文章是在debian上安装使用tor代理的过程。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&ldquo;tor的全称是the onion router,是用来保护互联网隐私的一个开源软件。\n">
 <title>如何在 debian 上安装使用 tor</title>
 
 <link rel='canonical' href='https://liuhp.net/%E5%A6%82%E4%BD%95%E5%9C%A8-debian-%E4%B8%8A%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-tor/'>
 
 <link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="如何在 debian 上安装使用 tor">
-<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;tor的全称是&lt;a href=&quot;https://torproject.org/&quot;&gt;the onion router,是用来保护互联网隐私的一个开源软件。\n&lt;p style=&quot;&quot;&gt;这篇文章是在debian上安装使用tor代理的过程。\n">
+<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&ldquo;tor的全称是the onion router,是用来保护互联网隐私的一个开源软件。\n">
 <meta property='og:url' content='https://liuhp.net/%E5%A6%82%E4%BD%95%E5%9C%A8-debian-%E4%B8%8A%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-tor/'>
 <meta property='og:site_name' content='My Life is Going On'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-08-30T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-08-30T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="如何在 debian 上安装使用 tor">
-<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;tor的全称是&lt;a href=&quot;https://torproject.org/&quot;&gt;the onion router,是用来保护互联网隐私的一个开源软件。\n&lt;p style=&quot;&quot;&gt;这篇文章是在debian上安装使用tor代理的过程。\n">
+<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&ldquo;tor的全称是the onion router,是用来保护互联网隐私的一个开源软件。\n">
     </head>
     <body class="
     article-page
@@ -186,7 +186,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -203,7 +203,25 @@
     <section class="article-content">
     
     
-    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;<code>tor</code>的全称是&lt;a href=&quot;https://torproject.org/&quot;&gt;the onion router</a>,是用来保护互联网隐私的一个开源软件。</p>&lt;p style=&quot;&quot;&gt;这篇文章是在debian上安装使用tor代理的过程。</p>&lt;h2 style=&quot;&quot; id=&quot;%E5%AE%89%E8%A3%85&quot;&gt;安装</h2>&lt;p style=&quot;&quot;&gt;在 <code>debian</code> 上安装 <code>tor</code> 只需要执行一条命令</p>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;<pre><code>sudo apt-get install tor&quot;,&quot;</code></pre></td></tr></tbody></table></div>&lt;h2 style=&quot;&quot; id=&quot;%E9%85%8D%E7%BD%AE&quot;&gt;配置</h2>&lt;p style=&quot;&quot;&gt;编辑torrc文件</p>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;<pre><code>sudo vi /etc/torrc&quot;,&quot;</code></pre></td></tr></tbody></table></div>&lt;p style=&quot;&quot;&gt;找到并注释下面这行</p>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;<pre><code>#ControlPort 9051&quot;,&quot;</code></pre></td></tr></tbody></table></div>&lt;p style=&quot;&quot;&gt;再找到下面这行 注释并把 <code>1</code> 改成 <code>0</code></p>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;<pre><code>#CookieAuthentication 1&quot;,&quot;</code></pre></td></tr></tbody></table></div>&lt;p style=&quot;&quot;&gt;重启 <code>tor</code></p>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;<pre><code>sudo /etc/init.d/tor restart&quot;,&quot;</code></pre></td></tr></tbody></table></div>&lt;div style=&quot;overflow-x: auto; overflow-y: hidden;&quot;&gt;&lt;table style=&quot;width: 200px&quot;&gt;<colgroup>&lt;col style=&quot;width: 100px&quot;&gt;&lt;col style=&quot;width: 100px&quot;&gt;</colgroup><tbody>&lt;tr style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px;&quot;&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; display: inline-block; margin-left: 1rem; margin-right: 0.75rem; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td>&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; colwidth=&quot;100&quot; style=&quot;box-sizing: border-box; border-color: inherit; border-style: solid; border-width: 0px; padding: 5px;&quot;&gt;&lt;p style=&quot;&quot;&gt;</p></td></tr></tbody></table></div>&lt;p style=&quot;&quot;&gt;</p>&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;<code>tor</code>的全称是&lt;a href=&quot;https://torproject.org/&quot;&gt;the onion router</a>,是用来保护互联网隐私的一个开源软件。</p>&lt;p style=&quot;&quot;&gt;这篇文章是在debian上安装使用tor代理的过程。</p>&lt;h2 style=&quot;&quot; id=&quot;%E5%AE%89%E8%A3%85&quot;&gt;安装</h2>&lt;p style=&quot;&quot;&gt;在 <code>debian</code> 上安装 <code>tor</code> 只需要执行一条命令</p><pre><code>sudo apt-get install tor</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E9%85%8D%E7%BD%AE&quot;&gt;配置</h2>&lt;p style=&quot;&quot;&gt;编辑torrc文件</p><pre><code>sudo vi /etc/torrc</code></pre>&lt;p style=&quot;&quot;&gt;找到这行，去掉前面#号</p><pre><code>#ControlPort 9051</code></pre>&lt;p style=&quot;&quot;&gt;找到这行，去掉前面#号，再把 <code>1</code> 改成 <code>0</code></p><pre><code>#CookieAuthentication 1</code></pre>&lt;p style=&quot;&quot;&gt;重启 <code>tor</code></p><pre><code>sudo /etc/init.d/tor restart</code></pre>&lt;p style=&quot;&quot;&gt;下面是跨机共享代理流量给其他设备，去掉前面#号即可开启</p><pre><code>#SocksPort 0.0.0.0:9050</code></pre>&lt;p style=&quot;&quot;&gt;卸载tor</p><pre><code>sudo apt remove tor &amp;&amp; sudo apt purge tor &amp;&amp; sudo apt autoremove</code></pre>&lt;p style=&quot;&quot;&gt;</p>&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
+    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&ldquo;tor的全称是the onion router,是用来保护互联网隐私的一个开源软件。</p>
+<p>这篇文章是在debian上安装使用tor代理的过程。</p>
+<p>安装在 debian 上安装 tor 只需要执行一条命令</p>
+<p>sudo apt-get install tor&rdquo;,&ldquo;配置编辑torrc文件</p>
+<p>sudo vi /etc/torrc&rdquo;,&ldquo;找到并注释下面这行</p>
+<p>#ControlPort 9051&rdquo;,&ldquo;再找到下面这行 注释并把 1 改成 0</p>
+<p>#CookieAuthentication 1&rdquo;,&ldquo;重启 tor</p>
+<p>sudo /etc/init.d/tor restart&rdquo;,&quot;</p>
+<p>&ldquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&ldquo;tor的全称是the onion router,是用来保护互联网隐私的一个开源软件。</p>
+<p>这篇文章是在debian上安装使用tor代理的过程。</p>
+<p>安装在 debian 上安装 tor 只需要执行一条命令</p>
+<p>sudo apt-get install tor配置编辑torrc文件</p>
+<p>sudo vi /etc/torrc找到这行，去掉前面#号</p>
+<p>#ControlPort 9051找到这行，去掉前面#号，再把 1 改成 0</p>
+<p>#CookieAuthentication 1重启 tor</p>
+<p>sudo /etc/init.d/tor restart下面是跨机共享代理流量给其他设备，去掉前面#号即可开启</p>
+<p>#SocksPort 0.0.0.0:9050卸载tor</p>
+<p>sudo apt remove tor &amp;&amp; sudo apt purge tor &amp;&amp; sudo apt autoremove</p>
+<p>&ldquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
 
 </section>
 
