@@ -1,0 +1,130 @@
+---
+title: "从tor-browser提取tor做匿名代理"
+date: 2020-08-06T00:00:00+08:00
+draft: false
+categories:
+  - 随笔
+tags: []
+---
+
+
+
+
+首先，先下载tor browser的安装包并安装(目录任意)。
+然后打开tor browser的安装路径，将`Tor Browser\Browser\TorBrowser\Tor`拷贝出来放到一个新目录，如tor_portable.
+
+此时tor_portable的目录结构如下:
+
+    C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE
+
+|   libeay32.dll
+|   libevent-2-1-6.dll
+|   libevent_core-2-1-6.dll
+|   libevent_extra-2-1-6.dll
+|   libgcc_s_seh-1.dll
+|   libssp-0.dll
+|   libwinpthread-1.dll
+|   ssleay32.dll
+|   tor.exe
+|   zlib1.dll
+|
+\---PluggableTransports
+        meek-client-torbrowser.exe
+        meek-client.exe
+        obfs4proxy.exe
+        terminateprocess-buffer.exe
+然后在tor_portable下新建一个Data文件夹备用。
+
+此时再打开tor browser的安装目录，找到路径`Tor Browser\Browser\TorBrowser\Data\Tor`，将该目录下的geoip和geoip6这两个文件拷贝到上一步创建的`tor_protable\Data`目录下。
+同时，也将tor browser安装目录下`Tor Browser\Browser\TorBrowser\Data\Tor的torrc`文件拷贝到tor_protable目录。
+
+执行完毕上面的操作之后，此时tor_protable的目录结构为：
+
+    C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE
+
+|   libeay32.dll
+|   libevent-2-1-6.dll
+|   libevent_core-2-1-6.dll
+|   libevent_extra-2-1-6.dll
+|   libgcc_s_seh-1.dll
+|   libssp-0.dll
+|   libwinpthread-1.dll
+|   ssleay32.dll
+|   tor.exe
+|   torrc
+|   zlib1.dll
+|
++---Data
+|       geoip
+|       geoip6
+|
+\---PluggableTransports
+
+        obfs4proxy.exe
+
+然后使用文本编辑器打开`tor_protable\torrc`,将下面的配置填入其中：
+
+DataDirectory ./Data
+GeoIPFile ./Data/geoip
+GeoIPv6File ./Data/geoip6
+Log notice file ./tor.log
+Socks5Proxy 127.0.0.1:2801
+
+另外，还要注意Socks5Proxy 代理根据自己的配置和需要决定。（这个代理是tor的入口代理）
+
+执行完上面的操作，tor的提取和配置都执行完毕了。
+下面可以在本地启动tor了：
+
+# 在tor_protable目录下执行
+$ tor -f torrc
+此时tor_protable目录下会创建出tor.log文件，打开即可查看tor的日志。
+当日志中出现下面这样的输出时，即连接成功：
+
+Nov 04 19:20:39.000 [notice] Bootstrapped 50%: Loading relay descriptors for internal paths
+Nov 04 19:20:40.000 [notice] The current consensus contains exit nodes. Tor can build exit and internal paths.
+Nov 04 19:20:42.000 [notice] Bootstrapped 57%: Loading relay descriptors
+Nov 04 19:20:42.000 [notice] Bootstrapped 66%: Loading relay descriptors
+Nov 04 19:20:42.000 [notice] Bootstrapped 72%: Loading relay descriptors
+Nov 04 19:20:42.000 [notice] Bootstrapped 80%: Connecting to the Tor network
+Nov 04 19:20:43.000 [notice] Bootstrapped 85%: Finishing handshake with first hop
+Nov 04 19:20:44.000 [notice] Bootstrapped 90%: Establishing a Tor circuit
+Nov 04 19:20:45.000 [notice] Tor has successfully opened a circuit. Looks like client functionality is working.
+Nov 04 19:20:45.000 [notice] Bootstrapped 100%: Done
+
+tor启动之后会创建一个Socks5代理(127.0.0.1:9050)。
+
+快速启动/关闭tor批处理
+上面启动tor时使用的是命令tor -f torrc，可以将其写为批处理：
+
+rem tor-run.bat
+tor -f torrc
+
+接下来时关闭tor的批处理。我们在关闭时需要杀掉这些进程，在windows下可以使用taskkill /IM命令：
+
+rem tor-stop.bat
+taskkill /IM tor.exe /F
+
+本文到此完全结束，此时tor_protable完整的目录结构如下：
+
+C:\USERS\VISIONSMILE\DESKTOP\TOR_PROTABLE
+|   libeay32.dll
+|   libevent-2-1-6.dll
+|   libevent_core-2-1-6.dll
+|   libevent_extra-2-1-6.dll
+|   libgcc_s_seh-1.dll
+|   libssp-0.dll
+|   libwinpthread-1.dll
+|   ssleay32.dll
+|   tor-run.bat
+|   tor-stop.bat
+|   tor.exe
+|   tor.log
+|   torrc
+|   zlib1.dll
+|
++---Data
+|       geoip
+|       geoip6
+|
+\---PluggableTransports
+        obfs4proxy.exe

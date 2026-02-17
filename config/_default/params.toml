@@ -23,3 +23,6 @@ rssFullContent = true
 
 [comments]
     enabled = false
+
+[imaging]
+    remote = false

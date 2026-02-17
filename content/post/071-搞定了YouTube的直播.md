@@ -1,0 +1,30 @@
+---
+title: "搞定了YouTube的直播"
+date: 2021-04-23T00:00:00+08:00
+draft: false
+categories:
+  - 随笔
+tags: []
+---
+
+
+
+
+这两天都这折腾关于如何用国内服务器推流直播到YouTube网站的办法。
+试过了好几个代理软件，最终也就只有这个
+
+> ProxifierSetup
+
+这个软件可用，序列号等下找一下
+
+> Proxifier注册码序列号 
+> L6Z8A-XY2J4-BTZ3P-ZZ7DF-A2Q9C（Portable Edition）#免安装版本 
+> 5EZ8G-C3WL5-B56YG-SCXM9-6QZAP（Standard Edition）#安装版本
+> P427L-9Y552-5433E-8DSR3-58Z68（MAC）#mac版本
+
+这个软件的设置图如下![1.jpg][1]![2.jpg][2]![3.jpg][3]
+
+
+  [1]: https://liuhongping.com/usr/uploads/2021/04/1085763932.jpg
+  [2]: https://liuhongping.com/usr/uploads/2021/04/1093566694.jpg
+  [3]: https://liuhongping.com/usr/uploads/2021/04/529981782.jpg

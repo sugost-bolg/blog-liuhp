@@ -4,5 +4,12 @@
         <link>https://liuhp.net/categories/</link>
         <description>Recent content in Categories on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language><atom:link href="https://liuhp.net/categories/index.xml" rel="self" type="application/rss+xml" /></channel>
+        <language>zh-cn</language>
+        <lastBuildDate>Sat, 14 Feb 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>随笔</title>
+            <link>https://liuhp.net/categories/%E9%9A%8F%E7%AC%94/</link>
+            <pubDate>Sat, 14 Feb 2026 00:00:00 +0800</pubDate>
+            <guid>https://liuhp.net/categories/%E9%9A%8F%E7%AC%94/</guid>
+            <description></description>
+        </item></channel>
 </rss>

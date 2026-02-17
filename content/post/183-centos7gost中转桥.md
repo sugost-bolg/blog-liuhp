@@ -1,0 +1,31 @@
+---
+title: "centos7gost中转桥"
+date: 2023-07-01T00:00:00+08:00
+draft: false
+categories:
+  - 随笔
+tags: []
+---
+
+
+
+
+    cd /home/gost && nohup ./gost -L relay+tls://用户名:密码@:19050 >> /dev/null 2>&1 &
+
+服务端监听19050端口
+
+    cd /home/gost && nohup ./gost -L tcp://:19050/:9050 -F relay+tls://用户名:密码@10.0.5.2:19050
+
+客户端19050端口连接服务端19050后，客户端数据转发到服务端9050端口
+
+    cd /home/gost && nohup ./gost -L relay+tls://用户名:密码@:10000 >> /dev/null 2>&1 &
+
+服务端监听10000端口
+
+    cd /home/gost && nohup ./gost -L tcp://:10000/:1000 -F relay+tls://用户名:密码@10.0.5.2:10000
+
+客户端10000端口连接服务端10000后，客户端数据转发到服务端1000端口
+
+
+
+

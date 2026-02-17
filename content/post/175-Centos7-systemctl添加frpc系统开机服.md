@@ -1,0 +1,81 @@
+---
+title: "Centos7   systemctl添加frpc系统开机服"
+date: 2019-09-10T00:00:00+08:00
+draft: false
+categories:
+  - 随笔
+tags: []
+---
+
+
+
+
+    #vim /usr/lib/systemd/system/frpc.service[Unit]
+    Description=frps daemon
+    After=syslog.target network.target
+    Wants=network.target
+     
+    [Service]
+    Type=simple
+    PIDFile=
+    ExecStart=/etc/frpc/frpc -c /etc/frpc/frpc.ini
+    ExecStop=
+    ExecReload=
+    Restart= always
+    RestartSec=1min
+    PrivateTmp=True
+     
+    [Install]
+    WantedBy=multi-user.target
+
+ 
+
+ 添加可执行权限：
+	
+    chmod 754 /usr/lib/systemd/system/frpc.service
+
+ 
+
+设置为开机自启动：
+	
+    systemctl enable   frpc.service
+
+　　
+
+常用指令(以frpc服务为例)：
+	
+启动某服务
+
+    systemctl start  frpc.service
+
+  
+停止某服务
+
+    systemctl stop   frpc.service
+
+  
+重启某服务
+
+    service  frpc restart
+    systemctl restart   frpc.service
+
+  
+使某服务自动启动(如frpc服务)
+
+    systemctl enable   frpc.service
+
+  
+使某服务不自动启动
+
+    systemctl disable   frpc.service
+
+  
+检查服务状态
+`systemctl   status   frpc.service` （服务详细信息）
+`systemctl   is-active   frpc.service`（仅显示是否Active)
+  
+显示所有已启动的服务
+
+    systemctl list-units  --type=service
+
+

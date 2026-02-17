@@ -1,0 +1,28 @@
+---
+title: "CentOS 7 替换 IP"
+date: 2021-08-13T00:00:00+08:00
+draft: false
+categories:
+  - 随笔
+tags: []
+---
+
+
+
+
+确定网卡名称
+在正式开始配置附加IP的绑定之前，我们需要先确定网卡的名称，可以通过以下命令来输出：
+
+    ip link | awk 'NR%2==1' | awk '{print $2,$8,$9}' | tr -d ':'
+
+输出的内容应该类似于以下结果：
+
+    lo state UNKNOWN
+    enp3s0 state UP
+    enp4s0 state DOWN
+
+第一个设备 lo 代表了loopback，第二个设备通常就是你的网卡设备，可以看到它目前的状态是 UP（即正常在线）。在上述的例子中，我们看到了 enp4s0，它是另外一张网卡但状态是 DOWN（离线），因此 enp3s0 是我们需要绑定IP的网卡。 如果你的情况是：两张网卡都是UP状态，你需要先做一个判断，选出你倾向于绑定IP上去的网卡。
+
+进入 /etc/sysconfig/network-scripts/ 目录，查看网卡文件，替换ip。
+
+    systemctl restart network
