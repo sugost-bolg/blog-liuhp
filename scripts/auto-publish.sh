@@ -34,24 +34,25 @@ get_weekly_topic() {
     echo "${topics[$index]}"
 }
 
-# 生成文章内容
-generate_post() {
-    local topic="$1"
-    local date_str=$(date +%Y-%m-%d)
-    local slug="weekly-$(date +%s)"
+# 创建文章文件
+create_post_file() {
+    local slug="$1"
+    local title="$2"
+    local topic="$3"
     
-    cd "$BLOG_DIR"
+    local filename="content/post/$(date +%s)-${slug}.md"
+    mkdir -p content/post
     
-    # 创建文章
-    bash scripts/new.sh "$slug" "$topic - $date_str"
-    
-    # 获取生成的文件路径
-    local file=$(ls -t content/post/*-${slug}.md | head -1)
-    
-    # 添加模板内容
-    cat >> "$file" << EOF
+    cat > "$filename" << EOF
+---
+title: "${title}"
+date: $(date +%Y-%m-%dT%H:%M:%S%z)
+draft: false
+categories:
+    - 随笔
+---
 
-## $topic
+## ${topic}
 
 本周的一些思考和记录。
 
@@ -71,7 +72,7 @@ generate_post() {
 *本文由定时任务自动生成，于 $(date '+%Y-%m-%d %H:%M') 创建*
 EOF
     
-    echo "$file"
+    echo "$filename"
 }
 
 # 发布文章
@@ -89,13 +90,20 @@ publish_post() {
 # 主函数
 main() {
     echo "========== 每周自动博客发布 =========="
+    echo "时间: $(date '+%Y-%m-%d %H:%M:%S')"
     
+    cd "$BLOG_DIR"
     init_topics
     
     local topic=$(get_weekly_topic)
-    echo "本周主题: $topic"
+    local date_str=$(date +%Y-%m-%d)
+    local title="${topic} - ${date_str}"
+    local slug="weekly-$(date +%s)"
     
-    local file=$(generate_post "$topic")
+    echo "本周主题: $topic"
+    echo "文章标题: $title"
+    
+    local file=$(create_post_file "$slug" "$title" "$topic")
     echo "创建文章: $file"
     
     publish_post
