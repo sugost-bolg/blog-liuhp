@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hugo 博客新建文章脚本 - 使用当前时间
+# Hugo 博客新建文章脚本 - 使用 YYYYMMDDHHMMSS 格式
 
 set -e
 
@@ -18,14 +18,14 @@ TITLE=${2:-$SLUG}
 
 # 使用当前时间（避免 future post 问题）
 DATE=$(date +%Y-%m-%dT%H:%M:%S%z)
-DATE_STR=$(date +%Y-%m-%d)
-TIMESTAMP=$(date +%s)
+# 使用 YYYYMMDDHHMMSS 格式（更直观）
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
 
 FILENAME="${TIMESTAMP}-${SLUG}.md"
 FILEPATH="$CONTENT_DIR/$FILENAME"
 
 # 创建文章
-cat > "$FILEPATH" << EOF
+cat > "$FILEPATH" << EOM
 ---
 title: "$TITLE"
 date: $DATE
@@ -36,13 +36,11 @@ tags:
     - 日志
 ---
 
-EOF
+EOM
 
 echo "✅ 文章已创建: $FILEPATH"
 echo "📅 时间: $DATE"
+echo "🔗 URL: /post/$TIMESTAMP-$SLUG/"
 echo ""
 echo "编辑命令:"
 echo "  vim $FILEPATH"
-echo ""
-echo "发布后执行:"
-echo "  cd $BLOG_DIR && bash scripts/publish.sh"
