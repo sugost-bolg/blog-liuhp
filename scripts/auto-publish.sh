@@ -29,7 +29,7 @@ get_weekly_topic() {
         [[ -n "$line" ]] && topics+=("$line")
     done < "$TOPICS_FILE"
     
-    local week_num=$(date +%U)
+    local week_num=$((10#$(date +%U)))
     local index=$((week_num % ${#topics[@]}))
     echo "${topics[$index]}"
 }
