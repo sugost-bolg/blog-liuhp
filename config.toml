@@ -5,3 +5,7 @@ theme = "stack"
 
 [markup.goldmark.renderer]
   unsafe = true
+
+[params.opengraph.twitter]
+  site = "sugost"
+  card = "summary_large_image"
