@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。\nManjaro KDE 切换国内源及软件安装\n1.配置镜像源:\nsudo pacman-mirrors -i -c China -m rank\n3.更新源列表\nsudo pacman-mirrors -g\n4.更新pacman数据库并全面更新系统\nsudo pacman -Syyu 更新完後開始裝軟件和配置主題\n一、安装fcitx5、配置工具、rime\nsudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime\r二、在fcitx5中填加RIME输入法\n打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加\r三、设置fcitx5为开机启动\n1、在用户文件夹下创建.xprofile配置文件\n输入命令\rsudo vim ~/.xprofile\n然后插入如下内容\rexport GTK_IM_MODULE=fcitx5\nexport QT_IM_MODULE=fcitx5\nexport XMODIFIERS=@im=fcitx\n2、设置fcitx5为开机启动\n①: 直接在~/.xprofile中插入下面这行\rfcitx5 &amp;\r②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动\r四、安装RIME五笔方案\n1、五笔码表下载地址https://github.com/rime/rime-wubi\r2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中\r3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入\rschema: wubi86\rschema: wubi_pinyin\rschema: wubi_trad\r4、重启fcitx5\r5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法\r主題安裝\n">
+<title>Manjaro KDE 裝機記錄</title>
+
+<link rel='canonical' href='https://liuhp.net/post/124/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="Manjaro KDE 裝機記錄">
+<meta property='og:description' content="先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。\nManjaro KDE 切换国内源及软件安装\n1.配置镜像源:\nsudo pacman-mirrors -i -c China -m rank\n3.更新源列表\nsudo pacman-mirrors -g\n4.更新pacman数据库并全面更新系统\nsudo pacman -Syyu 更新完後開始裝軟件和配置主題\n一、安装fcitx5、配置工具、rime\nsudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime\r二、在fcitx5中填加RIME输入法\n打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加\r三、设置fcitx5为开机启动\n1、在用户文件夹下创建.xprofile配置文件\n输入命令\rsudo vim ~/.xprofile\n然后插入如下内容\rexport GTK_IM_MODULE=fcitx5\nexport QT_IM_MODULE=fcitx5\nexport XMODIFIERS=@im=fcitx\n2、设置fcitx5为开机启动\n①: 直接在~/.xprofile中插入下面这行\rfcitx5 &amp;\r②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动\r四、安装RIME五笔方案\n1、五笔码表下载地址https://github.com/rime/rime-wubi\r2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中\r3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入\rschema: wubi86\rschema: wubi_pinyin\rschema: wubi_trad\r4、重启fcitx5\r5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法\r主題安裝\n">
+<meta property='og:url' content='https://liuhp.net/post/124/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2021-03-17T19:49:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-17T19:49:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="Manjaro KDE 裝機記錄">
+<meta name="twitter:description" content="先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。\nManjaro KDE 切换国内源及软件安装\n1.配置镜像源:\nsudo pacman-mirrors -i -c China -m rank\n3.更新源列表\nsudo pacman-mirrors -g\n4.更新pacman数据库并全面更新系统\nsudo pacman -Syyu 更新完後開始裝軟件和配置主題\n一、安装fcitx5、配置工具、rime\nsudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime\r二、在fcitx5中填加RIME输入法\n打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加\r三、设置fcitx5为开机启动\n1、在用户文件夹下创建.xprofile配置文件\n输入命令\rsudo vim ~/.xprofile\n然后插入如下内容\rexport GTK_IM_MODULE=fcitx5\nexport QT_IM_MODULE=fcitx5\nexport XMODIFIERS=@im=fcitx\n2、设置fcitx5为开机启动\n①: 直接在~/.xprofile中插入下面这行\rfcitx5 &amp;\r②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动\r四、安装RIME五笔方案\n1、五笔码表下载地址https://github.com/rime/rime-wubi\r2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中\r3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入\rschema: wubi86\rschema: wubi_pinyin\rschema: wubi_trad\r4、重启fcitx5\r5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法\r主題安裝\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/" style="background-color: hsl(287, 60%, 84%); color: hsl(287, 60%, 15%);">
+                电脑网络
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/124/">Manjaro KDE 裝機記錄</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2021-03-17T19:49:00Z'>Wednesday, March 17, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。</p>
+<p>Manjaro KDE 切换国内源及软件安装</p>
+<p>1.配置镜像源:</p>
+<p>sudo pacman-mirrors -i -c China -m rank</p>
+<p>3.更新源列表</p>
+<p>sudo pacman-mirrors -g</p>
+<p>4.更新pacman数据库并全面更新系统</p>
+<h2 id="sudo-pacman--syyu">sudo pacman -Syyu
+</h2><p><strong>更新完後開始裝軟件和配置主題</strong></p>
+<p>一、安装fcitx5、配置工具、rime</p>
+<pre><code>sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime
+</code></pre>
+<p>二、在fcitx5中填加RIME输入法</p>
+<pre><code>  打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加
+</code></pre>
+<p>三、设置fcitx5为开机启动</p>
+<p>1、在用户文件夹下创建.xprofile配置文件</p>
+<pre><code>  输入命令
+</code></pre>
+<p>sudo vim ~/.xprofile</p>
+<pre><code>  然后插入如下内容
+</code></pre>
+<p>export GTK_IM_MODULE=fcitx5</p>
+<p>export QT_IM_MODULE=fcitx5</p>
+<p>export XMODIFIERS=@im=fcitx</p>
+<p>2、设置fcitx5为开机启动</p>
+<pre><code>  ①: 直接在~/.xprofile中插入下面这行
+
+  fcitx5 &amp;
+
+  ②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动
+</code></pre>
+<p>四、安装RIME五笔方案</p>
+<pre><code>1、五笔码表下载地址https://github.com/rime/rime-wubi
+
+2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中
+
+3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入
+
+schema: wubi86
+
+schema: wubi_pinyin
+
+schema: wubi_trad
+
+4、重启fcitx5
+
+5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法
+</code></pre>
+<hr>
+<p><strong>主題安裝</strong></p>
+<p>主題中心下載 全局主題 layan 設置完後，可能需要調整面板位置，</p>
+<p>到軟件中心下載 latte 這個是底部的dock，設置完需要顯示的效果</p>
+<hr>
+<p><strong>裝到這裏後就可以去選擇自己想要的軟件安裝了。</strong></p>
+<p>記錄下自己常用的軟件，在軟件中心可以直接安裝的有一下：</p>
+<p>telegram  聊天軟件</p>
+<p>vlc  音樂播放器</p>
+<p>remmina  遠程桌面登錄</p>
+<p>simplescreenrecorder  錄屏軟件</p>
+<p>FileZilla  ftp客戶端</p>
+<hr>
+<p>軟件中心沒有谷歌裝，需要手動編譯</p>
+<pre><code>git clone https://aur.archlinux.org/google-chrome.git
+</code></pre>
+<p>進入下載後的目錄一般在$home下，進入谷歌軟件的目錄執行 <code>makepkg -si</code></p>
+<p>編譯好後會下載一些文件，如果有看到chrome-*.tar.zst 這樣的文件就可以直接安裝，如果沒有的話就執行<code>sudo pacman -U google-chrome*.tar.xz</code> 會編譯下載來的deb的安裝包。</p>
+<hr>
+<pre><code>v2rayA下载安装及使用教程 支持VMess/VLESS/SS/SSR/Trojan
+</code></pre>
+<p>archlinux/manjaro v2raya已发布于AUR中：</p>
+<pre><code>git clone https://aur.archlinux.org/v2raya.git /tmp/v2raya
+cd /tmp/v2raya
+makepkg -si
+</code></pre>
+<p>如果makepkg失败，运行以下命令再试：</p>
+<pre><code>sudo pacman -S base-devel
+</code></pre>
+<p>部署完毕后，访问该机器的2017端口即可使用，如http://localhost:2017。
+由於源用國內源，安裝過程需要翻牆。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

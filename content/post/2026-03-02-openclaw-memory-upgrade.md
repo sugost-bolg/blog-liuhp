@@ -1,6 +1,6 @@
 ---
 title: "OpenClaw 记忆系统升级实战：从删库到 lily-memory"
-date: 2026-03-02T15:16:00+0800
+date: 2026-03-02
 categories:
   - OpenClaw
   - 技巧

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="我做了个AI交易员，专门在预测市场薅羊毛 前段时间迷上了预测市场。\nManifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。\n但我发现一个问题：人没法24小时盯着市场。\n于是，我造了一个AI交易员。\n它长什么样 这个家伙叫 prediction-trader，住在我的 Mac mini 里。它的工作很简单：\n扫描市场：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会 多策略投票：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策 自动下单：发现好机会就直接下注，不用我动手 止盈止损：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路 每日汇报：早上8点准时发消息告诉我昨天的战绩 策略是怎么工作的 核心是一个多策略集成系统。\n贝叶斯策略负责概率更新。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。\n技术策略负责趋势跟踪。看交易量趋势、概率动量、波动率，找量价配合的机会。\n情绪策略负责反向收割。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。\n三个策略各自投票，加权平均后决定是否交易。\n它会进化 最牛的是，这家伙会自己学习。\n每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。\n就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。\n风险控制 毕竟是AI在管钱，风控必须到位：\n止损线：单日亏损达200虚拟币就停止交易 单笔限额：最多下注100虚拟币，避免一把梭哈 Kelly公式：根据胜率和赔率动态计算仓位大小 高频监控：持仓时每分钟检查一次，随时准备止盈止损 目前战绩 运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。\n最重要的是，这个过程完全自动化。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。\n这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。\n未来计划 目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。\n当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。\n最后 预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个概率直觉比人类更强的决策者。\n至于它能不能真的持续赚钱？让时间来验证吧。\n反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。\n如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂\n">
+<title>我做了个AI交易员，专门在预测市场薅羊毛</title>
+
+<link rel='canonical' href='https://liuhp.net/post/prediction-market-ai-trader/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="我做了个AI交易员，专门在预测市场薅羊毛">
+<meta property='og:description' content="我做了个AI交易员，专门在预测市场薅羊毛 前段时间迷上了预测市场。\nManifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。\n但我发现一个问题：人没法24小时盯着市场。\n于是，我造了一个AI交易员。\n它长什么样 这个家伙叫 prediction-trader，住在我的 Mac mini 里。它的工作很简单：\n扫描市场：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会 多策略投票：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策 自动下单：发现好机会就直接下注，不用我动手 止盈止损：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路 每日汇报：早上8点准时发消息告诉我昨天的战绩 策略是怎么工作的 核心是一个多策略集成系统。\n贝叶斯策略负责概率更新。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。\n技术策略负责趋势跟踪。看交易量趋势、概率动量、波动率，找量价配合的机会。\n情绪策略负责反向收割。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。\n三个策略各自投票，加权平均后决定是否交易。\n它会进化 最牛的是，这家伙会自己学习。\n每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。\n就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。\n风险控制 毕竟是AI在管钱，风控必须到位：\n止损线：单日亏损达200虚拟币就停止交易 单笔限额：最多下注100虚拟币，避免一把梭哈 Kelly公式：根据胜率和赔率动态计算仓位大小 高频监控：持仓时每分钟检查一次，随时准备止盈止损 目前战绩 运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。\n最重要的是，这个过程完全自动化。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。\n这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。\n未来计划 目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。\n当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。\n最后 预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个概率直觉比人类更强的决策者。\n至于它能不能真的持续赚钱？让时间来验证吧。\n反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。\n如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂\n">
+<meta property='og:url' content='https://liuhp.net/post/prediction-market-ai-trader/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-20T20:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-20T20:00:00&#43;08:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="我做了个AI交易员，专门在预测市场薅羊毛">
+<meta name="twitter:description" content="我做了个AI交易员，专门在预测市场薅羊毛 前段时间迷上了预测市场。\nManifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。\n但我发现一个问题：人没法24小时盯着市场。\n于是，我造了一个AI交易员。\n它长什么样 这个家伙叫 prediction-trader，住在我的 Mac mini 里。它的工作很简单：\n扫描市场：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会 多策略投票：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策 自动下单：发现好机会就直接下注，不用我动手 止盈止损：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路 每日汇报：早上8点准时发消息告诉我昨天的战绩 策略是怎么工作的 核心是一个多策略集成系统。\n贝叶斯策略负责概率更新。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。\n技术策略负责趋势跟踪。看交易量趋势、概率动量、波动率，找量价配合的机会。\n情绪策略负责反向收割。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。\n三个策略各自投票，加权平均后决定是否交易。\n它会进化 最牛的是，这家伙会自己学习。\n每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。\n就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。\n风险控制 毕竟是AI在管钱，风控必须到位：\n止损线：单日亏损达200虚拟币就停止交易 单笔限额：最多下注100虚拟币，避免一把梭哈 Kelly公式：根据胜率和赔率动态计算仓位大小 高频监控：持仓时每分钟检查一次，随时准备止盈止损 目前战绩 运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。\n最重要的是，这个过程完全自动化。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。\n这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。\n未来计划 目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。\n当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。\n最后 预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个概率直觉比人类更强的决策者。\n至于它能不能真的持续赚钱？让时间来验证吧。\n反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。\n如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/ai/" style="background-color: hsl(167, 60%, 84%); color: hsl(167, 60%, 15%);">
+                AI
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E9%87%8F%E5%8C%96/" style="background-color: hsl(271, 60%, 84%); color: hsl(271, 60%, 15%);">
+                量化
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E9%9A%8F%E7%AC%94/" style="background-color: hsl(336, 60%, 84%); color: hsl(336, 60%, 15%);">
+                随笔
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/prediction-market-ai-trader/">我做了个AI交易员，专门在预测市场薅羊毛</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-20T20:00:00&#43;08:00'>Friday, February 20, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h1>我做了个AI交易员，专门在预测市场薅羊毛</h1>
+<p>前段时间迷上了预测市场。</p>
+<p>Manifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。</p>
+<p>但我发现一个问题：<strong>人没法24小时盯着市场</strong>。</p>
+<p>于是，我造了一个AI交易员。</p>
+<h2>它长什么样</h2>
+<p>这个家伙叫 <code>prediction-trader</code>，住在我的 Mac mini 里。它的工作很简单：</p>
+<ul>
+<li><strong>扫描市场</strong>：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会</li>
+<li><strong>多策略投票</strong>：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策</li>
+<li><strong>自动下单</strong>：发现好机会就直接下注，不用我动手</li>
+<li><strong>止盈止损</strong>：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路</li>
+<li><strong>每日汇报</strong>：早上8点准时发消息告诉我昨天的战绩</li>
+</ul>
+<h2>策略是怎么工作的</h2>
+<p>核心是一个<strong>多策略集成系统</strong>。</p>
+<p>贝叶斯策略负责<strong>概率更新</strong>。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。</p>
+<p>技术策略负责<strong>趋势跟踪</strong>。看交易量趋势、概率动量、波动率，找量价配合的机会。</p>
+<p>情绪策略负责<strong>反向收割</strong>。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。</p>
+<p>三个策略各自投票，加权平均后决定是否交易。</p>
+<h2>它会进化</h2>
+<p>最牛的是，这家伙会<strong>自己学习</strong>。</p>
+<p>每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。</p>
+<p>就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。</p>
+<h2>风险控制</h2>
+<p>毕竟是AI在管钱，风控必须到位：</p>
+<ul>
+<li><strong>止损线</strong>：单日亏损达200虚拟币就停止交易</li>
+<li><strong>单笔限额</strong>：最多下注100虚拟币，避免一把梭哈</li>
+<li><strong>Kelly公式</strong>：根据胜率和赔率动态计算仓位大小</li>
+<li><strong>高频监控</strong>：持仓时每分钟检查一次，随时准备止盈止损</li>
+</ul>
+<h2>目前战绩</h2>
+<p>运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。</p>
+<p>最重要的是，这个过程<strong>完全自动化</strong>。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。</p>
+<p>这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。</p>
+<h2>未来计划</h2>
+<p>目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。</p>
+<p>当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。</p>
+<h2>最后</h2>
+<p>预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个<strong>概率直觉</strong>比人类更强的决策者。</p>
+<p>至于它能不能真的持续赚钱？让时间来验证吧。</p>
+<p>反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。</p>
+<hr>
+<p><em>如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

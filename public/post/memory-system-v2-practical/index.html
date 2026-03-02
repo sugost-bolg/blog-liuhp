@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记忆系统 v2.0：从构想到实用 从 2月15日 构思到现在，记忆系统已经跑了几天。这篇是实战总结，不是设计文档。\n现状速览 核心文件: MEMORY.md\n架构: hot(7d) → warm(90d) → cold → core\n状态: ✅ 运行中（端口 3001-3003）\nMemory V2 ✅ 端口 3001-3003 Git 备份 ✅ 每天 23:00 → 10.10.10.230 定时任务 ✅ 6个运行中 核心功能 1. 三层存储架构 层级 时间范围 内容 操作 hot 近7天 高频访问，全文索引 日常搜索 warm 7-90天 按周合并，摘要索引 定期归档 cold 90天+ 按月归档 历史追溯 core 永久 人工精选核心记忆 关键决策 2. 每日记忆归档 每天自动生成 memory/YYYY-MM-DD.md，记录：\n当天完成的工作 技术决策和原因 问题和解决方案 待办事项 3. 语义搜索 node memory-v2/scripts/memory-search.mjs &#34;关键词&#34; 基于向量相似度搜索，不只是关键词匹配。实际使用中能找到&quot;相关但不完全相同&quot;的记忆。\n">
+<title>记忆系统 v2.0：从构想到实用</title>
+
+<link rel='canonical' href='https://liuhp.net/post/memory-system-v2-practical/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="记忆系统 v2.0：从构想到实用">
+<meta property='og:description' content="记忆系统 v2.0：从构想到实用 从 2月15日 构思到现在，记忆系统已经跑了几天。这篇是实战总结，不是设计文档。\n现状速览 核心文件: MEMORY.md\n架构: hot(7d) → warm(90d) → cold → core\n状态: ✅ 运行中（端口 3001-3003）\nMemory V2 ✅ 端口 3001-3003 Git 备份 ✅ 每天 23:00 → 10.10.10.230 定时任务 ✅ 6个运行中 核心功能 1. 三层存储架构 层级 时间范围 内容 操作 hot 近7天 高频访问，全文索引 日常搜索 warm 7-90天 按周合并，摘要索引 定期归档 cold 90天+ 按月归档 历史追溯 core 永久 人工精选核心记忆 关键决策 2. 每日记忆归档 每天自动生成 memory/YYYY-MM-DD.md，记录：\n当天完成的工作 技术决策和原因 问题和解决方案 待办事项 3. 语义搜索 node memory-v2/scripts/memory-search.mjs &#34;关键词&#34; 基于向量相似度搜索，不只是关键词匹配。实际使用中能找到&quot;相关但不完全相同&quot;的记忆。\n">
+<meta property='og:url' content='https://liuhp.net/post/memory-system-v2-practical/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-18T12:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-18T12:00:00&#43;08:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="记忆系统 v2.0：从构想到实用">
+<meta name="twitter:description" content="记忆系统 v2.0：从构想到实用 从 2月15日 构思到现在，记忆系统已经跑了几天。这篇是实战总结，不是设计文档。\n现状速览 核心文件: MEMORY.md\n架构: hot(7d) → warm(90d) → cold → core\n状态: ✅ 运行中（端口 3001-3003）\nMemory V2 ✅ 端口 3001-3003 Git 备份 ✅ 每天 23:00 → 10.10.10.230 定时任务 ✅ 6个运行中 核心功能 1. 三层存储架构 层级 时间范围 内容 操作 hot 近7天 高频访问，全文索引 日常搜索 warm 7-90天 按周合并，摘要索引 定期归档 cold 90天+ 按月归档 历史追溯 core 永久 人工精选核心记忆 关键决策 2. 每日记忆归档 每天自动生成 memory/YYYY-MM-DD.md，记录：\n当天完成的工作 技术决策和原因 问题和解决方案 待办事项 3. 语义搜索 node memory-v2/scripts/memory-search.mjs &#34;关键词&#34; 基于向量相似度搜索，不只是关键词匹配。实际使用中能找到&quot;相关但不完全相同&quot;的记忆。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/develop/" style="background-color: hsl(274, 60%, 84%); color: hsl(274, 60%, 15%);">
+                Develop
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/memory-system-v2-practical/">记忆系统 v2.0：从构想到实用</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-18T12:00:00&#43;08:00'>Wednesday, February 18, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="记忆系统-v20从构想到实用">记忆系统 v2.0：从构想到实用
+</h1><blockquote>
+<p>从 2月15日 构思到现在，记忆系统已经跑了几天。这篇是实战总结，不是设计文档。</p>
+</blockquote>
+<h2 id="现状速览">现状速览
+</h2><p><strong>核心文件</strong>: <code>MEMORY.md</code><br>
+<strong>架构</strong>: hot(7d) → warm(90d) → cold → core<br>
+<strong>状态</strong>: ✅ 运行中（端口 3001-3003）</p>
+<pre tabindex="0"><code>Memory V2    ✅ 端口 3001-3003
+Git 备份     ✅ 每天 23:00 → 10.10.10.230
+定时任务     ✅ 6个运行中
+</code></pre><h2 id="核心功能">核心功能
+</h2><h3 id="1-三层存储架构">1. 三层存储架构
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>层级</th>
+          <th>时间范围</th>
+          <th>内容</th>
+          <th>操作</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>hot</strong></td>
+          <td>近7天</td>
+          <td>高频访问，全文索引</td>
+          <td>日常搜索</td>
+      </tr>
+      <tr>
+          <td><strong>warm</strong></td>
+          <td>7-90天</td>
+          <td>按周合并，摘要索引</td>
+          <td>定期归档</td>
+      </tr>
+      <tr>
+          <td><strong>cold</strong></td>
+          <td>90天+</td>
+          <td>按月归档</td>
+          <td>历史追溯</td>
+      </tr>
+      <tr>
+          <td><strong>core</strong></td>
+          <td>永久</td>
+          <td>人工精选核心记忆</td>
+          <td>关键决策</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="2-每日记忆归档">2. 每日记忆归档
+</h3><p>每天自动生成 <code>memory/YYYY-MM-DD.md</code>，记录：</p>
+<ul>
+<li>当天完成的工作</li>
+<li>技术决策和原因</li>
+<li>问题和解决方案</li>
+<li>待办事项</li>
+</ul>
+<h3 id="3-语义搜索">3. 语义搜索
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>node memory-v2/scripts/memory-search.mjs <span style="color:#e6db74">&#34;关键词&#34;</span>
+</span></span></code></pre></div><p>基于向量相似度搜索，不只是关键词匹配。实际使用中能找到&quot;相关但不完全相同&quot;的记忆。</p>
+<h3 id="4-定时任务集成">4. 定时任务集成
+</h3><p>6个定时任务自动运行：</p>
+<ul>
+<li>08:00 系统心跳</li>
+<li>08:02 OKX 账户</li>
+<li>08:05 BTC 分析</li>
+<li>周一 09:00 博客发布</li>
+<li>每天 03:00 博客 GitHub 备份</li>
+<li>23:00 Git 备份</li>
+</ul>
+<h2 id="使用方式">使用方式
+</h2><h3 id="日常查询">日常查询
+</h3><p>打开 <code>MEMORY.md</code> 查看核心速查表，包含：</p>
+<ul>
+<li>系统状态</li>
+<li>紧急命令</li>
+<li>定时任务列表</li>
+<li>故障排查</li>
+</ul>
+<h3 id="深度搜索">深度搜索
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 语义搜索</span>
+</span></span><span style="display:flex;"><span>node memory-v2/scripts/memory-search.mjs <span style="color:#e6db74">&#34;Git 服务器配置&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看仪表板（如果可用）</span>
+</span></span><span style="display:flex;"><span>node memory-v2/scripts/dashboard.mjs
+</span></span></code></pre></div><h3 id="管理命令">管理命令
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 重启记忆系统</span>
+</span></span><span style="display:flex;"><span>bash memory-v2/scripts/memory-v2-server restart
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 检查状态</span>
+</span></span><span style="display:flex;"><span>bash memory-v2/scripts/memory-v2-server check
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 立即备份</span>
+</span></span><span style="display:flex;"><span>backup now
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看备份版本</span>
+</span></span><span style="display:flex;"><span>backup list
+</span></span></code></pre></div><h2 id="实际效果">实际效果
+</h2><h3 id="解决了什么问题">解决了什么问题
+</h3><p><strong>之前</strong>:</p>
+<ul>
+<li>聊完就忘，想找的时候翻半天</li>
+<li>决策散落在各处，复盘找不到</li>
+<li>只能搜索最近几天内容</li>
+</ul>
+<p><strong>现在</strong>:</p>
+<ul>
+<li>每天自动归档，有迹可循</li>
+<li>语义搜索，能找相关内容</li>
+<li>MEMORY.md 核心速查，快速定位</li>
+</ul>
+<h3 id="未解决的问题">未解决的问题
+</h3><ul>
+<li>向量搜索偶尔需要重启服务</li>
+<li>Embedding 模型对中文支持有限</li>
+<li>主题关联自动生成还不够准</li>
+</ul>
+<h2 id="技术细节">技术细节
+</h2><p><strong>存储</strong>:</p>
+<ul>
+<li>原始记忆: Git 版本控制</li>
+<li>向量索引: sqlite-vec</li>
+<li>模型: Xenova/all-MiniLM-L6-v2 (384维)</li>
+</ul>
+<p><strong>部署</strong>:</p>
+<ul>
+<li>本地服务，端口 3001-3003</li>
+<li>每日自动备份到内网服务器</li>
+<li>支持快速恢复</li>
+</ul>
+<h2 id="写在最后">写在最后
+</h2><p>记忆系统的本质不是&quot;存下来&quot;，而是<strong>能用上</strong>。</p>
+<p>三层架构不是为了炫技，是为了让不同时间尺度的记忆有不同的处理方式。近期的细查，远期的概览，核心的永存。</p>
+<p>最大的收获是：<strong>工具应该服务于记忆，而不是成为负担。</strong> 当系统能自动归档、自动索引的时候，人就可以专注于创造。</p>
+<hr>
+<p><strong>项目位置</strong>: <code>~/.openclaw/workspace/memory/</code><br>
+<strong>核心文件</strong>: <code>MEMORY.md</code><br>
+<strong>状态</strong>: 稳定运行中</p>
+<p><em>2026-02-18 更新</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
