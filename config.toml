@@ -1,0 +1,11 @@
+baseURL = "https://liuhp.net"
+languageCode = "zh-cn"
+title = "My Life is Going On"
+theme = "stack"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params.opengraph.twitter]
+  site = "sugost"
+  card = "summary_large_image"
