@@ -5,13 +5,7 @@
         <description>Recent content in Hugo on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 02 Mar 2026 17:52:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>Hugo Blog v3.0 测试</title>
-            <link>https://liuhp.net/post/2026-03-02-test-v3/</link>
-            <pubDate>Mon, 02 Mar 2026 17:52:00 +0800</pubDate>
-            <guid>https://liuhp.net/post/2026-03-02-test-v3/</guid>
-            <description>&lt;h1 id=&#34;hugo-blog-v30-测试&#34;&gt;Hugo Blog v3.0 测试&#xA;&lt;/h1&gt;&lt;p&gt;测试发布流程是否正常。&lt;/p&gt;&#xA;&lt;h2 id=&#34;发布流程&#34;&gt;发布流程&#xA;&lt;/h2&gt;&lt;ol&gt;&#xA;&lt;li&gt;Mac → 230 Git&lt;/li&gt;&#xA;&lt;li&gt;230 → 博客&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;结论&#34;&gt;结论&#xA;&lt;/h2&gt;&lt;p&gt;v3.0 工作正常！&lt;/p&gt;&#xA;</description>
-        </item><item>
+        <lastBuildDate>Mon, 02 Mar 2026 17:09:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>博客同步配置血泪史</title>
             <link>https://liuhp.net/post/2026-03-02-blog-sync-jishi/</link>
             <pubDate>Mon, 02 Mar 2026 17:09:00 +0800</pubDate>

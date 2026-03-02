@@ -10,7 +10,7 @@
 <meta property='og:description' content="OpenClaw 记忆系统升级实战：从删库到 lily-memory 删掉旧记忆，拥抱新系统。代价最小化，效果最大化。\n背景 之前用的 memory-v2 越来越慢，搜索响应要 20ms+，而且配置复杂。最关键的是——它居然在我 Mac mini 后台运行占资源！\n忍不了，必须重构。\n删库跑路 第一步：删除旧系统。\n# 停服务 kill 47938 # 删目录 trash ~/.openclaw/workspace/skills/memory-v2/ trash ~/.openclaw/workspace/memory/ 干净！\n选型：为什么是 lily-memory？ 在 ClawHub 和 GitHub 上搜了一圈，最终选了 lily-memory，原因很简单：\n特性 说明 混合搜索 SQLite FTS5 + Ollama 向量，双重保障 完全本地 数据存本地，不上传云，隐私安全 自动记忆 不用手动调用，自动捕获 + 自动检索 卡顿检测 能检测重复话题，防止鬼打墙 优雅降级 没 Ollama 也能用（仅关键词模式） 安装量 552，不算最热门，但功能最符合需求。\n安装过程 # 1. 安装插件 npx clawhub install lily-memory # 2. 安装依赖 cd ~/.openclaw/workspace/skills/lily-memory npm install better-sqlite3 # 3. 下载 embedding 模型（274MB） ollama pull nomic-embed-text # 4. 配置 openclaw.json # 见下文配置 # 5. 重启 openclaw gateway restart 配置 { &#34;plugins&#34;: { &#34;slots&#34;: { &#34;memory&#34;: &#34;lily-memory&#34; }, &#34;entries&#34;: { &#34;lily-memory&#34;: { &#34;enabled&#34;: true, &#34;config&#34;: { &#34;dbPath&#34;: &#34;~/.openclaw/memory/lily.db&#34;, &#34;autoCapture&#34;: true, &#34;autoRecall&#34;: true, &#34;vectorSearch&#34;: true, &#34;ollamaUrl&#34;: &#34;http://localhost:11434&#34;, &#34;embeddingModel&#34;: &#34;nomic-embed-text&#34; } } } } } 迁移旧记忆 之前的记忆文件在 memory/compressed/ 里，8 个 markdown 文件。\n">
 <meta property='og:url' content='https://liuhp.net/post/2026-03-02-openclaw-memory-upgrade/'>
 <meta property='og:site_name' content='My Life is Going On'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='记忆系统' /><meta property='article:tag' content='lily-memory' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-03-02T15:16:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-02T15:16:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='记忆系统' /><meta property='article:tag' content='lily-memory' /><meta property='article:tag' content='AI' /><meta property='article:published_time' content='2026-03-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-02T00:00:00&#43;00:00'/>
 <meta name="twitter:site" content="@sugost">
     <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="OpenClaw 记忆系统升级实战：从删库到 lily-memory">
 <meta name="twitter:description" content="OpenClaw 记忆系统升级实战：从删库到 lily-memory 删掉旧记忆，拥抱新系统。代价最小化，效果最大化。\n背景 之前用的 memory-v2 越来越慢，搜索响应要 20ms+，而且配置复杂。最关键的是——它居然在我 Mac mini 后台运行占资源！\n忍不了，必须重构。\n删库跑路 第一步：删除旧系统。\n# 停服务 kill 47938 # 删目录 trash ~/.openclaw/workspace/skills/memory-v2/ trash ~/.openclaw/workspace/memory/ 干净！\n选型：为什么是 lily-memory？ 在 ClawHub 和 GitHub 上搜了一圈，最终选了 lily-memory，原因很简单：\n特性 说明 混合搜索 SQLite FTS5 + Ollama 向量，双重保障 完全本地 数据存本地，不上传云，隐私安全 自动记忆 不用手动调用，自动捕获 + 自动检索 卡顿检测 能检测重复话题，防止鬼打墙 优雅降级 没 Ollama 也能用（仅关键词模式） 安装量 552，不算最热门，但功能最符合需求。\n安装过程 # 1. 安装插件 npx clawhub install lily-memory # 2. 安装依赖 cd ~/.openclaw/workspace/skills/lily-memory npm install better-sqlite3 # 3. 下载 embedding 模型（274MB） ollama pull nomic-embed-text # 4. 配置 openclaw.json # 见下文配置 # 5. 重启 openclaw gateway restart 配置 { &#34;plugins&#34;: { &#34;slots&#34;: { &#34;memory&#34;: &#34;lily-memory&#34; }, &#34;entries&#34;: { &#34;lily-memory&#34;: { &#34;enabled&#34;: true, &#34;config&#34;: { &#34;dbPath&#34;: &#34;~/.openclaw/memory/lily.db&#34;, &#34;autoCapture&#34;: true, &#34;autoRecall&#34;: true, &#34;vectorSearch&#34;: true, &#34;ollamaUrl&#34;: &#34;http://localhost:11434&#34;, &#34;embeddingModel&#34;: &#34;nomic-embed-text&#34; } } } } } 迁移旧记忆 之前的记忆文件在 memory/compressed/ 里，8 个 markdown 文件。\n">
@@ -137,7 +137,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-03-02T15:16:00&#43;08:00'>Monday, March 2, 2026</time>
+                <time class="article-time--published" datetime='2026-03-02T00:00:00Z'>Monday, March 2, 2026</time>
             </div>
         
 
@@ -310,17 +310,6 @@
     <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/post/2026-03-02-jiyi-zhongxin/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">记忆系统优化小结</h2>
-        </div>
-    </a>
-</article>
             
                 
 <article class="">
