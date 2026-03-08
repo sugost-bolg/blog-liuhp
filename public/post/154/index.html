@@ -1,45 +1,226 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 这是华丽丽的分割线 &mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73<UP,LOOPBACK,RUNNING> mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099<UP,BROADCAST,MULTICAST> mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n"><title>CentOS 7拨号上网（ADSL &amp;amp; PPPoE）</title><link rel=canonical href=https://liuhp.net/post/154/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="CentOS 7拨号上网（ADSL & PPPoE）"><meta property='og:description' content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 这是华丽丽的分割线 &mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73<UP,LOOPBACK,RUNNING> mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099<UP,BROADCAST,MULTICAST> mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n"><meta property='og:url' content='https://liuhp.net/post/154/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2021-08-18T15:28:00+00:00'><meta property='article:modified_time' content='2021-08-18T15:28:00+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="CentOS 7拨号上网（ADSL & PPPoE）"><meta name=twitter:description content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 这是华丽丽的分割线 &mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73<UP,LOOPBACK,RUNNING> mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099<UP,BROADCAST,MULTICAST> mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/ style=background-color:#e4beef;color:#330f3d>电脑网络</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/154/>CentOS 7拨号上网（ADSL &amp;amp; PPPoE）</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2021-08-18T15:28:00Z>Wednesday, August 18, 2021</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>8 minutes read</time></div></footer></div></header><section class=article-content><p>步骤概述：</p><p>1、搜寻PPPoE相关软件，本人使用的是rp-pppoe</p><p>　　yum search pppoe</p><p>2、使用yum安装rp-pppoe</p><p>　　yum install rp-pppoe -y</p><p>3、开始配置PPPoE连接</p><p>　　pppoe-setup</p><p>4、输入ISP提供的账户</p><p>5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）</p><p>6、配置：若长时间连线，连线会被自动中断（我不干，选no）</p><p>7、配置主DNS服务器</p><p>8、配置次DNS服务器</p><p>9、两次输入账户密码以确认</p><p>10、配置普通账户是否有网络连接权限</p><p>11、配置防火墙（没有特殊需求选0就OK）</p><p>12、配置是否开机自动拨号连接</p><p>13、确认刚填写的配置信息</p><p>14、连接网络尽情享受吧！</p><p>相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status</p><p>&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr; 这是华丽丽的分割线 &mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;&mldr;
-获取以太网卡代号</p><p>复制代码
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 这是华丽丽的分割线 &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n">
+<title>CentOS 7拨号上网（ADSL &amp;amp; PPPoE）</title>
+
+<link rel='canonical' href='https://liuhp.net/post/154/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="CentOS 7拨号上网（ADSL &amp; PPPoE）">
+<meta property='og:description' content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 这是华丽丽的分割线 &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n">
+<meta property='og:url' content='https://liuhp.net/post/154/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-08-18T15:28:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-18T15:28:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="CentOS 7拨号上网（ADSL &amp; PPPoE）">
+<meta name="twitter:description" content="步骤概述：\n1、搜寻PPPoE相关软件，本人使用的是rp-pppoe\nyum search pppoe\n2、使用yum安装rp-pppoe\nyum install rp-pppoe -y\n3、开始配置PPPoE连接\npppoe-setup\n4、输入ISP提供的账户\n5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）\n6、配置：若长时间连线，连线会被自动中断（我不干，选no）\n7、配置主DNS服务器\n8、配置次DNS服务器\n9、两次输入账户密码以确认\n10、配置普通账户是否有网络连接权限\n11、配置防火墙（没有特殊需求选0就OK）\n12、配置是否开机自动拨号连接\n13、确认刚填写的配置信息\n14、连接网络尽情享受吧！\n相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status\n&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 这是华丽丽的分割线 &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 获取以太网卡代号\n复制代码 1 [dsp@dsp Desktop]$ ifconfig 2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 有线网卡 3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet) 4 RX packets 0 bytes 0 (0.0 B) 5 RX errors 0 dropped 2297 overruns 0 frame 0 6 TX packets 0 bytes 0 (0.0 B) 7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 8 device interrupt 18\n9 10 lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 11 inet 127.0.0.1 netmask 255.0.0.0 12 inet6 ::1 prefixlen 128 scopeid 0x10 13 loop txqueuelen 0 (Local Loopback) 14 RX packets 2 bytes 110 (110.0 B) 15 RX errors 0 dropped 0 overruns 0 frame 0 16 TX packets 2 bytes 110 (110.0 B) 17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 18 19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255 21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet) 22 RX packets 0 bytes 0 (0.0 B) 23 RX errors 0 dropped 0 overruns 0 frame 0 24 TX packets 0 bytes 0 (0.0 B) 25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 26 27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 # 无线网卡 28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255 29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20 30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet) 31 RX packets 20017 bytes 16100210 (15.3 MiB) 32 RX errors 0 dropped 0 overruns 0 frame 0 33 TX packets 18263 bytes 2641746 (2.5 MiB) 34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 复制代码 配置rp-pppoe客户端\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/" style="background-color: hsl(287, 60%, 84%); color: hsl(287, 60%, 15%);">
+                电脑网络
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/154/">CentOS 7拨号上网（ADSL &amp;amp; PPPoE）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2021-08-18T15:28:00Z'>Wednesday, August 18, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minutes read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>步骤概述：</p>
+<p>1、搜寻PPPoE相关软件，本人使用的是rp-pppoe</p>
+<p>　　yum search pppoe</p>
+<p>2、使用yum安装rp-pppoe</p>
+<p>　　yum install rp-pppoe -y</p>
+<p>3、开始配置PPPoE连接</p>
+<p>　　pppoe-setup</p>
+<p>4、输入ISP提供的账户</p>
+<p>5、输入以太网卡代号，默认是eth0（注：CentOS 7已不是默认eth0，自行使用ifconfig命令即可找到）</p>
+<p>6、配置：若长时间连线，连线会被自动中断（我不干，选no）</p>
+<p>7、配置主DNS服务器</p>
+<p>8、配置次DNS服务器</p>
+<p>9、两次输入账户密码以确认</p>
+<p>10、配置普通账户是否有网络连接权限</p>
+<p>11、配置防火墙（没有特殊需求选0就OK）</p>
+<p>12、配置是否开机自动拨号连接</p>
+<p>13、确认刚填写的配置信息</p>
+<p>14、连接网络尽情享受吧！</p>
+<p>相关命令@ 连接网络：/sbin/ifup ppp0，断开连接：/sbin/ifdown ppp0，查看网络状态：/sbin/pppoe-status</p>
+<p>&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip; 这是华丽丽的分割线 &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;
+获取以太网卡代号</p>
+<p>复制代码
 1 [dsp@dsp Desktop]$ ifconfig
-2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 有线网卡
-3 ether 20:1b:06:3d:22:05 txqueuelen 1000 (Ethernet)
-4 RX packets 0 bytes 0 (0.0 B)
-5 RX errors 0 dropped 2297 overruns 0 frame 0
-6 TX packets 0 bytes 0 (0.0 B)
-7 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0
-8 device interrupt 18<br>9
-10 lo: flags=73&lt;UP,LOOPBACK,RUNNING> mtu 65536
-11 inet 127.0.0.1 netmask 255.0.0.0
-12 inet6 ::1 prefixlen 128 scopeid 0x10<host>
-13 loop txqueuelen 0 (Local Loopback)
-14 RX packets 2 bytes 110 (110.0 B)
-15 RX errors 0 dropped 0 overruns 0 frame 0
-16 TX packets 2 bytes 110 (110.0 B)
-17 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0
+2 enp9s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500                # 有线网卡
+3         ether 20:1b:06:3d:22:05  txqueuelen 1000  (Ethernet)
+4         RX packets 0  bytes 0 (0.0 B)
+5         RX errors 0  dropped 2297  overruns 0  frame 0
+6         TX packets 0  bytes 0 (0.0 B)
+7         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+8         device interrupt 18<br>
+9
+10 lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+11         inet 127.0.0.1  netmask 255.0.0.0
+12         inet6 ::1  prefixlen 128  scopeid 0x10<host>
+13         loop  txqueuelen 0  (Local Loopback)
+14         RX packets 2  bytes 110 (110.0 B)
+15         RX errors 0  dropped 0  overruns 0  frame 0
+16         TX packets 2  bytes 110 (110.0 B)
+17         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 18
-19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST> mtu 1500
-20 inet 192.168.122.1 netmask 255.255.255.0 broadcast 192.168.122.255
-21 ether 52:54:00:36:45:23 txqueuelen 0 (Ethernet)
-22 RX packets 0 bytes 0 (0.0 B)
-23 RX errors 0 dropped 0 overruns 0 frame 0
-24 TX packets 0 bytes 0 (0.0 B)
-25 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0
+19 virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+20         inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+21         ether 52:54:00:36:45:23  txqueuelen 0  (Ethernet)
+22         RX packets 0  bytes 0 (0.0 B)
+23         RX errors 0  dropped 0  overruns 0  frame 0
+24         TX packets 0  bytes 0 (0.0 B)
+25         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 26
-27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST> mtu 1500 # 无线网卡
-28 inet 192.168.0.151 netmask 255.255.255.0 broadcast 192.168.0.255
-29 inet6 fe80::4ad2:24ff:fee8:f962 prefixlen 64 scopeid 0x20<link>
-30 ether 48:d2:24:e8:f9:62 txqueuelen 1000 (Ethernet)
-31 RX packets 20017 bytes 16100210 (15.3 MiB)
-32 RX errors 0 dropped 0 overruns 0 frame 0
-33 TX packets 18263 bytes 2641746 (2.5 MiB)
-34 TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0
+27 wlp8s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500                 # 无线网卡
+28         inet 192.168.0.151  netmask 255.255.255.0  broadcast 192.168.0.255
+29         inet6 fe80::4ad2:24ff:fee8:f962  prefixlen 64  scopeid 0x20<link>
+30         ether 48:d2:24:e8:f9:62  txqueuelen 1000  (Ethernet)
+31         RX packets 20017  bytes 16100210 (15.3 MiB)
+32         RX errors 0  dropped 0  overruns 0  frame 0
+33         TX packets 18263  bytes 2641746 (2.5 MiB)
+34         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 复制代码
-配置rp-pppoe客户端</p><pre><code>  1 [root@dsp Desktop]# pppoe-setup
+配置rp-pppoe客户端</p>
+<pre><code>  1 [root@dsp Desktop]# pppoe-setup
   2 Welcome to the PPPoE client setup.  First, I will run some checks on
   3 your system to make sure the PPPoE client is installed properly...
   4 
@@ -141,7 +322,9 @@
 100     link/ppp 
 101     inet 10.198.0.17 peer 10.198.1.1/32 scope global ppp0
 102        valid_lft forever preferred_lft forever
-</code></pre><p>配置rp-pppoe客户端</p><pre><code> 1 [root@dsp Desktop]# pppoe-setup
+</code></pre>
+<p>配置rp-pppoe客户端</p>
+<pre><code> 1 [root@dsp Desktop]# pppoe-setup
   2 Welcome to the PPPoE client setup.  First, I will run some checks on
   3 your system to make sure the PPPoE client is installed properly...
   4 
@@ -243,8 +426,71 @@
 100     link/ppp 
 101     inet 10.198.0.17 peer 10.198.1.1/32 scope global ppp0
 102        valid_lft forever preferred_lft forever
-</code></pre></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+</code></pre>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -268,4 +514,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

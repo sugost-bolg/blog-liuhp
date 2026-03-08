@@ -1,118 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>金融相关 on My Life is Going On</title><link>https://liuhp.net/categories/%E9%87%91%E8%9E%8D%E7%9B%B8%E5%85%B3/</link><description>Recent content in 金融相关 on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 23 May 2022 15:11:04 +0000</lastBuildDate><atom:link href="https://liuhp.net/categories/%E9%87%91%E8%9E%8D%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml"/><item><title>大智慧自动交易股票池</title><link>https://liuhp.net/post/193/</link><pubDate>Mon, 23 May 2022 15:11:04 +0000</pubDate><guid>https://liuhp.net/post/193/</guid><description>&lt;p&gt;&lt;a class="link" href="https://winecoo.com/usr/uploads/2022/05/2606559867.zip" target="_blank" rel="noopener"
- &gt;股票池自动交易.zip&lt;/a&gt;&lt;/p&gt;</description></item><item><title>通达信公式</title><link>https://liuhp.net/post/187/</link><pubDate>Mon, 09 May 2022 07:18:00 +0000</pubDate><guid>https://liuhp.net/post/187/</guid><description>&lt;p&gt;三舅送的通达信公式&lt;a class="link" href="https://winecoo.com/usr/uploads/2022/05/3787905606.zip" target="_blank" rel="noopener"
- &gt;通达信公式.zip&lt;/a&gt;&lt;/p&gt;</description></item><item><title>如何理解投资中的现金为王?现金在手上不怕通货膨胀吗？</title><link>https://liuhp.net/post/185/</link><pubDate>Sun, 08 May 2022 09:31:09 +0000</pubDate><guid>https://liuhp.net/post/185/</guid><description>&lt;p&gt;[]&lt;/p&gt;</description></item><item><title>暂停一下</title><link>https://liuhp.net/post/173/</link><pubDate>Tue, 26 Oct 2021 09:32:44 +0000</pubDate><guid>https://liuhp.net/post/173/</guid><description>&lt;p&gt;[]&lt;/p&gt;</description></item><item><title>亏损在继续</title><link>https://liuhp.net/post/172/</link><pubDate>Sun, 24 Oct 2021 09:32:30 +0000</pubDate><guid>https://liuhp.net/post/172/</guid><description>&lt;p&gt;昨天晚上小表弟过来，去表弟家喝完酒回来后一顿神操作，成功把本金继续亏损2000人民币出去……
-现在总结了一下，还是不去追了，采取守株待兔的办法，判断只要是震荡局面就，设好多单区间，等待进场。如果持续上涨就继续持有，震荡就获利清仓后再埋伏。
-今天周末，小样放假一天，下午4点多的时候给她微信电话，她还要继续睡……
-现在的天气是蛮适合睡觉的，我今天都是睡到下午的3点多才起来的！&lt;/p&gt;</description></item><item><title>昨天比特币合约继续亏损</title><link>https://liuhp.net/post/171/</link><pubDate>Sat, 23 Oct 2021 03:34:00 +0000</pubDate><guid>https://liuhp.net/post/171/</guid><description>&lt;p&gt;昨天亲身经历了不及时止损，导致亏损从30多美金到300多美金。
-这个悔恨真是痛彻心扉，对于一个不赌博的人来说，悔恨的直扇自己耳光。
-当然扇耳光也是没用的，只有总结经验。
-一直到凌晨5点才睡，总结完三点：
-1.没有双倍以上的成交量不动。
-2.没有大成交量支撑，不长久，见好就收。
-3.亏损超过4%止损。
-一定要谨记！
-目前$1700还剩$1065&lt;/p&gt;</description></item><item><title>合约真不是一般人玩的</title><link>https://liuhp.net/post/170/</link><pubDate>Fri, 22 Oct 2021 08:11:28 +0000</pubDate><guid>https://liuhp.net/post/170/</guid><description>&lt;p&gt;昨晚，找到了一直在传说中的合约杠杆。
-比特币的永续合约5倍杠杆，玩的我是心惊胆颤。反向操作多次后心态爆炸了，扇自己好几次耳光。
-坐在这里从11点多到凌晨4点……在亏损2000人民币后停手睡觉了，确实心态炸了。
-现在下午3点多才起床，看一眼K线，有止跌的迹象了，又开始入场做多了。
-现在的点位是63462 入场点位63256.8&lt;/p&gt;</description></item><item><title>通达信配合助手的股票自动交易</title><link>https://liuhp.net/post/115/</link><pubDate>Tue, 09 Mar 2021 14:50:00 +0000</pubDate><guid>https://liuhp.net/post/115/</guid><description>&lt;pre&gt;&lt;code&gt;{通达信配合助手的股票自动交易}
-LINE:=10;{设置风险价格移动平均线角度}
-N:=7;{设置天数}
-单票准备金:=100000;{设置平均每只股票买的金额}
-ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}
-LA:=IF(L&amp;gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}
-HA:=IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}
-CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}
-LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}
-HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}
-BD:IF(IF(C&amp;gt;REF(C,1),C,L)&amp;lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}
-XH:IF(BD!=0,LAC,IF(LAC&amp;lt;LINE,LAC,BD)),NODRAW;{信号}
-S5:=0.95*IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}
-
-DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}
-DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}
-
-B:=XH&amp;gt;=LINE AND C&amp;gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&amp;lt;7;{设置开仓条件}
-S:=XH&amp;lt;LINE;{设置清仓条件}
-S2:=C&amp;lt;(HHV(H,2)*0.92);{2日内跌8%}
-
-持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;
-可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;
-可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;
-个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;
-持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;
-账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;
-账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;
-
-建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;
-
-DRAWTEXT_FIX(账户总资产&amp;gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通}
-
-买入点:IF(XH&amp;gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;
-
-欲买金额:IF(可用金额&amp;gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}
-买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}
-
-卖出时间段:=MACHINETIME&amp;gt;=93000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}
-买入时间段:=MACHINETIME&amp;gt;=144000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}
-
-买入条件:=B AND 买入股数&amp;gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}
-卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&amp;gt;0;{卖出条件控制}
-
-设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}
-执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}
-
-设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}
-执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};
-&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;pre&gt;&lt;code&gt;{通达信配合助手的股票自动交易}
-LINE:=10;{设置风险价格移动平均线角度}
-N:=7;{设置天数}
-单票准备金:=100000;{设置平均每只股票买的金额}
-ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}
-LA:=IF(L&amp;gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}
-HA:=IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}
-CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}
-LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}
-HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}
-BD:IF(IF(C&amp;gt;REF(C,1),C,L)&amp;lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}
-XH:IF(BD!=0,LAC,IF(LAC&amp;lt;LINE,LAC,BD)),NODRAW;{信号}
-S5:=0.95*IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}
-
-DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}
-DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}
-
-B:=XH&amp;gt;=LINE AND C&amp;gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&amp;lt;7;{设置开仓条件}
-S:=XH&amp;lt;LINE;{设置清仓条件}
-S2:=C&amp;lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%}
-
-持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;
-可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;
-可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;
-个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;
-持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;
-账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;
-账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;
-
-建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;
-
-DRAWTEXT_FIX(账户总资产&amp;gt;0,0.03,0.03,0,'助手已联通'),COLORGREEN;{显示助手是否联通}
-
-买入点:IF(XH&amp;gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;
-
-欲买金额:IF(可用金额&amp;gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}
-买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}
-
-卖出时间段:=MACHINETIME&amp;gt;=93000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}
-买入时间段:=MACHINETIME&amp;gt;=100000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}
-
-买入条件:=B AND 买入股数&amp;gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}
-卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&amp;gt;0;{卖出条件控制}
-
-设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}
-执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}
-
-设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}
-执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};
-&lt;/code&gt;&lt;/pre&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>金融相关 on My Life is Going On</title>
+        <link>https://liuhp.net/categories/%E9%87%91%E8%9E%8D%E7%9B%B8%E5%85%B3/</link>
+        <description>Recent content in 金融相关 on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 23 May 2022 15:11:04 +0000</lastBuildDate><atom:link href="https://liuhp.net/categories/%E9%87%91%E8%9E%8D%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>大智慧自动交易股票池</title>
+            <link>https://liuhp.net/post/193/</link>
+            <pubDate>Mon, 23 May 2022 15:11:04 +0000</pubDate>
+            <guid>https://liuhp.net/post/193/</guid>
+            <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://winecoo.com/usr/uploads/2022/05/2606559867.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;股票池自动交易.zip&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>通达信公式</title>
+            <link>https://liuhp.net/post/187/</link>
+            <pubDate>Mon, 09 May 2022 07:18:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/187/</guid>
+            <description>&lt;p&gt;三舅送的通达信公式&lt;a class=&#34;link&#34; href=&#34;https://winecoo.com/usr/uploads/2022/05/3787905606.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;通达信公式.zip&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>如何理解投资中的现金为王?现金在手上不怕通货膨胀吗？</title>
+            <link>https://liuhp.net/post/185/</link>
+            <pubDate>Sun, 08 May 2022 09:31:09 +0000</pubDate>
+            <guid>https://liuhp.net/post/185/</guid>
+            <description>&lt;p&gt;[]&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>暂停一下</title>
+            <link>https://liuhp.net/post/173/</link>
+            <pubDate>Tue, 26 Oct 2021 09:32:44 +0000</pubDate>
+            <guid>https://liuhp.net/post/173/</guid>
+            <description>&lt;p&gt;[]&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>亏损在继续</title>
+            <link>https://liuhp.net/post/172/</link>
+            <pubDate>Sun, 24 Oct 2021 09:32:30 +0000</pubDate>
+            <guid>https://liuhp.net/post/172/</guid>
+            <description>&lt;p&gt;昨天晚上小表弟过来，去表弟家喝完酒回来后一顿神操作，成功把本金继续亏损2000人民币出去……&#xA;现在总结了一下，还是不去追了，采取守株待兔的办法，判断只要是震荡局面就，设好多单区间，等待进场。如果持续上涨就继续持有，震荡就获利清仓后再埋伏。&#xA;今天周末，小样放假一天，下午4点多的时候给她微信电话，她还要继续睡……&#xA;现在的天气是蛮适合睡觉的，我今天都是睡到下午的3点多才起来的！&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>昨天比特币合约继续亏损</title>
+            <link>https://liuhp.net/post/171/</link>
+            <pubDate>Sat, 23 Oct 2021 03:34:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/171/</guid>
+            <description>&lt;p&gt;昨天亲身经历了不及时止损，导致亏损从30多美金到300多美金。&#xA;这个悔恨真是痛彻心扉，对于一个不赌博的人来说，悔恨的直扇自己耳光。&#xA;当然扇耳光也是没用的，只有总结经验。&#xA;一直到凌晨5点才睡，总结完三点：&#xA;1.没有双倍以上的成交量不动。&#xA;2.没有大成交量支撑，不长久，见好就收。&#xA;3.亏损超过4%止损。&#xA;一定要谨记！&#xA;目前$1700还剩$1065&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>合约真不是一般人玩的</title>
+            <link>https://liuhp.net/post/170/</link>
+            <pubDate>Fri, 22 Oct 2021 08:11:28 +0000</pubDate>
+            <guid>https://liuhp.net/post/170/</guid>
+            <description>&lt;p&gt;昨晚，找到了一直在传说中的合约杠杆。&#xA;比特币的永续合约5倍杠杆，玩的我是心惊胆颤。反向操作多次后心态爆炸了，扇自己好几次耳光。&#xA;坐在这里从11点多到凌晨4点……在亏损2000人民币后停手睡觉了，确实心态炸了。&#xA;现在下午3点多才起床，看一眼K线，有止跌的迹象了，又开始入场做多了。&#xA;现在的点位是63462 入场点位63256.8&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>通达信配合助手的股票自动交易</title>
+            <link>https://liuhp.net/post/115/</link>
+            <pubDate>Tue, 09 Mar 2021 14:50:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/115/</guid>
+            <description>&lt;pre&gt;&lt;code&gt;{通达信配合助手的股票自动交易}&#xD;&#xA;LINE:=10;{设置风险价格移动平均线角度}&#xD;&#xA;N:=7;{设置天数}&#xD;&#xA;单票准备金:=100000;{设置平均每只股票买的金额}&#xD;&#xA;ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}&#xD;&#xA;LA:=IF(L&amp;gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}&#xD;&#xA;HA:=IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}&#xD;&#xA;CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}&#xD;&#xA;LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}&#xD;&#xA;HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}&#xD;&#xA;BD:IF(IF(C&amp;gt;REF(C,1),C,L)&amp;lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}&#xD;&#xA;XH:IF(BD!=0,LAC,IF(LAC&amp;lt;LINE,LAC,BD)),NODRAW;{信号}&#xD;&#xA;S5:=0.95*IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}&#xD;&#xA;&#xD;&#xA;DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}&#xD;&#xA;DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}&#xD;&#xA;&#xD;&#xA;B:=XH&amp;gt;=LINE AND C&amp;gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&amp;lt;7;{设置开仓条件}&#xD;&#xA;S:=XH&amp;lt;LINE;{设置清仓条件}&#xD;&#xA;S2:=C&amp;lt;(HHV(H,2)*0.92);{2日内跌8%}&#xD;&#xA;&#xD;&#xA;持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;&#xD;&#xA;可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;&#xD;&#xA;可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;&#xD;&#xA;个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;&#xD;&#xA;持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;&#xD;&#xA;账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;&#xD;&#xA;账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;&#xD;&#xA;&#xD;&#xA;建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;&#xD;&#xA;&#xD;&#xA;DRAWTEXT_FIX(账户总资产&amp;gt;0,0.03,0.03,0,&#39;助手已联通&#39;),COLORGREEN;{显示助手是否联通}&#xD;&#xA;&#xD;&#xA;买入点:IF(XH&amp;gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;&#xD;&#xA;&#xD;&#xA;欲买金额:IF(可用金额&amp;gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}&#xD;&#xA;买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}&#xD;&#xA;&#xD;&#xA;卖出时间段:=MACHINETIME&amp;gt;=93000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}&#xD;&#xA;买入时间段:=MACHINETIME&amp;gt;=144000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}&#xD;&#xA;&#xD;&#xA;买入条件:=B AND 买入股数&amp;gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}&#xD;&#xA;卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&amp;gt;0;{卖出条件控制}&#xD;&#xA;&#xD;&#xA;设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}&#xD;&#xA;执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}&#xD;&#xA;&#xD;&#xA;设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}&#xD;&#xA;执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;pre&gt;&lt;code&gt;{通达信配合助手的股票自动交易}&#xD;&#xA;LINE:=10;{设置风险价格移动平均线角度}&#xD;&#xA;N:=7;{设置天数}&#xD;&#xA;单票准备金:=100000;{设置平均每只股票买的金额}&#xD;&#xA;ATRN:=EMA(ATR,N),NODRAW;{ATR N天移动平均线}&#xD;&#xA;LA:=IF(L&amp;gt;REF(C,1),REF(C,1),L),NODRAW;{设置最低价}&#xD;&#xA;HA:=IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{设置最高价}&#xD;&#xA;CLEAN:=EMA((LA+ATR),10),NODRAW;{风险价格移动平均线}&#xD;&#xA;LAC:=ATAN((CLEAN/REF(CLEAN,1)-1)*100)*180/3.1416;{计算风险价格移动平均线角度}&#xD;&#xA;HHVA:=(HHV(H,N)-1.5*ATRN),NODRAW;{最高位回撤控制}&#xD;&#xA;BD:IF(IF(C&amp;gt;REF(C,1),C,L)&amp;lt;HHVA,0,LAC),NODRAW;{暴跌清仓控制}&#xD;&#xA;XH:IF(BD!=0,LAC,IF(LAC&amp;lt;LINE,LAC,BD)),NODRAW;{信号}&#xD;&#xA;S5:=0.95*IF(H&amp;gt;REF(C,1),H,REF(C,1)),NODRAW;{单日跌幅超过5%}&#xD;&#xA;&#xD;&#xA;DRAWBAND(XH,RGB(227,23,13),LINE,RGB(0,255,255));{画图}&#xD;&#xA;DRAWBAND(BD,RGB(227,23,13),LINE,RGB(255,255,0));{画图}&#xD;&#xA;&#xD;&#xA;B:=XH&amp;gt;=LINE AND C&amp;gt;(LA+ATRN*0.318) AND DYNAINFO(14)*100&amp;lt;7;{设置开仓条件}&#xD;&#xA;S:=XH&amp;lt;LINE;{设置清仓条件}&#xD;&#xA;S2:=C&amp;lt;(HHV(H,3)*0.92) OR S5;{3日内价格从最高价跌8%或者当天从最高价格跌5%}&#xD;&#xA;&#xD;&#xA;持仓个数:=TDXDLL1(5, 4, 0, 0),NODRAW;&#xD;&#xA;可用金额:=TDXDLL1(5, 1, 0, 0),NODRAW;&#xD;&#xA;可卖数量:=TDXDLL1(3, STR2CON(CODE), 1, 0),NODRAW;&#xD;&#xA;个股持仓:=TDXDLL1(3, STR2CON(CODE), 0, 0),NODRAW;&#xD;&#xA;持仓市值:=TDXDLL1(3, STR2CON(CODE), 5, 0),NODRAW;&#xD;&#xA;账户总持仓市值:=TDXDLL1(5, 2, 0, 0),NODRAW;&#xD;&#xA;账户总资产:=TDXDLL1(5, 0, 0, 0),NODRAW;&#xD;&#xA;&#xD;&#xA;建议监控数量:CEILING(账户总资产/单票准备金),NODRAW;&#xD;&#xA;&#xD;&#xA;DRAWTEXT_FIX(账户总资产&amp;gt;0,0.03,0.03,0,&#39;助手已联通&#39;),COLORGREEN;{显示助手是否联通}&#xD;&#xA;&#xD;&#xA;买入点:IF(XH&amp;gt;=LINE,(LA+ATRN*0.318),DRAWNULL),NODRAW;&#xD;&#xA;&#xD;&#xA;欲买金额:IF(可用金额&amp;gt;单票准备金,单票准备金,可用金额),NODRAW;{建仓金额}&#xD;&#xA;买入股数:=CEILING(欲买金额/C/100)*100,NODRAW;{设定买入股票的数量}&#xD;&#xA;&#xD;&#xA;卖出时间段:=MACHINETIME&amp;gt;=93000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}&#xD;&#xA;买入时间段:=MACHINETIME&amp;gt;=100000 AND MACHINETIME&amp;lt;=150000;{在开盘的时间内}&#xD;&#xA;&#xD;&#xA;买入条件:=B AND 买入股数&amp;gt;=100 AND 买入时间段 AND 个股持仓=0,NODRAW;{多层条件控制买入}&#xD;&#xA;卖出条件2:=(S OR S2) AND 卖出时间段 AND 可卖数量&amp;gt;0;{卖出条件控制}&#xD;&#xA;&#xD;&#xA;设定买入价:=TDXDLL1(15, STR2CON(CODE), 0, DYNAINFO(21)+0.01);{设定卖2价买入}&#xD;&#xA;执行买入1:=TDXDLL1(1, STR2CON(CODE), 1, 买入条件*买入股数);{调用助手买入函数}&#xD;&#xA;&#xD;&#xA;设定卖出价:=TDXDLL1(15, STR2CON(CODE), 1, DYNAINFO(20)-0.01);{设定买2价卖出}&#xD;&#xA;执行卖出2:=TDXDLL1(2, STR2CON(CODE), 2, 卖出条件2*可卖数量);{调用助手卖出函数};&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;</description>
+        </item></channel>
+</rss>

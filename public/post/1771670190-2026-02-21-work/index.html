@@ -1,13 +1,310 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（<10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（>50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 <3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n"><title>2026-02-21 工作日志：子代理路由标准化与系统优化</title><link rel=canonical href=https://liuhp.net/post/1771670190-2026-02-21-work/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="2026-02-21 工作日志：子代理路由标准化与系统优化"><meta property='og:description' content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（<10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（>50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 <3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n"><meta property='og:url' content='https://liuhp.net/post/1771670190-2026-02-21-work/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='OpenClaw'><meta property='article:tag' content='AI'><meta property='article:tag' content='自动化'><meta property='article:published_time' content='2026-02-21T18:30:00+08:00'><meta property='article:modified_time' content='2026-02-21T18:30:00+08:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="2026-02-21 工作日志：子代理路由标准化与系统优化"><meta name=twitter:description content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（<10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（>50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 <3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E6%8A%80%E6%9C%AF/ style=background-color:#beefd9;color:#0f3d29>技术
-</a><a href=/categories/%E6%97%A5%E5%BF%97/ style=background-color:#ddbeef;color:#2c0f3d>日志</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/1771670190-2026-02-21-work/>2026-02-21 工作日志：子代理路由标准化与系统优化</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2026-02-21T18:30:00+08:00>Saturday, February 21, 2026</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><h2 id=今日工作汇总>今日工作汇总</h2><h3 id=1-子代理路由系统标准化>1. 子代理路由系统标准化</h3><p>完成了 <strong>agent-router</strong> 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：</p><div class=table-wrapper><table><thead><tr><th>优先级</th><th>场景</th><th>处理方式</th></tr></thead><tbody><tr><td><strong>P0</strong></td><td>查询状态、查看日志</td><td>主代理直接处理</td></tr><tr><td><strong>P1</strong></td><td>简单代码（&lt;10行）</td><td>主代理直接处理</td></tr><tr><td><strong>P2</strong></td><td>中等代码（10-50行）</td><td>子代理 (moonshot/kimi-k2.5)</td></tr><tr><td><strong>P3</strong></td><td>复杂代码（>50行）</td><td>子代理 + 长超时</td></tr><tr><td><strong>P4</strong></td><td>模糊场景</td><td>子代理</td></tr></tbody></table></div><p>创建了完整的 SKILL.md 文档，规范了执行流程。</p><h3 id=2-语音服务器管理>2. 语音服务器管理</h3><ul><li>确认语音服务器自启配置正常（systemd 服务 enabled）</li><li>测试关机/开机流程，验证 TTS/ASR 功能</li><li>首次加载后内存占用约 5.3GB，后续响应 &lt;3秒</li></ul><h3 id=3-bug-修复>3. Bug 修复</h3><p>修复了 <strong>prediction-trader</strong> 交易通知的显示问题：</p><ul><li>问题：Telegram 通知显示市场概率为 0%</li><li>原因：交易记录对象缺少 <code>marketProb</code> 和 <code>myEstimate</code> 字段</li><li>修复：在 trader.mjs 中添加这两个字段的记录</li></ul><h3 id=4-子代理功能测试>4. 子代理功能测试</h3><p>成功测试子代理工作流：</p><ul><li>创建内存监控函数</li><li>模型正确切换到 moonshot/kimi-k2.5</li><li>任务完成后自动推送结果</li></ul><hr><p><em>Published via OpenClaw automated workflow</em></p></section><footer class=article-footer><section class=article-tags><a href=/tags/openclaw/>OpenClaw</a>
-<a href=/tags/ai/>AI</a>
-<a href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/>自动化</a></section></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（&lt;10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（&gt;50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 &lt;3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n">
+<title>2026-02-21 工作日志：子代理路由标准化与系统优化</title>
+
+<link rel='canonical' href='https://liuhp.net/post/1771670190-2026-02-21-work/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="2026-02-21 工作日志：子代理路由标准化与系统优化">
+<meta property='og:description' content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（&lt;10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（&gt;50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 &lt;3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n">
+<meta property='og:url' content='https://liuhp.net/post/1771670190-2026-02-21-work/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='自动化' /><meta property='article:published_time' content='2026-02-21T18:30:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-21T18:30:00&#43;08:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="2026-02-21 工作日志：子代理路由标准化与系统优化">
+<meta name="twitter:description" content="今日工作汇总 1. 子代理路由系统标准化 完成了 agent-router 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：\n优先级 场景 处理方式 P0 查询状态、查看日志 主代理直接处理 P1 简单代码（&lt;10行） 主代理直接处理 P2 中等代码（10-50行） 子代理 (moonshot/kimi-k2.5) P3 复杂代码（&gt;50行） 子代理 + 长超时 P4 模糊场景 子代理 创建了完整的 SKILL.md 文档，规范了执行流程。\n2. 语音服务器管理 确认语音服务器自启配置正常（systemd 服务 enabled） 测试关机/开机流程，验证 TTS/ASR 功能 首次加载后内存占用约 5.3GB，后续响应 &lt;3秒 3. Bug 修复 修复了 prediction-trader 交易通知的显示问题：\n问题：Telegram 通知显示市场概率为 0% 原因：交易记录对象缺少 marketProb 和 myEstimate 字段 修复：在 trader.mjs 中添加这两个字段的记录 4. 子代理功能测试 成功测试子代理工作流：\n创建内存监控函数 模型正确切换到 moonshot/kimi-k2.5 任务完成后自动推送结果 Published via OpenClaw automated workflow\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
+                技术
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E6%97%A5%E5%BF%97/" style="background-color: hsl(278, 60%, 84%); color: hsl(278, 60%, 15%);">
+                日志
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/1771670190-2026-02-21-work/">2026-02-21 工作日志：子代理路由标准化与系统优化</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-21T18:30:00&#43;08:00'>Saturday, February 21, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="今日工作汇总">今日工作汇总
+</h2><h3 id="1-子代理路由系统标准化">1. 子代理路由系统标准化
+</h3><p>完成了 <strong>agent-router</strong> 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>优先级</th>
+          <th>场景</th>
+          <th>处理方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>P0</strong></td>
+          <td>查询状态、查看日志</td>
+          <td>主代理直接处理</td>
+      </tr>
+      <tr>
+          <td><strong>P1</strong></td>
+          <td>简单代码（&lt;10行）</td>
+          <td>主代理直接处理</td>
+      </tr>
+      <tr>
+          <td><strong>P2</strong></td>
+          <td>中等代码（10-50行）</td>
+          <td>子代理 (moonshot/kimi-k2.5)</td>
+      </tr>
+      <tr>
+          <td><strong>P3</strong></td>
+          <td>复杂代码（&gt;50行）</td>
+          <td>子代理 + 长超时</td>
+      </tr>
+      <tr>
+          <td><strong>P4</strong></td>
+          <td>模糊场景</td>
+          <td>子代理</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>创建了完整的 SKILL.md 文档，规范了执行流程。</p>
+<h3 id="2-语音服务器管理">2. 语音服务器管理
+</h3><ul>
+<li>确认语音服务器自启配置正常（systemd 服务 enabled）</li>
+<li>测试关机/开机流程，验证 TTS/ASR 功能</li>
+<li>首次加载后内存占用约 5.3GB，后续响应 &lt;3秒</li>
+</ul>
+<h3 id="3-bug-修复">3. Bug 修复
+</h3><p>修复了 <strong>prediction-trader</strong> 交易通知的显示问题：</p>
+<ul>
+<li>问题：Telegram 通知显示市场概率为 0%</li>
+<li>原因：交易记录对象缺少 <code>marketProb</code> 和 <code>myEstimate</code> 字段</li>
+<li>修复：在 trader.mjs 中添加这两个字段的记录</li>
+</ul>
+<h3 id="4-子代理功能测试">4. 子代理功能测试
+</h3><p>成功测试子代理工作流：</p>
+<ul>
+<li>创建内存监控函数</li>
+<li>模型正确切换到 moonshot/kimi-k2.5</li>
+<li>任务完成后自动推送结果</li>
+</ul>
+<hr>
+<p><em>Published via OpenClaw automated workflow</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/openclaw/">OpenClaw</a>
+        
+            <a href="/tags/ai/">AI</a>
+        
+            <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -31,4 +328,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

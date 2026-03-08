@@ -1,155 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>技巧 on My Life is Going On</title><link>https://liuhp.net/categories/%E6%8A%80%E5%B7%A7/</link><description>Recent content in 技巧 on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Mar 2026 17:09:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml"/><item><title>博客同步配置血泪史</title><link>https://liuhp.net/post/2026-03-02-blog-sync-jishi/</link><pubDate>Mon, 02 Mar 2026 17:09:00 +0800</pubDate><guid>https://liuhp.net/post/2026-03-02-blog-sync-jishi/</guid><description>&lt;h1 id="博客同步配置血泪史"&gt;博客同步配置血泪史
-&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;为了实现 Mac 不本地存备份，每次发博客自动同步到 230 和博客服务器，我踩了无数坑&amp;hellip;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="目标"&gt;目标
-&lt;/h2&gt;&lt;p&gt;Mac → 230 Git → 博客服务器（即时同步）&lt;/p&gt;
-&lt;h2 id="踩坑记录"&gt;踩坑记录
-&lt;/h2&gt;&lt;h3 id="1-博客服务器--230-网络不通"&gt;1. 博客服务器 → 230 网络不通
-&lt;/h3&gt;&lt;p&gt;一开始想用博客服务器推送备份到 230，结果 Git 推送一直超时。无奈放弃。&lt;/p&gt;
-&lt;h3 id="2-230--博客服务器也超时"&gt;2. 230 → 博客服务器也超时
-&lt;/h3&gt;&lt;p&gt;SSH 能连，但 Git 传输就超时。尝试了各种优化，都没用。&lt;/p&gt;
-&lt;h3 id="3-内网-ip-也超时"&gt;3. 内网 IP 也超时
-&lt;/h3&gt;&lt;p&gt;后来配置了内网 IP (10.2.3.243 → 10.2.3.230)，结果还是超时。心态崩了。&lt;/p&gt;
-&lt;h3 id="4-加超时参数成功"&gt;4. 加超时参数成功
-&lt;/h3&gt;&lt;p&gt;在 230 上用 &lt;code&gt;GIT_SSH_COMMAND='ssh -o ConnectTimeout=30'&lt;/code&gt; 加超时参数，就能推送了！&lt;/p&gt;
-&lt;h3 id="5-最终方案"&gt;5. 最终方案
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Mac → 230 Git → 博客服务器（即时同步）&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 发布流程&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 1. Mac → 230 Git&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 2. 230 立即同步到博客&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="经验教训"&gt;经验教训
-&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;网络问题最难搞&lt;/strong&gt; - SSH 能连不代表 Git 能推&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;简化方案最好&lt;/strong&gt; - 复杂的中转链路容易出问题&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;备份要勤做&lt;/strong&gt; - 不然哪天翻车哭都来不及&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;加超时参数&lt;/strong&gt; - 解决 Git 推送超时问题&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="当前状态"&gt;当前状态
-&lt;/h2&gt;&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;组件&lt;/th&gt;
- &lt;th&gt;状态&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;Mac → 230&lt;/td&gt;
- &lt;td&gt;✅ 正常&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;230 → 博客&lt;/td&gt;
- &lt;td&gt;✅ 正常（即时）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：简单粗暴最有效。复杂方案看起来美好，但坑多。解决 Git 超时的关键是加 &lt;code&gt;ConnectTimeout&lt;/code&gt; 参数。&lt;/p&gt;</description></item><item><title>OpenClaw 记忆系统升级实战：从删库到 lily-memory</title><link>https://liuhp.net/post/2026-03-02-openclaw-memory-upgrade/</link><pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate><guid>https://liuhp.net/post/2026-03-02-openclaw-memory-upgrade/</guid><description>&lt;h1 id="openclaw-记忆系统升级实战从删库到-lily-memory"&gt;OpenClaw 记忆系统升级实战：从删库到 lily-memory
-&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;删掉旧记忆，拥抱新系统。代价最小化，效果最大化。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="背景"&gt;背景
-&lt;/h2&gt;&lt;p&gt;之前用的 &lt;strong&gt;memory-v2&lt;/strong&gt; 越来越慢，搜索响应要 20ms+，而且配置复杂。最关键的是——它居然在我 Mac mini 后台运行占资源！&lt;/p&gt;
-&lt;p&gt;忍不了，必须重构。&lt;/p&gt;
-&lt;h2 id="删库跑路"&gt;删库跑路
-&lt;/h2&gt;&lt;p&gt;第一步：删除旧系统。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 停服务&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;kill &lt;span style="color:#ae81ff"&gt;47938&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 删目录&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;trash ~/.openclaw/workspace/skills/memory-v2/
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;trash ~/.openclaw/workspace/memory/
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;干净！&lt;/p&gt;
-&lt;h2 id="选型为什么是-lily-memory"&gt;选型：为什么是 lily-memory？
-&lt;/h2&gt;&lt;p&gt;在 ClawHub 和 GitHub 上搜了一圈，最终选了 &lt;strong&gt;lily-memory&lt;/strong&gt;，原因很简单：&lt;/p&gt;
-&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;特性&lt;/th&gt;
- &lt;th&gt;说明&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;混合搜索&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;SQLite FTS5 + Ollama 向量，双重保障&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;完全本地&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;数据存本地，不上传云，隐私安全&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;自动记忆&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;不用手动调用，自动捕获 + 自动检索&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;卡顿检测&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;能检测重复话题，防止鬼打墙&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;优雅降级&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;没 Ollama 也能用（仅关键词模式）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;安装量 552，不算最热门，但功能最符合需求。&lt;/p&gt;
-&lt;h2 id="安装过程"&gt;安装过程
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 1. 安装插件&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;npx clawhub install lily-memory
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 2. 安装依赖&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cd ~/.openclaw/workspace/skills/lily-memory
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;npm install better-sqlite3
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 3. 下载 embedding 模型（274MB）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ollama pull nomic-embed-text
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 4. 配置 openclaw.json&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 见下文配置&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 5. 重启&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;openclaw gateway restart
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="配置"&gt;配置
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;plugins&amp;#34;&lt;/span&gt;: {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;slots&amp;#34;&lt;/span&gt;: { &lt;span style="color:#f92672"&gt;&amp;#34;memory&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;lily-memory&amp;#34;&lt;/span&gt; },
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;entries&amp;#34;&lt;/span&gt;: {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;lily-memory&amp;#34;&lt;/span&gt;: {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;enabled&amp;#34;&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;config&amp;#34;&lt;/span&gt;: {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;dbPath&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;~/.openclaw/memory/lily.db&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;autoCapture&amp;#34;&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;autoRecall&amp;#34;&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;vectorSearch&amp;#34;&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;ollamaUrl&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;http://localhost:11434&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;embeddingModel&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;nomic-embed-text&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="迁移旧记忆"&gt;迁移旧记忆
-&lt;/h2&gt;&lt;p&gt;之前的记忆文件在 &lt;code&gt;memory/compressed/&lt;/code&gt; 里，8 个 markdown 文件。&lt;/p&gt;
-&lt;p&gt;直接导入 SQLite：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;db&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Database&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;~/.openclaw/memory/lily.db&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;files&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;forEach&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;f&lt;/span&gt; =&amp;gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;content&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;fs&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;readFileSync&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;f&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;db&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;prepare&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;`
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; INSERT INTO decisions (id, session_id, timestamp, category, description, rationale, importance)
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; VALUES (?, ?, ?, ?, ?, ?, ?)
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; `&lt;/span&gt;).&lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;uuid&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#39;imported&amp;#39;&lt;/span&gt;, Date.&lt;span style="color:#a6e22e"&gt;now&lt;/span&gt;(), &lt;span style="color:#e6db74"&gt;&amp;#39;memory&amp;#39;&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;f&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;content&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0.8&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;});
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;8 条记忆，秒级导入。&lt;/p&gt;
-&lt;h2 id="效果"&gt;效果
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;搜索响应&lt;/strong&gt;：&amp;lt; 5ms（之前 20ms+）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;向量搜索&lt;/strong&gt;：本地 Ollama + nomic-embed-text，零 API 成本&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;隐私&lt;/strong&gt;：所有数据存本地 SQLite&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自动&lt;/strong&gt;：再也不用手动 &lt;code&gt;memory_store&lt;/code&gt; 了&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="总结"&gt;总结
-&lt;/h2&gt;&lt;p&gt;lily-memory + Ollama 向量搜索 = &lt;strong&gt;本地私有记忆系统&lt;/strong&gt;，零成本，零隐私担忧。&lt;/p&gt;
-&lt;p&gt;唯一缺点：需要维护本地 Ollama。不过对于已经有 Ollama 的同学来说，完全不是问题。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;如果你也在用 OpenClaw，想升级记忆系统，强烈推荐 lily-memory。&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>技巧 on My Life is Going On</title>
+        <link>https://liuhp.net/categories/%E6%8A%80%E5%B7%A7/</link>
+        <description>Recent content in 技巧 on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 02 Mar 2026 17:09:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>博客同步配置血泪史</title>
+            <link>https://liuhp.net/post/2026-03-02-blog-sync-jishi/</link>
+            <pubDate>Mon, 02 Mar 2026 17:09:00 +0800</pubDate>
+            <guid>https://liuhp.net/post/2026-03-02-blog-sync-jishi/</guid>
+            <description>&lt;h1 id=&#34;博客同步配置血泪史&#34;&gt;博客同步配置血泪史&#xA;&lt;/h1&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;为了实现 Mac 不本地存备份，每次发博客自动同步到 230 和博客服务器，我踩了无数坑&amp;hellip;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;目标&#34;&gt;目标&#xA;&lt;/h2&gt;&lt;p&gt;Mac → 230 Git → 博客服务器（即时同步）&lt;/p&gt;&#xA;&lt;h2 id=&#34;踩坑记录&#34;&gt;踩坑记录&#xA;&lt;/h2&gt;&lt;h3 id=&#34;1-博客服务器--230-网络不通&#34;&gt;1. 博客服务器 → 230 网络不通&#xA;&lt;/h3&gt;&lt;p&gt;一开始想用博客服务器推送备份到 230，结果 Git 推送一直超时。无奈放弃。&lt;/p&gt;&#xA;&lt;h3 id=&#34;2-230--博客服务器也超时&#34;&gt;2. 230 → 博客服务器也超时&#xA;&lt;/h3&gt;&lt;p&gt;SSH 能连，但 Git 传输就超时。尝试了各种优化，都没用。&lt;/p&gt;&#xA;&lt;h3 id=&#34;3-内网-ip-也超时&#34;&gt;3. 内网 IP 也超时&#xA;&lt;/h3&gt;&lt;p&gt;后来配置了内网 IP (10.2.3.243 → 10.2.3.230)，结果还是超时。心态崩了。&lt;/p&gt;&#xA;&lt;h3 id=&#34;4-加超时参数成功&#34;&gt;4. 加超时参数成功&#xA;&lt;/h3&gt;&lt;p&gt;在 230 上用 &lt;code&gt;GIT_SSH_COMMAND=&#39;ssh -o ConnectTimeout=30&#39;&lt;/code&gt; 加超时参数，就能推送了！&lt;/p&gt;&#xA;&lt;h3 id=&#34;5-最终方案&#34;&gt;5. 最终方案&#xA;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Mac → 230 Git → 博客服务器（即时同步）&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 发布流程&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Mac → 230 Git&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 2. 230 立即同步到博客&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;经验教训&#34;&gt;经验教训&#xA;&lt;/h2&gt;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;网络问题最难搞&lt;/strong&gt; - SSH 能连不代表 Git 能推&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;简化方案最好&lt;/strong&gt; - 复杂的中转链路容易出问题&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;备份要勤做&lt;/strong&gt; - 不然哪天翻车哭都来不及&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;加超时参数&lt;/strong&gt; - 解决 Git 推送超时问题&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;当前状态&#34;&gt;当前状态&#xA;&lt;/h2&gt;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;组件&lt;/th&gt;&#xA;          &lt;th&gt;状态&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Mac → 230&lt;/td&gt;&#xA;          &lt;td&gt;✅ 正常&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;230 → 博客&lt;/td&gt;&#xA;          &lt;td&gt;✅ 正常（即时）&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：简单粗暴最有效。复杂方案看起来美好，但坑多。解决 Git 超时的关键是加 &lt;code&gt;ConnectTimeout&lt;/code&gt; 参数。&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>OpenClaw 记忆系统升级实战：从删库到 lily-memory</title>
+            <link>https://liuhp.net/post/2026-03-02-openclaw-memory-upgrade/</link>
+            <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/2026-03-02-openclaw-memory-upgrade/</guid>
+            <description>&lt;h1 id=&#34;openclaw-记忆系统升级实战从删库到-lily-memory&#34;&gt;OpenClaw 记忆系统升级实战：从删库到 lily-memory&#xA;&lt;/h1&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;删掉旧记忆，拥抱新系统。代价最小化，效果最大化。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;背景&#34;&gt;背景&#xA;&lt;/h2&gt;&lt;p&gt;之前用的 &lt;strong&gt;memory-v2&lt;/strong&gt; 越来越慢，搜索响应要 20ms+，而且配置复杂。最关键的是——它居然在我 Mac mini 后台运行占资源！&lt;/p&gt;&#xA;&lt;p&gt;忍不了，必须重构。&lt;/p&gt;&#xA;&lt;h2 id=&#34;删库跑路&#34;&gt;删库跑路&#xA;&lt;/h2&gt;&lt;p&gt;第一步：删除旧系统。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 停服务&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kill &lt;span style=&#34;color:#ae81ff&#34;&gt;47938&lt;/span&gt;  &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 删目录&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;trash ~/.openclaw/workspace/skills/memory-v2/&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;trash ~/.openclaw/workspace/memory/&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;干净！&lt;/p&gt;&#xA;&lt;h2 id=&#34;选型为什么是-lily-memory&#34;&gt;选型：为什么是 lily-memory？&#xA;&lt;/h2&gt;&lt;p&gt;在 ClawHub 和 GitHub 上搜了一圈，最终选了 &lt;strong&gt;lily-memory&lt;/strong&gt;，原因很简单：&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;特性&lt;/th&gt;&#xA;          &lt;th&gt;说明&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;混合搜索&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;SQLite FTS5 + Ollama 向量，双重保障&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;完全本地&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;数据存本地，不上传云，隐私安全&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;自动记忆&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;不用手动调用，自动捕获 + 自动检索&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;卡顿检测&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;能检测重复话题，防止鬼打墙&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;优雅降级&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;没 Ollama 也能用（仅关键词模式）&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;安装量 552，不算最热门，但功能最符合需求。&lt;/p&gt;&#xA;&lt;h2 id=&#34;安装过程&#34;&gt;安装过程&#xA;&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. 安装插件&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;npx clawhub install lily-memory&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 2. 安装依赖&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/.openclaw/workspace/skills/lily-memory&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;npm install better-sqlite3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 3. 下载 embedding 模型（274MB）&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ollama pull nomic-embed-text&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 4. 配置 openclaw.json&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 见下文配置&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 5. 重启&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;openclaw gateway restart&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;配置&#34;&gt;配置&#xA;&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;plugins&amp;#34;&lt;/span&gt;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;slots&amp;#34;&lt;/span&gt;: { &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;memory&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lily-memory&amp;#34;&lt;/span&gt; },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;entries&amp;#34;&lt;/span&gt;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;lily-memory&amp;#34;&lt;/span&gt;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;enabled&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;config&amp;#34;&lt;/span&gt;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;dbPath&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~/.openclaw/memory/lily.db&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;autoCapture&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;autoRecall&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;vectorSearch&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;ollamaUrl&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://localhost:11434&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;embeddingModel&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nomic-embed-text&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;迁移旧记忆&#34;&gt;迁移旧记忆&#xA;&lt;/h2&gt;&lt;p&gt;之前的记忆文件在 &lt;code&gt;memory/compressed/&lt;/code&gt; 里，8 个 markdown 文件。&lt;/p&gt;&#xA;&lt;p&gt;直接导入 SQLite：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;db&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Database&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;~/.openclaw/memory/lily.db&amp;#39;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;files&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; =&amp;gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;content&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;readFileSync&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;db&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prepare&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    INSERT INTO decisions (id, session_id, timestamp, category, description, rationale, importance)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    VALUES (?, ?, ?, ?, ?, ?, ?)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  `&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;run&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;uuid&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;imported&amp;#39;&lt;/span&gt;, Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;(), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;memory&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;content&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.8&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;});&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;8 条记忆，秒级导入。&lt;/p&gt;&#xA;&lt;h2 id=&#34;效果&#34;&gt;效果&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;搜索响应&lt;/strong&gt;：&amp;lt; 5ms（之前 20ms+）&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;向量搜索&lt;/strong&gt;：本地 Ollama + nomic-embed-text，零 API 成本&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;隐私&lt;/strong&gt;：所有数据存本地 SQLite&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;自动&lt;/strong&gt;：再也不用手动 &lt;code&gt;memory_store&lt;/code&gt; 了&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;总结&#34;&gt;总结&#xA;&lt;/h2&gt;&lt;p&gt;lily-memory + Ollama 向量搜索 = &lt;strong&gt;本地私有记忆系统&lt;/strong&gt;，零成本，零隐私担忧。&lt;/p&gt;&#xA;&lt;p&gt;唯一缺点：需要维护本地 Ollama。不过对于已经有 Ollama 的同学来说，完全不是问题。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;strong&gt;如果你也在用 OpenClaw，想升级记忆系统，强烈推荐 lily-memory。&lt;/strong&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

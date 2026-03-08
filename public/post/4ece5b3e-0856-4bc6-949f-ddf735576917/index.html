@@ -1,10 +1,221 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/okx_multi_account.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,"<ol start="3"><p style="">管理与查看：\n<p style="">Code\nsudo systemctl status liu_btc_trade_strategy.service",&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,"<p style="">注意：\n'><title>在debian系统里如何让python代码在后台运行？_第三版_多账户版本</title><link rel=canonical href=https://liuhp.net/post/4ece5b3e-0856-4bc6-949f-ddf735576917/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="在debian系统里如何让python代码在后台运行？_第三版_多账户版本"><meta property='og:description' content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/okx_multi_account.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,"<ol start="3"><p style="">管理与查看：\n<p style="">Code\nsudo systemctl status liu_btc_trade_strategy.service",&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,"<p style="">注意：\n'><meta property='og:url' content='https://liuhp.net/post/4ece5b3e-0856-4bc6-949f-ddf735576917/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-10-17T21:31:48+00:00'><meta property='article:modified_time' content='2025-10-17T21:31:48+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="在debian系统里如何让python代码在后台运行？_第三版_多账户版本"><meta name=twitter:description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n<p style="">创建 unit 文件：\n<p style="">Code\nsudo tee /etc/systemd/system/okx_multi_account.service > /dev/null <<&lsquo;EOF&rsquo;"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,"<ol start="3"><p style="">管理与查看：\n<p style="">Code\nsudo systemctl status liu_btc_trade_strategy.service",&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,"<p style="">注意：\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/4ece5b3e-0856-4bc6-949f-ddf735576917/>在debian系统里如何让python代码在后台运行？_第三版_多账户版本</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2025-10-17T21:31:48Z>Friday, October 17, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;p style="">在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：</p><ol><li>&lt;p style="">创建 unit 文件：</p></li></ol>&lt;p style="">Code</p><pre><code>sudo tee /etc/systemd/system/liu_btc_trade_strategy.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：</p><ol><li>&lt;p style=&quot;&quot;&gt;创建 unit 文件：</p></li></ol>&lt;p style=&quot;&quot;&gt;Code</p><pre><code>sudo tee /etc/systemd/system/okx_multi_account.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,&quot;</code></pre>&lt;ol start="3"><li>&lt;p style="">管理与查看：</p></li></ol>&lt;p style="">Code</p><pre><code>sudo systemctl status liu_btc_trade_strategy.service&quot;,&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,&quot;</code></pre>&lt;p style="">注意：</p><ul><li>&lt;p style="">确认 /home/liu/liu_btc_trade_strategy.py 可被 root 读取并可运行（通常 root 有权限）。</p></li><li>&lt;p style="">若脚本需虚拟环境或特定 PATH，把 ExecStart 改为该虚拟环境的 python 路径。</p></li></ul>&lt;p style=""></p>"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now okx_multi_account.service</code></pre>&lt;ol start="3"><li>&lt;p style="">管理与查看：</p></li></ol>&lt;p style="">Code</p><pre><code>sudo systemctl status okx_multi_account.service&rdquo;,&ldquo;sudo journalctl -u okx_multi_account.service -f&rdquo;,&ldquo;sudo systemctl stop okx_multi_account.service&rdquo;,&ldquo;sudo systemctl disable okx_multi_account.service&rdquo;,&quot;</code></pre>&lt;p style="">注意：</p><ul><li>&lt;p style="">确认 /home/auto_trade/okx_multi_account.py 可被 root 读取并可运行（通常 root 有权限）。</p></li><li>&lt;p style="">若脚本需虚拟环境或特定 PATH，把 ExecStart 改为该虚拟环境的 python 路径。</p></li></ul>&lt;p style=""></p>"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/okx_multi_account.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,&quot;&lt;ol start=&quot;3&quot;&gt;&lt;p style=&quot;&quot;&gt;管理与查看：\n&lt;p style=&quot;&quot;&gt;Code\nsudo systemctl status liu_btc_trade_strategy.service&quot;,&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,&quot;&lt;p style=&quot;&quot;&gt;注意：\n">
+<title>在debian系统里如何让python代码在后台运行？_第三版_多账户版本</title>
+
+<link rel='canonical' href='https://liuhp.net/post/4ece5b3e-0856-4bc6-949f-ddf735576917/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="在debian系统里如何让python代码在后台运行？_第三版_多账户版本">
+<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/okx_multi_account.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,&quot;&lt;ol start=&quot;3&quot;&gt;&lt;p style=&quot;&quot;&gt;管理与查看：\n&lt;p style=&quot;&quot;&gt;Code\nsudo systemctl status liu_btc_trade_strategy.service&quot;,&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,&quot;&lt;p style=&quot;&quot;&gt;注意：\n">
+<meta property='og:url' content='https://liuhp.net/post/4ece5b3e-0856-4bc6-949f-ddf735576917/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-10-17T21:31:48&#43;00:00'/><meta property='article:modified_time' content='2025-10-17T21:31:48&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="在debian系统里如何让python代码在后台运行？_第三版_多账户版本">
+<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/liu_btc_trade_strategy.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：\n&lt;p style=&quot;&quot;&gt;创建 unit 文件：\n&lt;p style=&quot;&quot;&gt;Code\nsudo tee /etc/systemd/system/okx_multi_account.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,&quot;&lt;ol start=&quot;3&quot;&gt;&lt;p style=&quot;&quot;&gt;管理与查看：\n&lt;p style=&quot;&quot;&gt;Code\nsudo systemctl status liu_btc_trade_strategy.service&quot;,&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,&quot;&lt;p style=&quot;&quot;&gt;注意：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/4ece5b3e-0856-4bc6-949f-ddf735576917/">在debian系统里如何让python代码在后台运行？_第三版_多账户版本</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2025-10-17T21:31:48Z'>Friday, October 17, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/liu_btc_trade_strategy.service 并启用：</p><ol><li>&lt;p style=&quot;&quot;&gt;创建 unit 文件：</p></li></ol>&lt;p style=&quot;&quot;&gt;Code</p><pre><code>sudo tee /etc/systemd/system/liu_btc_trade_strategy.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;在 root 下添加为开机自启（使用 systemd，服务以 root 身份运行）。将下面内容写入 /etc/systemd/system/okx_multi_account.service 并启用：</p><ol><li>&lt;p style=&quot;&quot;&gt;创建 unit 文件：</p></li></ol>&lt;p style=&quot;&quot;&gt;Code</p><pre><code>sudo tee /etc/systemd/system/okx_multi_account.service &gt; /dev/null &lt;&lt;&lsquo;EOF&rsquo;&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=liu_btc_trade_strategy Python service (run as root)&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:2,&ldquo;lines&rdquo;:[&ldquo;Description=okx_multi_account Python service (run as root)&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/liu&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/liu/liu_btc_trade_strategy.py&rdquo;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:8,&ldquo;lines&rdquo;:[&ldquo;WorkingDirectory=/home/auto_trade&rdquo;,&ldquo;ExecStart=/usr/bin/python3 /home/auto_trade/okx_multi_account.py&rdquo;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;},{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now liu_btc_trade_strategy.service&rdquo;,&quot;</code></pre>&lt;ol start=&quot;3&quot;&gt;<li>&lt;p style=&quot;&quot;&gt;管理与查看：</p></li></ol>&lt;p style=&quot;&quot;&gt;Code</p><pre><code>sudo systemctl status liu_btc_trade_strategy.service&quot;,&ldquo;sudo journalctl -u liu_btc_trade_strategy.service -f&rdquo;,&ldquo;sudo systemctl stop liu_btc_trade_strategy.service&rdquo;,&ldquo;sudo systemctl disable liu_btc_trade_strategy.service&rdquo;,&quot;</code></pre>&lt;p style=&quot;&quot;&gt;注意：</p><ul><li>&lt;p style=&quot;&quot;&gt;确认 /home/liu/liu_btc_trade_strategy.py 可被 root 读取并可运行（通常 root 有权限）。</p></li><li>&lt;p style=&quot;&quot;&gt;若脚本需虚拟环境或特定 PATH，把 ExecStart 改为该虚拟环境的 python 路径。</p></li></ul>&lt;p style=&quot;&quot;&gt;</p>&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:18,&ldquo;lines&rdquo;:[&ldquo;sudo systemctl enable &ndash;now okx_multi_account.service</code></pre>&lt;ol start=&quot;3&quot;&gt;<li>&lt;p style=&quot;&quot;&gt;管理与查看：</p></li></ol>&lt;p style=&quot;&quot;&gt;Code</p><pre><code>sudo systemctl status okx_multi_account.service&rdquo;,&ldquo;sudo journalctl -u okx_multi_account.service -f&rdquo;,&ldquo;sudo systemctl stop okx_multi_account.service&rdquo;,&ldquo;sudo systemctl disable okx_multi_account.service&rdquo;,&quot;</code></pre>&lt;p style=&quot;&quot;&gt;注意：</p><ul><li>&lt;p style=&quot;&quot;&gt;确认 /home/auto_trade/okx_multi_account.py 可被 root 读取并可运行（通常 root 有权限）。</p></li><li>&lt;p style=&quot;&quot;&gt;若脚本需虚拟环境或特定 PATH，把 ExecStart 改为该虚拟环境的 python 路径。</p></li></ul>&lt;p style=&quot;&quot;&gt;</p>&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -28,4 +239,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

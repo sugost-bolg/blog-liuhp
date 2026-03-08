@@ -1,14 +1,162 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h1 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">实验性功能。\n<p style="">过滤模式=通过 TCP 请求 DNS\n<p style="">远程 DNS=8.8.8.8 (Google)\n<p style="">默认 DNS=智能，不接受直连 DNS 空响应\n<p style="">停用 HTTPS 记录解析=☑️\n<p style="">DNS 重定向=☑️\n<h1 style="" id="adguardhome-%E9%85%8D%E7%BD%AE">AdGuardHome 配置<p style="">在iStoreOS的 服务 AdGuardHome\n<p style="">基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n<p style="">手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n<pre collapsed="true">http:"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">过滤模式=通过 TCP 请求 DNS\n'><title>AdGuardHome+Passwall配合使用配置</title><link rel=canonical href=https://liuhp.net/post/cd06dac0-9155-4f1b-93a8-040046ce3772/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="AdGuardHome+Passwall配合使用配置"><meta property='og:description' content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h1 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">实验性功能。\n<p style="">过滤模式=通过 TCP 请求 DNS\n<p style="">远程 DNS=8.8.8.8 (Google)\n<p style="">默认 DNS=智能，不接受直连 DNS 空响应\n<p style="">停用 HTTPS 记录解析=☑️\n<p style="">DNS 重定向=☑️\n<h1 style="" id="adguardhome-%E9%85%8D%E7%BD%AE">AdGuardHome 配置<p style="">在iStoreOS的 服务 AdGuardHome\n<p style="">基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n<p style="">手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n<pre collapsed="true">http:"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">过滤模式=通过 TCP 请求 DNS\n'><meta property='og:url' content='https://liuhp.net/post/cd06dac0-9155-4f1b-93a8-040046ce3772/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-08-05T14:01:20+00:00'><meta property='article:modified_time' content='2025-08-05T14:01:20+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="AdGuardHome+Passwall配合使用配置"><meta name=twitter:description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h1 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">实验性功能。\n<p style="">过滤模式=通过 TCP 请求 DNS\n<p style="">远程 DNS=8.8.8.8 (Google)\n<p style="">默认 DNS=智能，不接受直连 DNS 空响应\n<p style="">停用 HTTPS 记录解析=☑️\n<p style="">DNS 重定向=☑️\n<h1 style="" id="adguardhome-%E9%85%8D%E7%BD%AE">AdGuardHome 配置<p style="">在iStoreOS的 服务 AdGuardHome\n<p style="">基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n<p style="">手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n<pre collapsed="true">http:"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置<p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)<a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志\n<p style="">直连 DNS 请求协议=自动\n<p style="">过滤代理域名 IPv6=☑️\n<p style="">过滤模式=通过 TCP 请求 DNS\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/cd06dac0-9155-4f1b-93a8-040046ce3772/>AdGuardHome+Passwall配合使用配置</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2025-08-05T14:01:20Z>Tuesday, August 5, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;h1 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置</h1>&lt;p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志</a></p>&lt;p style="">直连 DNS 请求协议=自动</p>&lt;p style="">过滤代理域名 IPv6=☑️</p>&lt;p style="">实验性功能。</p>&lt;p style="">过滤模式=通过 TCP 请求 DNS</p>&lt;p style="">远程 DNS=8.8.8.8 (Google)</p>&lt;p style="">默认 DNS=智能，不接受直连 DNS 空响应</p>&lt;p style="">停用 HTTPS 记录解析=☑️</p>&lt;p style="">DNS 重定向=☑️</p>&lt;h1 style="" id="adguardhome-%E9%85%8D%E7%BD%AE">AdGuardHome 配置</h1>&lt;p style="">在iStoreOS的 服务 AdGuardHome</p>&lt;p style="">基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。</p>&lt;p style="">手动设置，输入以下配置代码保存后重启AdGuardHome服务。</p>&lt;pre collapsed="true"><code>http:"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;h2 style="" id="passwall-%E9%85%8D%E7%BD%AE">Passwall 配置</h2>&lt;p style="">DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href="http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#" class="log-link">日志</a></p>&lt;p style="">直连 DNS 请求协议=自动</p>&lt;p style="">过滤代理域名 IPv6=☑️</p>&lt;p style="">过滤模式=通过 TCP 请求 DNS</p>&lt;p style="">远程 DNS=8.8.8.8 (Google)</p>&lt;p style="">默认 DNS=智能，不接受直连 DNS 空响应</p>&lt;p style="">停用 HTTPS 记录解析=☑️</p>&lt;p style="">DNS 重定向=☑️</p>&lt;h2 style="" id="adguardhome-%E9%85%8D%E7%BD%AE">AdGuardHome 配置</h2>&lt;p style="">在iStoreOS的 服务 AdGuardHome</p>&lt;p style="">基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。</p>&lt;p style="">手动设置，输入以下配置代码保存后重启AdGuardHome服务。</p><pre><code>http:&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h1 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;实验性功能。\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n&lt;p style=&quot;&quot;&gt;远程 DNS=8.8.8.8 (Google)\n&lt;p style=&quot;&quot;&gt;默认 DNS=智能，不接受直连 DNS 空响应\n&lt;p style=&quot;&quot;&gt;停用 HTTPS 记录解析=☑️\n&lt;p style=&quot;&quot;&gt;DNS 重定向=☑️\n&lt;h1 style=&quot;&quot; id=&quot;adguardhome-%E9%85%8D%E7%BD%AE&quot;&gt;AdGuardHome 配置&lt;p style=&quot;&quot;&gt;在iStoreOS的 服务 AdGuardHome\n&lt;p style=&quot;&quot;&gt;基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n&lt;p style=&quot;&quot;&gt;手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n&lt;pre collapsed=&quot;true&quot;&gt;http:&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n">
+<title>AdGuardHome&#43;Passwall配合使用配置</title>
+
+<link rel='canonical' href='https://liuhp.net/post/cd06dac0-9155-4f1b-93a8-040046ce3772/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="AdGuardHome+Passwall配合使用配置">
+<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h1 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;实验性功能。\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n&lt;p style=&quot;&quot;&gt;远程 DNS=8.8.8.8 (Google)\n&lt;p style=&quot;&quot;&gt;默认 DNS=智能，不接受直连 DNS 空响应\n&lt;p style=&quot;&quot;&gt;停用 HTTPS 记录解析=☑️\n&lt;p style=&quot;&quot;&gt;DNS 重定向=☑️\n&lt;h1 style=&quot;&quot; id=&quot;adguardhome-%E9%85%8D%E7%BD%AE&quot;&gt;AdGuardHome 配置&lt;p style=&quot;&quot;&gt;在iStoreOS的 服务 AdGuardHome\n&lt;p style=&quot;&quot;&gt;基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n&lt;p style=&quot;&quot;&gt;手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n&lt;pre collapsed=&quot;true&quot;&gt;http:&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n">
+<meta property='og:url' content='https://liuhp.net/post/cd06dac0-9155-4f1b-93a8-040046ce3772/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-08-05T14:01:20&#43;00:00'/><meta property='article:modified_time' content='2025-08-05T14:01:20&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="AdGuardHome+Passwall配合使用配置">
+<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h1 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;实验性功能。\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n&lt;p style=&quot;&quot;&gt;远程 DNS=8.8.8.8 (Google)\n&lt;p style=&quot;&quot;&gt;默认 DNS=智能，不接受直连 DNS 空响应\n&lt;p style=&quot;&quot;&gt;停用 HTTPS 记录解析=☑️\n&lt;p style=&quot;&quot;&gt;DNS 重定向=☑️\n&lt;h1 style=&quot;&quot; id=&quot;adguardhome-%E9%85%8D%E7%BD%AE&quot;&gt;AdGuardHome 配置&lt;p style=&quot;&quot;&gt;在iStoreOS的 服务 AdGuardHome\n&lt;p style=&quot;&quot;&gt;基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。\n&lt;p style=&quot;&quot;&gt;手动设置，输入以下配置代码保存后重启AdGuardHome服务。\n&lt;pre collapsed=&quot;true&quot;&gt;http:&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志\n&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动\n&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️\n&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/cd06dac0-9155-4f1b-93a8-040046ce3772/">AdGuardHome&#43;Passwall配合使用配置</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2025-08-05T14:01:20Z'>Tuesday, August 5, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h1 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置</h1>&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志</a></p>&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动</p>&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️</p>&lt;p style=&quot;&quot;&gt;实验性功能。</p>&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS</p>&lt;p style=&quot;&quot;&gt;远程 DNS=8.8.8.8 (Google)</p>&lt;p style=&quot;&quot;&gt;默认 DNS=智能，不接受直连 DNS 空响应</p>&lt;p style=&quot;&quot;&gt;停用 HTTPS 记录解析=☑️</p>&lt;p style=&quot;&quot;&gt;DNS 重定向=☑️</p>&lt;h1 style=&quot;&quot; id=&quot;adguardhome-%E9%85%8D%E7%BD%AE&quot;&gt;AdGuardHome 配置</h1>&lt;p style=&quot;&quot;&gt;在iStoreOS的 服务 AdGuardHome</p>&lt;p style=&quot;&quot;&gt;基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。</p>&lt;p style=&quot;&quot;&gt;手动设置，输入以下配置代码保存后重启AdGuardHome服务。</p>&lt;pre collapsed=&quot;true&quot;&gt;<code>http:&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;passwall-%E9%85%8D%E7%BD%AE&quot;&gt;Passwall 配置</h2>&lt;p style=&quot;&quot;&gt;DNS 分流=DnsmasqChinaDNS-NG (推荐)&lt;a href=&quot;http://10.10.10.254/cgi-bin/luci/admin/services/passwall/settings#&quot; class=&quot;log-link&quot;&gt;日志</a></p>&lt;p style=&quot;&quot;&gt;直连 DNS 请求协议=自动</p>&lt;p style=&quot;&quot;&gt;过滤代理域名 IPv6=☑️</p>&lt;p style=&quot;&quot;&gt;过滤模式=通过 TCP 请求 DNS</p>&lt;p style=&quot;&quot;&gt;远程 DNS=8.8.8.8 (Google)</p>&lt;p style=&quot;&quot;&gt;默认 DNS=智能，不接受直连 DNS 空响应</p>&lt;p style=&quot;&quot;&gt;停用 HTTPS 记录解析=☑️</p>&lt;p style=&quot;&quot;&gt;DNS 重定向=☑️</p>&lt;h2 style=&quot;&quot; id=&quot;adguardhome-%E9%85%8D%E7%BD%AE&quot;&gt;AdGuardHome 配置</h2>&lt;p style=&quot;&quot;&gt;在iStoreOS的 服务 AdGuardHome</p>&lt;p style=&quot;&quot;&gt;基础设置，53 重定向=作为dnsmasq的上游服务器，设置完网页访问端口和服务端口。</p>&lt;p style=&quot;&quot;&gt;手动设置，输入以下配置代码保存后重启AdGuardHome服务。</p><pre><code>http:&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
 
 </section>
 
 
-    <footer class=article-footer>
+    <footer class="article-footer">
     
 
     </footer>
@@ -24,26 +172,41 @@
      
     
         
-    <div class=disqus-container>
+    <div class="disqus-container">
     
 </div>
 
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
 
-<script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script>
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
 
     
 
-    <footer class=site-footer>
-    <section class=copyright>
+    <footer class="site-footer">
+    <section class="copyright">
         &copy; 
         
         2026 My Life is Going On
     </section>
     
-    <section class=powerby>
-        Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-        Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -52,7 +215,7 @@
 
 
 
-<script type=module>
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -81,8 +244,18 @@
 
             </main>
         </div>
-        <script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script>
-<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
 
     </body>
 </html>

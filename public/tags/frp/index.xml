@@ -1,63 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frp on My Life is Going On</title><link>https://liuhp.net/tags/frp/</link><description>Recent content in Frp on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 10 Sep 2019 14:39:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/frp/index.xml" rel="self" type="application/rss+xml"/><item><title>Centos7 systemctl添加frpc系统开机服</title><link>https://liuhp.net/post/29/</link><pubDate>Tue, 10 Sep 2019 14:39:00 +0000</pubDate><guid>https://liuhp.net/post/29/</guid><description>&lt;pre&gt;&lt;code&gt;#vim /usr/lib/systemd/system/frpc.service[Unit]
-Description=frps daemon
-After=syslog.target network.target
-Wants=network.target
- 
-[Service]
-Type=simple
-PIDFile=
-ExecStart=/etc/frpc/frpc -c /etc/frpc/frpc.ini
-ExecStop=
-ExecReload=
-Restart= always
-RestartSec=1min
-PrivateTmp=True
- 
-[Install]
-WantedBy=multi-user.target
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;添加可执行权限：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;chmod 754 /usr/lib/systemd/system/frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;设置为开机自启动：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl enable frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;　　&lt;/p&gt;
-&lt;p&gt;常用指令(以frpc服务为例)：&lt;/p&gt;
-&lt;p&gt;启动某服务&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl start frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;停止某服务&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl stop frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;重启某服务&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;service frpc restart
-systemctl restart frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;使某服务自动启动(如frpc服务)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl enable frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;使某服务不自动启动&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl disable frpc.service
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;检查服务状态
-&lt;code&gt;systemctl status frpc.service&lt;/code&gt; （服务详细信息）
-&lt;code&gt;systemctl is-active frpc.service&lt;/code&gt;（仅显示是否Active)&lt;/p&gt;
-&lt;p&gt;显示所有已启动的服务&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;systemctl list-units --type=service
-&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>利用Frp进行内网穿透</title><link>https://liuhp.net/post/15/</link><pubDate>Sat, 29 Jun 2019 08:52:00 +0000</pubDate><guid>https://liuhp.net/post/15/</guid><description>&lt;p&gt;centos7 安装命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh
-chmod 700 ./install-frps.sh
-./install-frps.sh install
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Uninstall（卸载）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;./install-frps.sh uninstall
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Update（更新）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;./install-frps.sh update
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Server management（服务管理器）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Usage: /etc/init.d/frps {start|stop|restart|status|config|version}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;转发自&lt;a class="link" href="https://github.com/MvsCode/frps-onekey" target="_blank" rel="noopener"
- &gt;Frps服务端一键配置脚本&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Frp on My Life is Going On</title>
+        <link>https://liuhp.net/tags/frp/</link>
+        <description>Recent content in Frp on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Tue, 10 Sep 2019 14:39:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/frp/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Centos7   systemctl添加frpc系统开机服</title>
+            <link>https://liuhp.net/post/29/</link>
+            <pubDate>Tue, 10 Sep 2019 14:39:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/29/</guid>
+            <description>&lt;pre&gt;&lt;code&gt;#vim /usr/lib/systemd/system/frpc.service[Unit]&#xD;&#xA;Description=frps daemon&#xD;&#xA;After=syslog.target network.target&#xD;&#xA;Wants=network.target&#xD;&#xA; &#xD;&#xA;[Service]&#xD;&#xA;Type=simple&#xD;&#xA;PIDFile=&#xD;&#xA;ExecStart=/etc/frpc/frpc -c /etc/frpc/frpc.ini&#xD;&#xA;ExecStop=&#xD;&#xA;ExecReload=&#xD;&#xA;Restart= always&#xD;&#xA;RestartSec=1min&#xD;&#xA;PrivateTmp=True&#xD;&#xA; &#xD;&#xA;[Install]&#xD;&#xA;WantedBy=multi-user.target&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;添加可执行权限：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;chmod 754 /usr/lib/systemd/system/frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;设置为开机自启动：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl enable   frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;　　&lt;/p&gt;&#xA;&lt;p&gt;常用指令(以frpc服务为例)：&lt;/p&gt;&#xA;&lt;p&gt;启动某服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl start  frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;停止某服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl stop   frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;重启某服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;service  frpc restart&#xD;&#xA;systemctl restart   frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;使某服务自动启动(如frpc服务)&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl enable   frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;使某服务不自动启动&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl disable   frpc.service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;检查服务状态&#xA;&lt;code&gt;systemctl   status   frpc.service&lt;/code&gt; （服务详细信息）&#xA;&lt;code&gt;systemctl   is-active   frpc.service&lt;/code&gt;（仅显示是否Active)&lt;/p&gt;&#xA;&lt;p&gt;显示所有已启动的服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl list-units  --type=service&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;</description>
+        </item><item>
+            <title>利用Frp进行内网穿透</title>
+            <link>https://liuhp.net/post/15/</link>
+            <pubDate>Sat, 29 Jun 2019 08:52:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/15/</guid>
+            <description>&lt;p&gt;centos7 安装命令&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh&#xD;&#xA;chmod 700 ./install-frps.sh&#xD;&#xA;./install-frps.sh install&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;Uninstall（卸载）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;./install-frps.sh uninstall&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;Update（更新）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;./install-frps.sh update&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;Server management（服务管理器）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;Usage: /etc/init.d/frps {start|stop|restart|status|config|version}&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;转发自&lt;a class=&#34;link&#34; href=&#34;https://github.com/MvsCode/frps-onekey&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;Frps服务端一键配置脚本&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

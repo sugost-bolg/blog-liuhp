@@ -1,1 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发相关 on My Life is Going On</title><link>https://liuhp.net/categories/%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/</link><description>Recent content in 开发相关 on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 24 Aug 2025 08:51:09 +0000</lastBuildDate><atom:link href="https://liuhp.net/categories/%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml"/><item><title>开始学习ESP32开发版</title><link>https://liuhp.net/post/a68394c4-5b5f-4704-9651-252540d216b5/</link><pubDate>Sun, 24 Aug 2025 08:51:09 +0000</pubDate><guid>https://liuhp.net/post/a68394c4-5b5f-4704-9651-252540d216b5/</guid><description>&lt;p style=""&gt;小的时候就很羡慕编程的工程师，看着他们能把自己的想法变成现实。&lt;/p&gt;&lt;p style=""&gt;如今我也要开始补充自己小时候缺失的拼图，也是为下一个十年的时间做打发的计划，说不定也能成为我下一个转化的技能。&lt;/p&gt;&lt;p style=""&gt;这篇只是单纯的记录下学习的开始！&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>开发相关 on My Life is Going On</title>
+        <link>https://liuhp.net/categories/%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/</link>
+        <description>Recent content in 开发相关 on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sun, 24 Aug 2025 08:51:09 +0000</lastBuildDate><atom:link href="https://liuhp.net/categories/%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>开始学习ESP32开发版</title>
+            <link>https://liuhp.net/post/a68394c4-5b5f-4704-9651-252540d216b5/</link>
+            <pubDate>Sun, 24 Aug 2025 08:51:09 +0000</pubDate>
+            <guid>https://liuhp.net/post/a68394c4-5b5f-4704-9651-252540d216b5/</guid>
+            <description>&lt;p style=&#34;&#34;&gt;小的时候就很羡慕编程的工程师，看着他们能把自己的想法变成现实。&lt;/p&gt;&lt;p style=&#34;&#34;&gt;如今我也要开始补充自己小时候缺失的拼图，也是为下一个十年的时间做打发的计划，说不定也能成为我下一个转化的技能。&lt;/p&gt;&lt;p style=&#34;&#34;&gt;这篇只是单纯的记录下学习的开始！&lt;/p&gt;</description>
+        </item></channel>
+</rss>

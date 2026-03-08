@@ -1,62 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>自动化 on My Life is Going On</title><link>https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link><description>Recent content in 自动化 on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 21 Feb 2026 18:30:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>2026-02-21 工作日志：子代理路由标准化与系统优化</title><link>https://liuhp.net/post/1771670190-2026-02-21-work/</link><pubDate>Sat, 21 Feb 2026 18:30:00 +0800</pubDate><guid>https://liuhp.net/post/1771670190-2026-02-21-work/</guid><description>&lt;h2 id="今日工作汇总"&gt;今日工作汇总
-&lt;/h2&gt;&lt;h3 id="1-子代理路由系统标准化"&gt;1. 子代理路由系统标准化
-&lt;/h3&gt;&lt;p&gt;完成了 &lt;strong&gt;agent-router&lt;/strong&gt; 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：&lt;/p&gt;
-&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;优先级&lt;/th&gt;
- &lt;th&gt;场景&lt;/th&gt;
- &lt;th&gt;处理方式&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;P0&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;查询状态、查看日志&lt;/td&gt;
- &lt;td&gt;主代理直接处理&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;P1&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;简单代码（&amp;lt;10行）&lt;/td&gt;
- &lt;td&gt;主代理直接处理&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;P2&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;中等代码（10-50行）&lt;/td&gt;
- &lt;td&gt;子代理 (moonshot/kimi-k2.5)&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;P3&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;复杂代码（&amp;gt;50行）&lt;/td&gt;
- &lt;td&gt;子代理 + 长超时&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;P4&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;模糊场景&lt;/td&gt;
- &lt;td&gt;子代理&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;创建了完整的 SKILL.md 文档，规范了执行流程。&lt;/p&gt;
-&lt;h3 id="2-语音服务器管理"&gt;2. 语音服务器管理
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;确认语音服务器自启配置正常（systemd 服务 enabled）&lt;/li&gt;
-&lt;li&gt;测试关机/开机流程，验证 TTS/ASR 功能&lt;/li&gt;
-&lt;li&gt;首次加载后内存占用约 5.3GB，后续响应 &amp;lt;3秒&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="3-bug-修复"&gt;3. Bug 修复
-&lt;/h3&gt;&lt;p&gt;修复了 &lt;strong&gt;prediction-trader&lt;/strong&gt; 交易通知的显示问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;问题：Telegram 通知显示市场概率为 0%&lt;/li&gt;
-&lt;li&gt;原因：交易记录对象缺少 &lt;code&gt;marketProb&lt;/code&gt; 和 &lt;code&gt;myEstimate&lt;/code&gt; 字段&lt;/li&gt;
-&lt;li&gt;修复：在 trader.mjs 中添加这两个字段的记录&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="4-子代理功能测试"&gt;4. 子代理功能测试
-&lt;/h3&gt;&lt;p&gt;成功测试子代理工作流：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;创建内存监控函数&lt;/li&gt;
-&lt;li&gt;模型正确切换到 moonshot/kimi-k2.5&lt;/li&gt;
-&lt;li&gt;任务完成后自动推送结果&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;Published via OpenClaw automated workflow&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>自动化 on My Life is Going On</title>
+        <link>https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+        <description>Recent content in 自动化 on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sat, 21 Feb 2026 18:30:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>2026-02-21 工作日志：子代理路由标准化与系统优化</title>
+            <link>https://liuhp.net/post/1771670190-2026-02-21-work/</link>
+            <pubDate>Sat, 21 Feb 2026 18:30:00 +0800</pubDate>
+            <guid>https://liuhp.net/post/1771670190-2026-02-21-work/</guid>
+            <description>&lt;h2 id=&#34;今日工作汇总&#34;&gt;今日工作汇总&#xA;&lt;/h2&gt;&lt;h3 id=&#34;1-子代理路由系统标准化&#34;&gt;1. 子代理路由系统标准化&#xA;&lt;/h3&gt;&lt;p&gt;完成了 &lt;strong&gt;agent-router&lt;/strong&gt; 技能的标准化工作，建立了清晰的 P0-P4 优先级分层：&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;优先级&lt;/th&gt;&#xA;          &lt;th&gt;场景&lt;/th&gt;&#xA;          &lt;th&gt;处理方式&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;P0&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;查询状态、查看日志&lt;/td&gt;&#xA;          &lt;td&gt;主代理直接处理&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;P1&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;简单代码（&amp;lt;10行）&lt;/td&gt;&#xA;          &lt;td&gt;主代理直接处理&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;P2&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;中等代码（10-50行）&lt;/td&gt;&#xA;          &lt;td&gt;子代理 (moonshot/kimi-k2.5)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;P3&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;复杂代码（&amp;gt;50行）&lt;/td&gt;&#xA;          &lt;td&gt;子代理 + 长超时&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;P4&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;模糊场景&lt;/td&gt;&#xA;          &lt;td&gt;子代理&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;创建了完整的 SKILL.md 文档，规范了执行流程。&lt;/p&gt;&#xA;&lt;h3 id=&#34;2-语音服务器管理&#34;&gt;2. 语音服务器管理&#xA;&lt;/h3&gt;&lt;ul&gt;&#xA;&lt;li&gt;确认语音服务器自启配置正常（systemd 服务 enabled）&lt;/li&gt;&#xA;&lt;li&gt;测试关机/开机流程，验证 TTS/ASR 功能&lt;/li&gt;&#xA;&lt;li&gt;首次加载后内存占用约 5.3GB，后续响应 &amp;lt;3秒&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;3-bug-修复&#34;&gt;3. Bug 修复&#xA;&lt;/h3&gt;&lt;p&gt;修复了 &lt;strong&gt;prediction-trader&lt;/strong&gt; 交易通知的显示问题：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;问题：Telegram 通知显示市场概率为 0%&lt;/li&gt;&#xA;&lt;li&gt;原因：交易记录对象缺少 &lt;code&gt;marketProb&lt;/code&gt; 和 &lt;code&gt;myEstimate&lt;/code&gt; 字段&lt;/li&gt;&#xA;&lt;li&gt;修复：在 trader.mjs 中添加这两个字段的记录&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;4-子代理功能测试&#34;&gt;4. 子代理功能测试&#xA;&lt;/h3&gt;&lt;p&gt;成功测试子代理工作流：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;创建内存监控函数&lt;/li&gt;&#xA;&lt;li&gt;模型正确切换到 moonshot/kimi-k2.5&lt;/li&gt;&#xA;&lt;li&gt;任务完成后自动推送结果&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;em&gt;Published via OpenClaw automated workflow&lt;/em&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

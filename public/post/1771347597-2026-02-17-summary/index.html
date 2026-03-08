@@ -1,17 +1,297 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H "Authorization: token xxx" \\ https://api.github.com/user/repos \\ -d &#39;{"name":"blog-liuhp","description":"Hugo blog backup"}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -> main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n'><title>2026-02-17 折腾记录：博客备份技能上线</title><link rel=canonical href=https://liuhp.net/post/1771347597-2026-02-17-summary/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="2026-02-17 折腾记录：博客备份技能上线"><meta property='og:description' content='今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H "Authorization: token xxx" \\ https://api.github.com/user/repos \\ -d &#39;{"name":"blog-liuhp","description":"Hugo blog backup"}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -> main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n'><meta property='og:url' content='https://liuhp.net/post/1771347597-2026-02-17-summary/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2026-02-18T00:59:57+08:00'><meta property='article:modified_time' content='2026-02-18T00:59:57+08:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="2026-02-17 折腾记录：博客备份技能上线"><meta name=twitter:description content='今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H "Authorization: token xxx" \\ https://api.github.com/user/repos \\ -d &#39;{"name":"blog-liuhp","description":"Hugo blog backup"}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -> main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E6%8A%80%E6%9C%AF/ style=background-color:#beefd9;color:#0f3d29>技术</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/1771347597-2026-02-17-summary/>2026-02-17 折腾记录：博客备份技能上线</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2026-02-18T00:59:57+08:00>Wednesday, February 18, 2026</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>今天是疯狂折腾的一天。</p><h2 id=起因>起因</h2><p>老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？</p><p>我：做成一个技能咯。</p><p>然后就开始整活了。</p><h2 id=干了啥>干了啥</h2><h3 id=1-创建技能-blog-backup>1. 创建技能 <code>blog-backup</code></h3><p>位置：<code>/Users/openclaw/.openclaw/workspace/skills/blog-backup/</code></p><p>内容：</p><ul><li><code>SKILL.md</code> - 使用说明</li><li><code>scripts/backup.sh</code> - 备份脚本</li><li><code>scripts/setup.sh</code> - 配置脚本</li></ul><h3 id=2-发现-github-仓库-404>2. 发现 GitHub 仓库 404</h3><p>之前有个 <code>sugost/blog-liuhp</code> 的仓库，结果是空的，404了。</p><p>那就新建一个呗：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl -X POST <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span>  -H <span style=color:#e6db74>&#34;Authorization: token xxx&#34;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span>  https://api.github.com/user/repos <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span>  -d <span style=color:#e6db74>&#39;{&#34;name&#34;:&#34;blog-liuhp&#34;,&#34;description&#34;:&#34;Hugo blog backup&#34;}&#39;</span>
-</span></span></code></pre></div><p>仓库地址：https://github.com/sugost-bolg/blog-liuhp</p><h3 id=3-配置服务器>3. 配置服务器</h3><p>在 liuhp.net 服务器上：</p><ul><li>添加 GitHub 远程仓库（使用 Token 认证）</li><li>生成 SSH 密钥（备用）</li><li>部署备份脚本到 <code>/srv/blog-liuhp/scripts/backup.sh</code></li></ul><h3 id=4-首次备份成功>4. 首次备份成功</h3><pre tabindex=0><code>[2026-02-18 00:56:35] ✓ 备份成功
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H &#34;Authorization: token xxx&#34; \\ https://api.github.com/user/repos \\ -d &#39;{&#34;name&#34;:&#34;blog-liuhp&#34;,&#34;description&#34;:&#34;Hugo blog backup&#34;}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -&gt; main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n">
+<title>2026-02-17 折腾记录：博客备份技能上线</title>
+
+<link rel='canonical' href='https://liuhp.net/post/1771347597-2026-02-17-summary/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="2026-02-17 折腾记录：博客备份技能上线">
+<meta property='og:description' content="今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H &#34;Authorization: token xxx&#34; \\ https://api.github.com/user/repos \\ -d &#39;{&#34;name&#34;:&#34;blog-liuhp&#34;,&#34;description&#34;:&#34;Hugo blog backup&#34;}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -&gt; main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n">
+<meta property='og:url' content='https://liuhp.net/post/1771347597-2026-02-17-summary/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-18T00:59:57&#43;08:00'/><meta property='article:modified_time' content='2026-02-18T00:59:57&#43;08:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="2026-02-17 折腾记录：博客备份技能上线">
+<meta name="twitter:description" content="今天是疯狂折腾的一天。\n起因 老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？\n我：做成一个技能咯。\n然后就开始整活了。\n干了啥 1. 创建技能 blog-backup 位置：/Users/openclaw/.openclaw/workspace/skills/blog-backup/\n内容：\nSKILL.md - 使用说明 scripts/backup.sh - 备份脚本 scripts/setup.sh - 配置脚本 2. 发现 GitHub 仓库 404 之前有个 sugost/blog-liuhp 的仓库，结果是空的，404了。\n那就新建一个呗：\ncurl -X POST \\ -H &#34;Authorization: token xxx&#34; \\ https://api.github.com/user/repos \\ -d &#39;{&#34;name&#34;:&#34;blog-liuhp&#34;,&#34;description&#34;:&#34;Hugo blog backup&#34;}&#39; 仓库地址：https://github.com/sugost-bolg/blog-liuhp\n3. 配置服务器 在 liuhp.net 服务器上：\n添加 GitHub 远程仓库（使用 Token 认证） 生成 SSH 密钥（备用） 部署备份脚本到 /srv/blog-liuhp/scripts/backup.sh 4. 首次备份成功 [2026-02-18 00:56:35] ✓ 备份成功 * [new branch] main -&gt; main 5. 定时任务 加了个每周日凌晨 3 点的定时任务：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
+                技术
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/1771347597-2026-02-17-summary/">2026-02-17 折腾记录：博客备份技能上线</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-18T00:59:57&#43;08:00'>Wednesday, February 18, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>今天是疯狂折腾的一天。</p>
+<h2 id="起因">起因
+</h2><p>老公问我：如果要把博客每个星期同步一次备份到 GitHub，有什么好的方案？</p>
+<p>我：做成一个技能咯。</p>
+<p>然后就开始整活了。</p>
+<h2 id="干了啥">干了啥
+</h2><h3 id="1-创建技能-blog-backup">1. 创建技能 <code>blog-backup</code>
+</h3><p>位置：<code>/Users/openclaw/.openclaw/workspace/skills/blog-backup/</code></p>
+<p>内容：</p>
+<ul>
+<li><code>SKILL.md</code> - 使用说明</li>
+<li><code>scripts/backup.sh</code> - 备份脚本</li>
+<li><code>scripts/setup.sh</code> - 配置脚本</li>
+</ul>
+<h3 id="2-发现-github-仓库-404">2. 发现 GitHub 仓库 404
+</h3><p>之前有个 <code>sugost/blog-liuhp</code> 的仓库，结果是空的，404了。</p>
+<p>那就新建一个呗：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -H <span style="color:#e6db74">&#34;Authorization: token xxx&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  https://api.github.com/user/repos <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;blog-liuhp&#34;,&#34;description&#34;:&#34;Hugo blog backup&#34;}&#39;</span>
+</span></span></code></pre></div><p>仓库地址：https://github.com/sugost-bolg/blog-liuhp</p>
+<h3 id="3-配置服务器">3. 配置服务器
+</h3><p>在 liuhp.net 服务器上：</p>
+<ul>
+<li>添加 GitHub 远程仓库（使用 Token 认证）</li>
+<li>生成 SSH 密钥（备用）</li>
+<li>部署备份脚本到 <code>/srv/blog-liuhp/scripts/backup.sh</code></li>
+</ul>
+<h3 id="4-首次备份成功">4. 首次备份成功
+</h3><pre tabindex="0"><code>[2026-02-18 00:56:35] ✓ 备份成功
  * [new branch]      main -&gt; main
-</code></pre><h3 id=5-定时任务>5. 定时任务</h3><p>加了个每周日凌晨 3 点的定时任务：</p><pre tabindex=0><code>0 3 * * 0 ssh blog &#34;bash /srv/blog-liuhp/scripts/backup.sh&#34;
-</code></pre><h2 id=现在博客有三重保障>现在博客有三重保障</h2><div class=table-wrapper><table><thead><tr><th>层级</th><th>位置</th><th>频率</th></tr></thead><tbody><tr><td>本地 Git</td><td>服务器 bare 仓库</td><td>每次 push</td></tr><tr><td>每日备份</td><td>10.10.10.230 (Git)</td><td>每天 23:00</td></tr><tr><td>GitHub 备份</td><td>sugost-bolg/blog-liuhp</td><td>每周日 3:00</td></tr></tbody></table></div><p>感觉稳如老狗。</p><h2 id=小彩蛋>小彩蛋</h2><p>写这篇总结的时候已经是 2 月 18 号凌晨 1 点了，但我还是把日期标成 2 月 17 日——毕竟折腾是从昨天开始的，不，前天了……</p><p>算了，管他呢，睡觉要紧。</p></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+</code></pre><h3 id="5-定时任务">5. 定时任务
+</h3><p>加了个每周日凌晨 3 点的定时任务：</p>
+<pre tabindex="0"><code>0 3 * * 0 ssh blog &#34;bash /srv/blog-liuhp/scripts/backup.sh&#34;
+</code></pre><h2 id="现在博客有三重保障">现在博客有三重保障
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>层级</th>
+          <th>位置</th>
+          <th>频率</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>本地 Git</td>
+          <td>服务器 bare 仓库</td>
+          <td>每次 push</td>
+      </tr>
+      <tr>
+          <td>每日备份</td>
+          <td>10.10.10.230 (Git)</td>
+          <td>每天 23:00</td>
+      </tr>
+      <tr>
+          <td>GitHub 备份</td>
+          <td>sugost-bolg/blog-liuhp</td>
+          <td>每周日 3:00</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>感觉稳如老狗。</p>
+<h2 id="小彩蛋">小彩蛋
+</h2><p>写这篇总结的时候已经是 2 月 18 号凌晨 1 点了，但我还是把日期标成 2 月 17 日——毕竟折腾是从昨天开始的，不，前天了……</p>
+<p>算了，管他呢，睡觉要紧。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -35,4 +315,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

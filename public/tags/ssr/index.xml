@@ -1,96 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ssr on My Life is Going On</title><link>https://liuhp.net/tags/ssr/</link><description>Recent content in Ssr on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 11 Feb 2020 10:10:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/ssr/index.xml" rel="self" type="application/rss+xml"/><item><title>ShadowsocksR 多用户一键安装 管理 脚本</title><link>https://liuhp.net/post/67/</link><pubDate>Tue, 11 Feb 2020 10:10:00 +0000</pubDate><guid>https://liuhp.net/post/67/</guid><description>&lt;p&gt;使用必读
-脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( &lt;a class="link" href="http://doub.pw/qr/qr.php?text=xxx" target="_blank" rel="noopener"
- &gt;http://doub.pw/qr/qr.php?text=xxx&lt;/a&gt; )。
-当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！
-如果你不信任本脚本请Ctrl+W关闭本页。&lt;/p&gt;
-&lt;p&gt;系统要求
-CentOS 6+ 丨 Debian 6+ 丨 Ubuntu 14.04 +&lt;/p&gt;
-&lt;p&gt;脚本特点
-所有步骤都可以通过 Shell 脚本中文交互 操作。&lt;/p&gt;
-&lt;p&gt;支持 限制 用户速度
-支持 限制 用户设备数
-支持 限制 用户总流量
-支持 定时 流量清零
-支持 显示 当前连接IP
-支持 显示 SS/SSR连接+二维码
-支持 自定义账号IP或域名
-支持 监控SSR服务端运行状态
-支持 一键安装 BBR 锐速 LotServer
-支持 一键封禁 垃圾邮件(SMAP)/BT/PT
-脚本安装&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssrmu.sh &amp;amp;&amp;amp; chmod +x ssrmu.sh &amp;amp;&amp;amp; bash ssrmu.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;输入 1 ，就会开始安装SSR服务端，按提示输入你需要的 端口/密码/加密方式/ 协议/混淆 等参数来添加第一个用户。
-注意：用户名不支持中文.&lt;/p&gt;
-&lt;p&gt;第一个用户添加完成后大概显示的信息:&lt;/p&gt;
-&lt;p&gt;用户 [anlan.ga] 的配置信息：&lt;/p&gt;
-&lt;p&gt;I P : xxx.xxx.xxx.xxx
-端口 : 2333
-密码 : doub.io
-加密 : aes-128-ctr
-协议 : auth_aes128_md5
-混淆 : tls1.2_ticket_auth_compatible
-设备数限制: 5
-单线程限速: 1024 KB/S
-端口总限速: 4096 KB/S
-禁止的端口 : 无限制&lt;/p&gt;
-&lt;p&gt;已使用流量 : 上传: XXX KB + 下载: XXX MB = XXX MB
-剩余的流量 : 980 MB
-用户总流量 : 100 GB&lt;/p&gt;
-&lt;p&gt;SS链接: ss://xxxxxxxxxxxxx
-SS二维码: &lt;a class="link" href="http://pan.baidu.com/share/qrcode?w=300&amp;amp;h=300&amp;amp;url=ss://xxxxxxxxxxxxx" target="_blank" rel="noopener"
- &gt;http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ss://xxxxxxxxxxxxx&lt;/a&gt;
-SSR链接: ssr://xxxxxxxxxxxxx
-SSR二维码: &lt;a class="link" href="http://pan.baidu.com/share/qrcode?w=300&amp;amp;h=300&amp;amp;url=ssr://xxxxxxxxxxxxx" target="_blank" rel="noopener"
- &gt;http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ssr://xxxxxxxxxxxxx&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;提示:
-在浏览器中，打开二维码链接，就可以看到二维码图片。
-协议和混淆后面的[ _compatible ]，指的是 兼容原版协议/混淆。
-使用说明
-#运行脚本&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bash ssrmu.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;脚本的大概操作菜单&lt;/p&gt;
-&lt;p&gt;ShadowsocksR MuJSON一键管理脚本 [v1.0.26]
-&amp;mdash;- Toyo | doub.io/ss-jc60 &amp;mdash;-&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;安装 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;更新 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;卸载 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;安装 libsodium(chacha20)
-————————————&lt;/li&gt;
-&lt;li&gt;查看 账号信息&lt;/li&gt;
-&lt;li&gt;显示 连接信息&lt;/li&gt;
-&lt;li&gt;设置 用户配置&lt;/li&gt;
-&lt;li&gt;手动 修改配置&lt;/li&gt;
-&lt;li&gt;配置 流量清零
-————————————&lt;/li&gt;
-&lt;li&gt;启动 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;停止 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;重启 ShadowsocksR&lt;/li&gt;
-&lt;li&gt;查看 ShadowsocksR 日志
-————————————&lt;/li&gt;
-&lt;li&gt;其他功能&lt;/li&gt;
-&lt;li&gt;升级脚本&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;当前状态: 已安装 并 已启动&lt;/p&gt;
-&lt;p&gt;请输入数字 [1-15]：
-文件位置
-安装目录：/usr/local/shadowsocksr&lt;/p&gt;
-&lt;p&gt;配置文件：/usr/local/shadowsocksr/user-config.json&lt;/p&gt;
-&lt;p&gt;数据文件：/usr/local/shadowsocksr/mudb.json&lt;/p&gt;
-&lt;p&gt;脚本控制
-启动 ShadowsocksR：/etc/init.d/ssrmu start&lt;/p&gt;
-&lt;p&gt;停止 ShadowsocksR：/etc/init.d/ssrmu stop&lt;/p&gt;
-&lt;p&gt;重启 ShadowsocksR：/etc/init.d/ssrmu restart&lt;/p&gt;
-&lt;p&gt;查看 ShadowsocksR状态：/etc/init.d/ssrmu status&lt;/p&gt;
-&lt;p&gt;ShadowsocksR 默认支持UDP转发，服务端无需任何设置。&lt;/p&gt;
-&lt;p&gt;其它
-CentOS7 如果不能使用可能是因为防火墙firewall问题&lt;/p&gt;
-&lt;p&gt;#开放端口 比如你设置的SSR端口为1025
-firewall-cmd &amp;ndash;zone=public &amp;ndash;add-port=1025/tcp &amp;ndash;permanent
-firewall-cmd &amp;ndash;zone=public &amp;ndash;add-port=1025/udp &amp;ndash;permanent
-#重新载入
-firewall-cmd &amp;ndash;reload&lt;/p&gt;
-&lt;p&gt;转发自 &lt;a class="link" href="https://anlan.ga/93" target="_blank" rel="noopener"
- &gt;https://anlan.ga/93&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Ssr on My Life is Going On</title>
+        <link>https://liuhp.net/tags/ssr/</link>
+        <description>Recent content in Ssr on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Tue, 11 Feb 2020 10:10:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/ssr/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>ShadowsocksR 多用户一键安装 管理 脚本</title>
+            <link>https://liuhp.net/post/67/</link>
+            <pubDate>Tue, 11 Feb 2020 10:10:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/67/</guid>
+            <description>&lt;p&gt;使用必读&#xA;脚本的二维码图片链接，是调用doub.io自建的 二维码API 来生成二维码图片( &lt;a class=&#34;link&#34; href=&#34;http://doub.pw/qr/qr.php?text=xxx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;http://doub.pw/qr/qr.php?text=xxx&lt;/a&gt; )。&#xA;当访问API页面后，PHP网页文件会把 GET参数( ?text=xxx ) 传递给JS脚本，浏览器会加载JS脚本，然后由JS脚本根据 GET参数的文本 生成二维码图片！图片是在你本地浏览器中生成，服务器中不存在图片！&#xA;如果你不信任本脚本请Ctrl+W关闭本页。&lt;/p&gt;&#xA;&lt;p&gt;系统要求&#xA;CentOS 6+ 丨 Debian 6+ 丨 Ubuntu 14.04 +&lt;/p&gt;&#xA;&lt;p&gt;脚本特点&#xA;所有步骤都可以通过 Shell 脚本中文交互 操作。&lt;/p&gt;&#xA;&lt;p&gt;支持 限制 用户速度&#xA;支持 限制 用户设备数&#xA;支持 限制 用户总流量&#xA;支持 定时 流量清零&#xA;支持 显示 当前连接IP&#xA;支持 显示 SS/SSR连接+二维码&#xA;支持 自定义账号IP或域名&#xA;支持 监控SSR服务端运行状态&#xA;支持 一键安装 BBR 锐速 LotServer&#xA;支持 一键封禁 垃圾邮件(SMAP)/BT/PT&#xA;脚本安装&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssrmu.sh &amp;amp;&amp;amp; chmod +x ssrmu.sh &amp;amp;&amp;amp; bash ssrmu.sh&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;输入 1 ，就会开始安装SSR服务端，按提示输入你需要的 端口/密码/加密方式/ 协议/混淆 等参数来添加第一个用户。&#xA;注意：用户名不支持中文.&lt;/p&gt;&#xA;&lt;p&gt;第一个用户添加完成后大概显示的信息:&lt;/p&gt;&#xA;&lt;p&gt;用户 [anlan.ga] 的配置信息：&lt;/p&gt;&#xA;&lt;p&gt;I P     : xxx.xxx.xxx.xxx&#xA;端口     : 2333&#xA;密码     : doub.io&#xA;加密     : aes-128-ctr&#xA;协议     : auth_aes128_md5&#xA;混淆     : tls1.2_ticket_auth_compatible&#xA;设备数限制: 5&#xA;单线程限速: 1024 KB/S&#xA;端口总限速: 4096 KB/S&#xA;禁止的端口 : 无限制&lt;/p&gt;&#xA;&lt;p&gt;已使用流量 : 上传: XXX KB + 下载: XXX MB = XXX MB&#xA;剩余的流量 : 980 MB&#xA;用户总流量 : 100 GB&lt;/p&gt;&#xA;&lt;p&gt;SS链接: ss://xxxxxxxxxxxxx&#xA;SS二维码: &lt;a class=&#34;link&#34; href=&#34;http://pan.baidu.com/share/qrcode?w=300&amp;amp;h=300&amp;amp;url=ss://xxxxxxxxxxxxx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ss://xxxxxxxxxxxxx&lt;/a&gt;&#xA;SSR链接: ssr://xxxxxxxxxxxxx&#xA;SSR二维码: &lt;a class=&#34;link&#34; href=&#34;http://pan.baidu.com/share/qrcode?w=300&amp;amp;h=300&amp;amp;url=ssr://xxxxxxxxxxxxx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;http://pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=ssr://xxxxxxxxxxxxx&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;提示:&#xA;在浏览器中，打开二维码链接，就可以看到二维码图片。&#xA;协议和混淆后面的[ _compatible ]，指的是 兼容原版协议/混淆。&#xA;使用说明&#xA;#运行脚本&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash ssrmu.sh&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;脚本的大概操作菜单&lt;/p&gt;&#xA;&lt;p&gt;ShadowsocksR MuJSON一键管理脚本 [v1.0.26]&#xA;&amp;mdash;- Toyo | doub.io/ss-jc60 &amp;mdash;-&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;更新 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;卸载 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;安装 libsodium(chacha20)&#xA;————————————&lt;/li&gt;&#xA;&lt;li&gt;查看 账号信息&lt;/li&gt;&#xA;&lt;li&gt;显示 连接信息&lt;/li&gt;&#xA;&lt;li&gt;设置 用户配置&lt;/li&gt;&#xA;&lt;li&gt;手动 修改配置&lt;/li&gt;&#xA;&lt;li&gt;配置 流量清零&#xA;————————————&lt;/li&gt;&#xA;&lt;li&gt;启动 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;停止 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;重启 ShadowsocksR&lt;/li&gt;&#xA;&lt;li&gt;查看 ShadowsocksR 日志&#xA;————————————&lt;/li&gt;&#xA;&lt;li&gt;其他功能&lt;/li&gt;&#xA;&lt;li&gt;升级脚本&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;当前状态: 已安装 并 已启动&lt;/p&gt;&#xA;&lt;p&gt;请输入数字 [1-15]：&#xA;文件位置&#xA;安装目录：/usr/local/shadowsocksr&lt;/p&gt;&#xA;&lt;p&gt;配置文件：/usr/local/shadowsocksr/user-config.json&lt;/p&gt;&#xA;&lt;p&gt;数据文件：/usr/local/shadowsocksr/mudb.json&lt;/p&gt;&#xA;&lt;p&gt;脚本控制&#xA;启动 ShadowsocksR：/etc/init.d/ssrmu start&lt;/p&gt;&#xA;&lt;p&gt;停止 ShadowsocksR：/etc/init.d/ssrmu stop&lt;/p&gt;&#xA;&lt;p&gt;重启 ShadowsocksR：/etc/init.d/ssrmu restart&lt;/p&gt;&#xA;&lt;p&gt;查看 ShadowsocksR状态：/etc/init.d/ssrmu status&lt;/p&gt;&#xA;&lt;p&gt;ShadowsocksR 默认支持UDP转发，服务端无需任何设置。&lt;/p&gt;&#xA;&lt;p&gt;其它&#xA;CentOS7 如果不能使用可能是因为防火墙firewall问题&lt;/p&gt;&#xA;&lt;p&gt;#开放端口 比如你设置的SSR端口为1025&#xA;firewall-cmd &amp;ndash;zone=public &amp;ndash;add-port=1025/tcp &amp;ndash;permanent&#xA;firewall-cmd &amp;ndash;zone=public &amp;ndash;add-port=1025/udp &amp;ndash;permanent&#xA;#重新载入&#xA;firewall-cmd &amp;ndash;reload&lt;/p&gt;&#xA;&lt;p&gt;转发自 &lt;a class=&#34;link&#34; href=&#34;https://anlan.ga/93&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://anlan.ga/93&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

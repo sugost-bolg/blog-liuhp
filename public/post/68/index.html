@@ -1,32 +1,296 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy && cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n"><title>MTProxy TLS一键安装绿色极简脚本</title><link rel=canonical href=https://liuhp.net/post/68/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="MTProxy TLS一键安装绿色极简脚本"><meta property='og:description' content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy && cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n"><meta property='og:url' content='https://liuhp.net/post/68/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='MTProxy'><meta property='article:published_time' content='2020-02-17T18:54:00+00:00'><meta property='article:modified_time' content='2020-02-17T18:54:00+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="MTProxy TLS一键安装绿色极简脚本"><meta name=twitter:description content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy && cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/ style=background-color:#e4beef;color:#330f3d>电脑网络</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/68/>MTProxy TLS一键安装绿色极简脚本</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2020-02-17T18:54:00Z>Monday, February 17, 2020</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>MTProxy TLS一键安装绿色极简脚本</p><p>这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。</p><p>减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。</p><p>需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。</p><p>所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。</p><p>除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：</p><p>如：443、2053、2083、2087、2096、8443</p><p>安装方式
-执行如下代码进行安装</p><pre><code>mkdir /home/mtproxy &amp;&amp; cd /home/mtproxy
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy &amp;&amp; cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n">
+<title>MTProxy TLS一键安装绿色极简脚本</title>
+
+<link rel='canonical' href='https://liuhp.net/post/68/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="MTProxy TLS一键安装绿色极简脚本">
+<meta property='og:description' content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy &amp;&amp; cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n">
+<meta property='og:url' content='https://liuhp.net/post/68/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MTProxy' /><meta property='article:published_time' content='2020-02-17T18:54:00&#43;00:00'/><meta property='article:modified_time' content='2020-02-17T18:54:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="MTProxy TLS一键安装绿色极简脚本">
+<meta name="twitter:description" content="MTProxy TLS一键安装绿色极简脚本\n这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。\n减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。\n需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。\n所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。\n除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：\n如：443、2053、2083、2087、2096、8443\n安装方式 执行如下代码进行安装\nmkdir /home/mtproxy &amp;&amp; cd /home/mtproxy\rcurl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh\rmtproxy.sh\r使用方式 运行服务\nbash mtproxy.sh start\r调试运行\nbash mtproxy.sh debug\r停止服务\nbash mtproxy.sh stop\r重启服务\nbash mtproxy.sh restart\r卸载安装 因为是绿色版卸载极其简单，直接删除所在目录即可。\nrm -rf /home/mtproxy\rps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：\nfirewall-cmd --zone=public --add-port=443/tcp --permanent\rfirewall-cmd --reload\r关闭端口命令如下：\nfirewall-cmd --zone=public --remove-port=443/tcp --permanent\rfirewall-cmd --reload\r卸载 因为是绿色版卸载极其简单，直接删除程序目录即可；\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/" style="background-color: hsl(287, 60%, 84%); color: hsl(287, 60%, 15%);">
+                电脑网络
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/68/">MTProxy TLS一键安装绿色极简脚本</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2020-02-17T18:54:00Z'>Monday, February 17, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>MTProxy TLS一键安装绿色极简脚本</p>
+<p>这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。</p>
+<p>减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。</p>
+<p>需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。</p>
+<p>所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。</p>
+<p>除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：</p>
+<p>如：443、2053、2083、2087、2096、8443</p>
+<p>安装方式
+执行如下代码进行安装</p>
+<pre><code>mkdir /home/mtproxy &amp;&amp; cd /home/mtproxy
 curl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh
 mtproxy.sh
-</code></pre><p>使用方式
-运行服务</p><pre><code>bash mtproxy.sh start
-</code></pre><p>调试运行</p><pre><code>bash mtproxy.sh debug
-</code></pre><p>停止服务</p><pre><code>bash mtproxy.sh stop
-</code></pre><p>重启服务</p><pre><code>bash mtproxy.sh restart
-</code></pre><p>卸载安装
-因为是绿色版卸载极其简单，直接删除所在目录即可。</p><pre><code>rm -rf /home/mtproxy
-</code></pre><hr><p>ps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：</p><pre><code>firewall-cmd --zone=public --add-port=443/tcp --permanent
+</code></pre>
+<p>使用方式
+运行服务</p>
+<pre><code>bash mtproxy.sh start
+</code></pre>
+<p>调试运行</p>
+<pre><code>bash mtproxy.sh debug
+</code></pre>
+<p>停止服务</p>
+<pre><code>bash mtproxy.sh stop
+</code></pre>
+<p>重启服务</p>
+<pre><code>bash mtproxy.sh restart
+</code></pre>
+<p>卸载安装
+因为是绿色版卸载极其简单，直接删除所在目录即可。</p>
+<pre><code>rm -rf /home/mtproxy
+</code></pre>
+<hr>
+<p>ps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：</p>
+<pre><code>firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --reload
-</code></pre><p>关闭端口命令如下：</p><pre><code>firewall-cmd --zone=public --remove-port=443/tcp --permanent
+</code></pre>
+<p>关闭端口命令如下：</p>
+<pre><code>firewall-cmd --zone=public --remove-port=443/tcp --permanent
 firewall-cmd --reload
-</code></pre><p>卸载
-因为是绿色版卸载极其简单，直接删除程序目录即可；</p><pre><code>rm -rf /home/mtproxy
-</code></pre><p>开机启动
-编辑/etc/rc.local开机自启服务文件，将如下代码添加到开机自启脚本中；</p><p>编辑自启文件
-vi /etc/rc.local</p><p>添加如下代码</p><pre><code>bash /home/mtproxy/mtproxy.sh start &gt; /dev/null 2&gt;&amp;1 &amp;
-</code></pre><p>添加rc.local执行权限</p><pre><code>chmod +x /etc/rc.d/rc.local
-</code></pre><p>重启系统查看是否成功启动</p><pre><code>reboot
-</code></pre><hr><p>文章转发至<a class=link href="https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm" target=_blank rel=noopener>https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm</a></p></section><footer class=article-footer><section class=article-tags><a href=/tags/mtproxy/>MTProxy</a></section></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+</code></pre>
+<p>卸载
+因为是绿色版卸载极其简单，直接删除程序目录即可；</p>
+<pre><code>rm -rf /home/mtproxy
+</code></pre>
+<p>开机启动
+编辑/etc/rc.local开机自启服务文件，将如下代码添加到开机自启脚本中；</p>
+<p>编辑自启文件
+vi /etc/rc.local</p>
+<p>添加如下代码</p>
+<pre><code>bash /home/mtproxy/mtproxy.sh start &gt; /dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+<p>添加rc.local执行权限</p>
+<pre><code>chmod +x /etc/rc.d/rc.local
+</code></pre>
+<p>重启系统查看是否成功启动</p>
+<pre><code>reboot
+</code></pre>
+<hr>
+<p>文章转发至<a class="link" href="https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm"  target="_blank" rel="noopener"
+    >https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mtproxy/">MTProxy</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -50,4 +314,23 @@ vi /etc/rc.local</p><p>添加如下代码</p><pre><code>bash /home/mtproxy/mtpro
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

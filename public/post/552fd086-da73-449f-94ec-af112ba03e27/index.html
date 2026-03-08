@@ -1,10 +1,232 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2html<p style="">cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1">暂停服务systemctl stop log2html.service<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1">关停服务systemctl disable log2html.service<h2 style="" id="%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志journalctl -u log2html.service -f<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak<p style="">\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'><title>Log2html debian命令</title><link rel=canonical href=https://liuhp.net/post/552fd086-da73-449f-94ec-af112ba03e27/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="Log2html debian命令"><meta property='og:description' content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2html<p style="">cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1">暂停服务systemctl stop log2html.service<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1">关停服务systemctl disable log2html.service<h2 style="" id="%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志journalctl -u log2html.service -f<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak<p style="">\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'><meta property='og:url' content='https://liuhp.net/post/552fd086-da73-449f-94ec-af112ba03e27/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-12-09T06:32:40+00:00'><meta property='article:modified_time' content='2025-12-09T06:32:40+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="Log2html debian命令"><meta name=twitter:description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2html<p style="">cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录cd /usr/share/caddy/<h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启cd /usr/share/caddy && chmod +x install_log2html_service.sh && ./install_log2html_service.sh<h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2htmlcd /usr/share/caddy && node log2html.js<h2 style="" id="%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1">暂停服务systemctl stop log2html.service<h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务systemctl restart log2html.service<h2 style="" id="%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1">关停服务systemctl disable log2html.service<h2 style="" id="%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志journalctl -u log2html.service -f<h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak<p style="">\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E4%BA%A4%E6%98%93%E8%AE%B0%E5%BD%95/ style=background-color:#d4beef;color:#240f3d>交易记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/552fd086-da73-449f-94ec-af112ba03e27/>Log2html debian命令</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2025-12-09T06:32:40Z>Tuesday, December 9, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录</h2><pre><code>cd /usr/share/caddy/</code></pre>&lt;h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启</h2><pre><code>cd /usr/share/caddy &amp;&amp;  chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh</code></pre>&lt;h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2html</h2><pre><code>cd /usr/share/caddy &amp;&amp; node log2html.js</code></pre>&lt;h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务</h2><pre><code>systemctl restart log2html.service</code></pre>&lt;h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2html</h2>&lt;p style="">cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak</p>"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;h2 style="" id="%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95">进入目录</h2><pre><code>cd /usr/share/caddy/</code></pre>&lt;h2 style="" id="%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">开机自启</h2><pre><code>cd /usr/share/caddy &amp;&amp;  chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh</code></pre>&lt;h2 style="" id="%E6%B5%8B%E8%AF%95log2html">测试log2html</h2><pre><code>cd /usr/share/caddy &amp;&amp; node log2html.js</code></pre>&lt;h2 style="" id="%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1">暂停服务</h2><pre><code>systemctl stop log2html.service</code></pre>&lt;h2 style="" id="%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1">重启服务</h2><pre><code>systemctl restart log2html.service</code></pre>&lt;h2 style="" id="%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1">关停服务</h2><pre><code>systemctl disable log2html.service</code></pre>&lt;h2 style="" id="%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志</h2><pre><code>journalctl -u log2html.service -f</code></pre>&lt;h2 style="" id="%E5%A4%87%E4%BB%BDlog2html">备份log2html</h2><pre><code>cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak</code></pre>&lt;p style=""></p>"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2html&lt;p style=&quot;&quot;&gt;cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;暂停服务systemctl stop log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;关停服务systemctl disable log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&quot;&gt;查看日志journalctl -u log2html.service -f&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak&lt;p style=&quot;&quot;&gt;\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+<title>Log2html debian命令</title>
+
+<link rel='canonical' href='https://liuhp.net/post/552fd086-da73-449f-94ec-af112ba03e27/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="Log2html debian命令">
+<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2html&lt;p style=&quot;&quot;&gt;cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;暂停服务systemctl stop log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;关停服务systemctl disable log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&quot;&gt;查看日志journalctl -u log2html.service -f&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak&lt;p style=&quot;&quot;&gt;\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+<meta property='og:url' content='https://liuhp.net/post/552fd086-da73-449f-94ec-af112ba03e27/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-12-09T06:32:40&#43;00:00'/><meta property='article:modified_time' content='2025-12-09T06:32:40&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="Log2html debian命令">
+<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2html&lt;p style=&quot;&quot;&gt;cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录cd /usr/share/caddy/&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启cd /usr/share/caddy &amp;&amp; chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2htmlcd /usr/share/caddy &amp;&amp; node log2html.js&lt;h2 style=&quot;&quot; id=&quot;%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;暂停服务systemctl stop log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务systemctl restart log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;关停服务systemctl disable log2html.service&lt;h2 style=&quot;&quot; id=&quot;%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&quot;&gt;查看日志journalctl -u log2html.service -f&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2htmlcp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak&lt;p style=&quot;&quot;&gt;\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E4%BA%A4%E6%98%93%E8%AE%B0%E5%BD%95/" style="background-color: hsl(267, 60%, 84%); color: hsl(267, 60%, 15%);">
+                交易记录
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/552fd086-da73-449f-94ec-af112ba03e27/">Log2html debian命令</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2025-12-09T06:32:40Z'>Tuesday, December 9, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录</h2><pre><code>cd /usr/share/caddy/</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启</h2><pre><code>cd /usr/share/caddy &amp;&amp;  chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2html</h2><pre><code>cd /usr/share/caddy &amp;&amp; node log2html.js</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务</h2><pre><code>systemctl restart log2html.service</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2html</h2>&lt;p style=&quot;&quot;&gt;cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak</p>&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95&quot;&gt;进入目录</h2><pre><code>cd /usr/share/caddy/</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF&quot;&gt;开机自启</h2><pre><code>cd /usr/share/caddy &amp;&amp;  chmod +x install_log2html_service.sh &amp;&amp; ./install_log2html_service.sh</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E6%B5%8B%E8%AF%95log2html&quot;&gt;测试log2html</h2><pre><code>cd /usr/share/caddy &amp;&amp; node log2html.js</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E6%9A%82%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;暂停服务</h2><pre><code>systemctl stop log2html.service</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1&quot;&gt;重启服务</h2><pre><code>systemctl restart log2html.service</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E5%85%B3%E5%81%9C%E6%9C%8D%E5%8A%A1&quot;&gt;关停服务</h2><pre><code>systemctl disable log2html.service</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&quot;&gt;查看日志</h2><pre><code>journalctl -u log2html.service -f</code></pre>&lt;h2 style=&quot;&quot; id=&quot;%E5%A4%87%E4%BB%BDlog2html&quot;&gt;备份log2html</h2><pre><code>cp /usr/share/caddy/log2html.js /usr/share/caddy/log2html.js.bak</code></pre>&lt;p style=&quot;&quot;&gt;</p>&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -28,4 +250,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

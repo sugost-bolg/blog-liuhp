@@ -1,124 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tor on My Life is Going On</title><link>https://liuhp.net/tags/tor/</link><description>Recent content in Tor on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 06 Aug 2020 02:04:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/tor/index.xml" rel="self" type="application/rss+xml"/><item><title>从tor-browser提取tor做匿名代理</title><link>https://liuhp.net/post/85/</link><pubDate>Thu, 06 Aug 2020 02:04:00 +0000</pubDate><guid>https://liuhp.net/post/85/</guid><description>&lt;p&gt;首先，先下载tor browser的安装包并安装(目录任意)。
-然后打开tor browser的安装路径，将&lt;code&gt;Tor Browser\Browser\TorBrowser\Tor&lt;/code&gt;拷贝出来放到一个新目录，如tor_portable.&lt;/p&gt;
-&lt;p&gt;此时tor_portable的目录结构如下:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;| libeay32.dll
-| libevent-2-1-6.dll
-| libevent_core-2-1-6.dll
-| libevent_extra-2-1-6.dll
-| libgcc_s_seh-1.dll
-| libssp-0.dll
-| libwinpthread-1.dll
-| ssleay32.dll
-| tor.exe
-| zlib1.dll
-|
--&amp;ndash;PluggableTransports
-meek-client-torbrowser.exe
-meek-client.exe
-obfs4proxy.exe
-terminateprocess-buffer.exe
-然后在tor_portable下新建一个Data文件夹备用。&lt;/p&gt;
-&lt;p&gt;此时再打开tor browser的安装目录，找到路径&lt;code&gt;Tor Browser\Browser\TorBrowser\Data\Tor&lt;/code&gt;，将该目录下的geoip和geoip6这两个文件拷贝到上一步创建的&lt;code&gt;tor_protable\Data&lt;/code&gt;目录下。
-同时，也将tor browser安装目录下&lt;code&gt;Tor Browser\Browser\TorBrowser\Data\Tor的torrc&lt;/code&gt;文件拷贝到tor_protable目录。&lt;/p&gt;
-&lt;p&gt;执行完毕上面的操作之后，此时tor_protable的目录结构为：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;| libeay32.dll
-| libevent-2-1-6.dll
-| libevent_core-2-1-6.dll
-| libevent_extra-2-1-6.dll
-| libgcc_s_seh-1.dll
-| libssp-0.dll
-| libwinpthread-1.dll
-| ssleay32.dll
-| tor.exe
-| torrc
-| zlib1.dll
-|
-+&amp;mdash;Data
-| geoip
-| geoip6
-|
--&amp;ndash;PluggableTransports&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; obfs4proxy.exe
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;然后使用文本编辑器打开&lt;code&gt;tor_protable\torrc&lt;/code&gt;,将下面的配置填入其中：&lt;/p&gt;
-&lt;p&gt;DataDirectory ./Data
-GeoIPFile ./Data/geoip
-GeoIPv6File ./Data/geoip6
-Log notice file ./tor.log
-Socks5Proxy 127.0.0.1:2801&lt;/p&gt;
-&lt;p&gt;另外，还要注意Socks5Proxy 代理根据自己的配置和需要决定。（这个代理是tor的入口代理）&lt;/p&gt;
-&lt;p&gt;执行完上面的操作，tor的提取和配置都执行完毕了。
-下面可以在本地启动tor了：&lt;/p&gt;
-&lt;h1 id="在tor_protable目录下执行"&gt;在tor_protable目录下执行
-&lt;/h1&gt;&lt;p&gt;$ tor -f torrc
-此时tor_protable目录下会创建出tor.log文件，打开即可查看tor的日志。
-当日志中出现下面这样的输出时，即连接成功：&lt;/p&gt;
-&lt;p&gt;Nov 04 19:20:39.000 [notice] Bootstrapped 50%: Loading relay descriptors for internal paths
-Nov 04 19:20:40.000 [notice] The current consensus contains exit nodes. Tor can build exit and internal paths.
-Nov 04 19:20:42.000 [notice] Bootstrapped 57%: Loading relay descriptors
-Nov 04 19:20:42.000 [notice] Bootstrapped 66%: Loading relay descriptors
-Nov 04 19:20:42.000 [notice] Bootstrapped 72%: Loading relay descriptors
-Nov 04 19:20:42.000 [notice] Bootstrapped 80%: Connecting to the Tor network
-Nov 04 19:20:43.000 [notice] Bootstrapped 85%: Finishing handshake with first hop
-Nov 04 19:20:44.000 [notice] Bootstrapped 90%: Establishing a Tor circuit
-Nov 04 19:20:45.000 [notice] Tor has successfully opened a circuit. Looks like client functionality is working.
-Nov 04 19:20:45.000 [notice] Bootstrapped 100%: Done&lt;/p&gt;
-&lt;p&gt;tor启动之后会创建一个Socks5代理(127.0.0.1:9050)。&lt;/p&gt;
-&lt;p&gt;快速启动/关闭tor批处理
-上面启动tor时使用的是命令tor -f torrc，可以将其写为批处理：&lt;/p&gt;
-&lt;p&gt;rem tor-run.bat
-tor -f torrc&lt;/p&gt;
-&lt;p&gt;接下来时关闭tor的批处理。我们在关闭时需要杀掉这些进程，在windows下可以使用taskkill /IM命令：&lt;/p&gt;
-&lt;p&gt;rem tor-stop.bat
-taskkill /IM tor.exe /F&lt;/p&gt;
-&lt;p&gt;本文到此完全结束，此时tor_protable完整的目录结构如下：&lt;/p&gt;
-&lt;p&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PROTABLE
-| libeay32.dll
-| libevent-2-1-6.dll
-| libevent_core-2-1-6.dll
-| libevent_extra-2-1-6.dll
-| libgcc_s_seh-1.dll
-| libssp-0.dll
-| libwinpthread-1.dll
-| ssleay32.dll
-| tor-run.bat
-| tor-stop.bat
-| tor.exe
-| tor.log
-| torrc
-| zlib1.dll
-|
-+&amp;mdash;Data
-| geoip
-| geoip6
-|
--&amp;ndash;PluggableTransports
-obfs4proxy.exe&lt;/p&gt;</description></item><item><title>MACOS10.14.6上安装tor服务代理</title><link>https://liuhp.net/post/75/</link><pubDate>Thu, 05 Mar 2020 04:44:00 +0000</pubDate><guid>https://liuhp.net/post/75/</guid><description>&lt;p&gt;设置一： mac电脑先翻墙。&lt;/p&gt;
-&lt;p&gt;设置二： 安装Homebrew&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;设置三： 安装tor &lt;code&gt;brew install tor&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;设置四： 启用Tor服务 &lt;code&gt;brew services start tor&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;设置五： 如果你是在国外则跳过这一步，在国内的话，需要给tor设置代理
-打开文件夹&lt;code&gt;/usr/local/etc/tor&lt;/code&gt; 里面有torrc.sample备份一个torrc.sample 重命名 torrc
-打开torrc 在最下面增加代理命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Socks5Proxy IP:端口 
-#如果有密码则增加下面两行
-Socks5ProxyPassword 密码
-Socks5ProxyUsername 用户名
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;设置六：在中 更新代理设置System Preferences &amp;gt; Network &amp;gt; Advanced &amp;gt; Proxies &amp;gt; SOCKS Proxy&lt;/p&gt;
-&lt;p&gt;
- &lt;img src="https://liuhongping.com/usr/uploads/2020/03/3799751488.png" alt="89deaf1e-2e71-11e7-90bc-d6077e7f0d6f.png" /&gt;&lt;/p&gt;
-&lt;p&gt;如此设置可以使用软件走tor代理实现匿名，也可以在浏览器里直接浏览暗网网站，现在可以愉快的玩耍了。&lt;/p&gt;
-&lt;p&gt;文章转载自
-[亲测有效]MACOS10.14.6上安装tor服务代理
-作者: centos
-来源: 中文暗网《自由领域》
-原文链接: &lt;a class="link" href="http://xrmdjsg2dvq7or6cslrucpp6zf2476w2gecuyrzp5toaxwl5rs5accad.onion/?thread-46.htm" target="_blank" rel="noopener"
- &gt;http://xrmdjsg2dvq7or6cslrucpp6zf2476w2gecuyrzp5toaxwl5rs5accad.onion/?thread-46.htm&lt;/a&gt;
-版权声明: 若无额外声明，本帖为作者原创帖，转载请附上帖子链接！&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tor on My Life is Going On</title>
+        <link>https://liuhp.net/tags/tor/</link>
+        <description>Recent content in Tor on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 06 Aug 2020 02:04:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/tor/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>从tor-browser提取tor做匿名代理</title>
+            <link>https://liuhp.net/post/85/</link>
+            <pubDate>Thu, 06 Aug 2020 02:04:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/85/</guid>
+            <description>&lt;p&gt;首先，先下载tor browser的安装包并安装(目录任意)。&#xA;然后打开tor browser的安装路径，将&lt;code&gt;Tor Browser\Browser\TorBrowser\Tor&lt;/code&gt;拷贝出来放到一个新目录，如tor_portable.&lt;/p&gt;&#xA;&lt;p&gt;此时tor_portable的目录结构如下:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;|   libeay32.dll&#xA;|   libevent-2-1-6.dll&#xA;|   libevent_core-2-1-6.dll&#xA;|   libevent_extra-2-1-6.dll&#xA;|   libgcc_s_seh-1.dll&#xA;|   libssp-0.dll&#xA;|   libwinpthread-1.dll&#xA;|   ssleay32.dll&#xA;|   tor.exe&#xA;|   zlib1.dll&#xA;|&#xA;-&amp;ndash;PluggableTransports&#xA;meek-client-torbrowser.exe&#xA;meek-client.exe&#xA;obfs4proxy.exe&#xA;terminateprocess-buffer.exe&#xA;然后在tor_portable下新建一个Data文件夹备用。&lt;/p&gt;&#xA;&lt;p&gt;此时再打开tor browser的安装目录，找到路径&lt;code&gt;Tor Browser\Browser\TorBrowser\Data\Tor&lt;/code&gt;，将该目录下的geoip和geoip6这两个文件拷贝到上一步创建的&lt;code&gt;tor_protable\Data&lt;/code&gt;目录下。&#xA;同时，也将tor browser安装目录下&lt;code&gt;Tor Browser\Browser\TorBrowser\Data\Tor的torrc&lt;/code&gt;文件拷贝到tor_protable目录。&lt;/p&gt;&#xA;&lt;p&gt;执行完毕上面的操作之后，此时tor_protable的目录结构为：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PORTABLE&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;|   libeay32.dll&#xA;|   libevent-2-1-6.dll&#xA;|   libevent_core-2-1-6.dll&#xA;|   libevent_extra-2-1-6.dll&#xA;|   libgcc_s_seh-1.dll&#xA;|   libssp-0.dll&#xA;|   libwinpthread-1.dll&#xA;|   ssleay32.dll&#xA;|   tor.exe&#xA;|   torrc&#xA;|   zlib1.dll&#xA;|&#xA;+&amp;mdash;Data&#xA;|       geoip&#xA;|       geoip6&#xA;|&#xA;-&amp;ndash;PluggableTransports&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;    obfs4proxy.exe&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;然后使用文本编辑器打开&lt;code&gt;tor_protable\torrc&lt;/code&gt;,将下面的配置填入其中：&lt;/p&gt;&#xA;&lt;p&gt;DataDirectory ./Data&#xA;GeoIPFile ./Data/geoip&#xA;GeoIPv6File ./Data/geoip6&#xA;Log notice file ./tor.log&#xA;Socks5Proxy 127.0.0.1:2801&lt;/p&gt;&#xA;&lt;p&gt;另外，还要注意Socks5Proxy 代理根据自己的配置和需要决定。（这个代理是tor的入口代理）&lt;/p&gt;&#xA;&lt;p&gt;执行完上面的操作，tor的提取和配置都执行完毕了。&#xA;下面可以在本地启动tor了：&lt;/p&gt;&#xA;&lt;h1 id=&#34;在tor_protable目录下执行&#34;&gt;在tor_protable目录下执行&#xA;&lt;/h1&gt;&lt;p&gt;$ tor -f torrc&#xA;此时tor_protable目录下会创建出tor.log文件，打开即可查看tor的日志。&#xA;当日志中出现下面这样的输出时，即连接成功：&lt;/p&gt;&#xA;&lt;p&gt;Nov 04 19:20:39.000 [notice] Bootstrapped 50%: Loading relay descriptors for internal paths&#xA;Nov 04 19:20:40.000 [notice] The current consensus contains exit nodes. Tor can build exit and internal paths.&#xA;Nov 04 19:20:42.000 [notice] Bootstrapped 57%: Loading relay descriptors&#xA;Nov 04 19:20:42.000 [notice] Bootstrapped 66%: Loading relay descriptors&#xA;Nov 04 19:20:42.000 [notice] Bootstrapped 72%: Loading relay descriptors&#xA;Nov 04 19:20:42.000 [notice] Bootstrapped 80%: Connecting to the Tor network&#xA;Nov 04 19:20:43.000 [notice] Bootstrapped 85%: Finishing handshake with first hop&#xA;Nov 04 19:20:44.000 [notice] Bootstrapped 90%: Establishing a Tor circuit&#xA;Nov 04 19:20:45.000 [notice] Tor has successfully opened a circuit. Looks like client functionality is working.&#xA;Nov 04 19:20:45.000 [notice] Bootstrapped 100%: Done&lt;/p&gt;&#xA;&lt;p&gt;tor启动之后会创建一个Socks5代理(127.0.0.1:9050)。&lt;/p&gt;&#xA;&lt;p&gt;快速启动/关闭tor批处理&#xA;上面启动tor时使用的是命令tor -f torrc，可以将其写为批处理：&lt;/p&gt;&#xA;&lt;p&gt;rem tor-run.bat&#xA;tor -f torrc&lt;/p&gt;&#xA;&lt;p&gt;接下来时关闭tor的批处理。我们在关闭时需要杀掉这些进程，在windows下可以使用taskkill /IM命令：&lt;/p&gt;&#xA;&lt;p&gt;rem tor-stop.bat&#xA;taskkill /IM tor.exe /F&lt;/p&gt;&#xA;&lt;p&gt;本文到此完全结束，此时tor_protable完整的目录结构如下：&lt;/p&gt;&#xA;&lt;p&gt;C:\USERS\VISIONSMILE\DESKTOP\TOR_PROTABLE&#xA;|   libeay32.dll&#xA;|   libevent-2-1-6.dll&#xA;|   libevent_core-2-1-6.dll&#xA;|   libevent_extra-2-1-6.dll&#xA;|   libgcc_s_seh-1.dll&#xA;|   libssp-0.dll&#xA;|   libwinpthread-1.dll&#xA;|   ssleay32.dll&#xA;|   tor-run.bat&#xA;|   tor-stop.bat&#xA;|   tor.exe&#xA;|   tor.log&#xA;|   torrc&#xA;|   zlib1.dll&#xA;|&#xA;+&amp;mdash;Data&#xA;|       geoip&#xA;|       geoip6&#xA;|&#xA;-&amp;ndash;PluggableTransports&#xA;obfs4proxy.exe&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>MACOS10.14.6上安装tor服务代理</title>
+            <link>https://liuhp.net/post/75/</link>
+            <pubDate>Thu, 05 Mar 2020 04:44:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/75/</guid>
+            <description>&lt;p&gt;设置一： mac电脑先翻墙。&lt;/p&gt;&#xA;&lt;p&gt;设置二： 安装Homebrew&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;设置三： 安装tor &lt;code&gt;brew install tor&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;设置四： 启用Tor服务 &lt;code&gt;brew services start tor&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;设置五： 如果你是在国外则跳过这一步，在国内的话，需要给tor设置代理&#xA;打开文件夹&lt;code&gt;/usr/local/etc/tor&lt;/code&gt; 里面有torrc.sample备份一个torrc.sample 重命名 torrc&#xA;打开torrc 在最下面增加代理命令&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;Socks5Proxy IP:端口 &#xD;&#xA;#如果有密码则增加下面两行&#xD;&#xA;Socks5ProxyPassword 密码&#xD;&#xA;Socks5ProxyUsername 用户名&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;设置六：在中 更新代理设置System Preferences &amp;gt; Network &amp;gt; Advanced &amp;gt; Proxies &amp;gt; SOCKS Proxy&lt;/p&gt;&#xA;&lt;p&gt;&#xA;    &lt;img src=&#34;https://liuhongping.com/usr/uploads/2020/03/3799751488.png&#34; alt=&#34;89deaf1e-2e71-11e7-90bc-d6077e7f0d6f.png&#34;  /&gt;&lt;/p&gt;&#xA;&lt;p&gt;如此设置可以使用软件走tor代理实现匿名，也可以在浏览器里直接浏览暗网网站，现在可以愉快的玩耍了。&lt;/p&gt;&#xA;&lt;p&gt;文章转载自&#xA;[亲测有效]MACOS10.14.6上安装tor服务代理&#xA;作者: centos&#xA;来源: 中文暗网《自由领域》&#xA;原文链接: &lt;a class=&#34;link&#34; href=&#34;http://xrmdjsg2dvq7or6cslrucpp6zf2476w2gecuyrzp5toaxwl5rs5accad.onion/?thread-46.htm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;http://xrmdjsg2dvq7or6cslrucpp6zf2476w2gecuyrzp5toaxwl5rs5accad.onion/?thread-46.htm&lt;/a&gt;&#xA;版权声明: 若无额外声明，本帖为作者原创帖，转载请附上帖子链接！&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

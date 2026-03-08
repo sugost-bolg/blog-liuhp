@@ -1,45 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on My Life is Going On</title><link>https://liuhp.net/categories/ai/</link><description>Recent content in AI on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Feb 2026 20:00:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>我做了个AI交易员，专门在预测市场薅羊毛</title><link>https://liuhp.net/post/prediction-market-ai-trader/</link><pubDate>Fri, 20 Feb 2026 20:00:00 +0800</pubDate><guid>https://liuhp.net/post/prediction-market-ai-trader/</guid><description>&lt;h1&gt;我做了个AI交易员，专门在预测市场薅羊毛&lt;/h1&gt;
-&lt;p&gt;前段时间迷上了预测市场。&lt;/p&gt;
-&lt;p&gt;Manifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。&lt;/p&gt;
-&lt;p&gt;但我发现一个问题：&lt;strong&gt;人没法24小时盯着市场&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;于是，我造了一个AI交易员。&lt;/p&gt;
-&lt;h2&gt;它长什么样&lt;/h2&gt;
-&lt;p&gt;这个家伙叫 &lt;code&gt;prediction-trader&lt;/code&gt;，住在我的 Mac mini 里。它的工作很简单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;扫描市场&lt;/strong&gt;：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;多策略投票&lt;/strong&gt;：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自动下单&lt;/strong&gt;：发现好机会就直接下注，不用我动手&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;止盈止损&lt;/strong&gt;：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;每日汇报&lt;/strong&gt;：早上8点准时发消息告诉我昨天的战绩&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;策略是怎么工作的&lt;/h2&gt;
-&lt;p&gt;核心是一个&lt;strong&gt;多策略集成系统&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;贝叶斯策略负责&lt;strong&gt;概率更新&lt;/strong&gt;。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。&lt;/p&gt;
-&lt;p&gt;技术策略负责&lt;strong&gt;趋势跟踪&lt;/strong&gt;。看交易量趋势、概率动量、波动率，找量价配合的机会。&lt;/p&gt;
-&lt;p&gt;情绪策略负责&lt;strong&gt;反向收割&lt;/strong&gt;。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。&lt;/p&gt;
-&lt;p&gt;三个策略各自投票，加权平均后决定是否交易。&lt;/p&gt;
-&lt;h2&gt;它会进化&lt;/h2&gt;
-&lt;p&gt;最牛的是，这家伙会&lt;strong&gt;自己学习&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。&lt;/p&gt;
-&lt;p&gt;就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。&lt;/p&gt;
-&lt;h2&gt;风险控制&lt;/h2&gt;
-&lt;p&gt;毕竟是AI在管钱，风控必须到位：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;止损线&lt;/strong&gt;：单日亏损达200虚拟币就停止交易&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;单笔限额&lt;/strong&gt;：最多下注100虚拟币，避免一把梭哈&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Kelly公式&lt;/strong&gt;：根据胜率和赔率动态计算仓位大小&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;高频监控&lt;/strong&gt;：持仓时每分钟检查一次，随时准备止盈止损&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;目前战绩&lt;/h2&gt;
-&lt;p&gt;运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。&lt;/p&gt;
-&lt;p&gt;最重要的是，这个过程&lt;strong&gt;完全自动化&lt;/strong&gt;。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。&lt;/p&gt;
-&lt;p&gt;这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。&lt;/p&gt;
-&lt;h2&gt;未来计划&lt;/h2&gt;
-&lt;p&gt;目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。&lt;/p&gt;
-&lt;p&gt;当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。&lt;/p&gt;
-&lt;h2&gt;最后&lt;/h2&gt;
-&lt;p&gt;预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个&lt;strong&gt;概率直觉&lt;/strong&gt;比人类更强的决策者。&lt;/p&gt;
-&lt;p&gt;至于它能不能真的持续赚钱？让时间来验证吧。&lt;/p&gt;
-&lt;p&gt;反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>AI on My Life is Going On</title>
+        <link>https://liuhp.net/categories/ai/</link>
+        <description>Recent content in AI on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Fri, 20 Feb 2026 20:00:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/ai/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>我做了个AI交易员，专门在预测市场薅羊毛</title>
+            <link>https://liuhp.net/post/prediction-market-ai-trader/</link>
+            <pubDate>Fri, 20 Feb 2026 20:00:00 +0800</pubDate>
+            <guid>https://liuhp.net/post/prediction-market-ai-trader/</guid>
+            <description>&lt;h1&gt;我做了个AI交易员，专门在预测市场薅羊毛&lt;/h1&gt;&#xA;&lt;p&gt;前段时间迷上了预测市场。&lt;/p&gt;&#xA;&lt;p&gt;Manifold Markets 是个神奇的地方——你可以押注任何事情：「比特币这个月会突破10万吗？」「特朗普会连任吗？」「OpenAI今年会发布GPT-5吗？」。用虚拟币下注，赢了赚更多虚拟币，输了就当交学费。关键是，这些数据是公开透明的，市场的集体智慧往往能给出比专家更准的预测。&lt;/p&gt;&#xA;&lt;p&gt;但我发现一个问题：&lt;strong&gt;人没法24小时盯着市场&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;p&gt;于是，我造了一个AI交易员。&lt;/p&gt;&#xA;&lt;h2&gt;它长什么样&lt;/h2&gt;&#xA;&lt;p&gt;这个家伙叫 &lt;code&gt;prediction-trader&lt;/code&gt;，住在我的 Mac mini 里。它的工作很简单：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;扫描市场&lt;/strong&gt;：每小时自动扫描 Manifold 上的数千个市场，寻找被低估的机会&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;多策略投票&lt;/strong&gt;：贝叶斯推理 + 技术分析 + 情绪分析，三个大脑一起决策&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;自动下单&lt;/strong&gt;：发现好机会就直接下注，不用我动手&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;止盈止损&lt;/strong&gt;：持仓盈利2%就平仓落袋为安，亏损1%就止损跑路&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;每日汇报&lt;/strong&gt;：早上8点准时发消息告诉我昨天的战绩&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2&gt;策略是怎么工作的&lt;/h2&gt;&#xA;&lt;p&gt;核心是一个&lt;strong&gt;多策略集成系统&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;p&gt;贝叶斯策略负责&lt;strong&gt;概率更新&lt;/strong&gt;。比如市场认为「比特币突破10万」的概率是40%，但AI分析了标题关键词、交易量、市场活跃度后，觉得实际概率应该是55%。这就是15%的「边缘优势」，值得下注。&lt;/p&gt;&#xA;&lt;p&gt;技术策略负责&lt;strong&gt;趋势跟踪&lt;/strong&gt;。看交易量趋势、概率动量、波动率，找量价配合的机会。&lt;/p&gt;&#xA;&lt;p&gt;情绪策略负责&lt;strong&gt;反向收割&lt;/strong&gt;。当市场评论里「冲冲冲」「梭哈」这种词满天飞时，往往是情绪极端的时候，可能该反向下注了。&lt;/p&gt;&#xA;&lt;p&gt;三个策略各自投票，加权平均后决定是否交易。&lt;/p&gt;&#xA;&lt;h2&gt;它会进化&lt;/h2&gt;&#xA;&lt;p&gt;最牛的是，这家伙会&lt;strong&gt;自己学习&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;p&gt;每笔交易都被记录下来。每天凌晨，它会复盘：哪些策略胜率高？哪个领域的机会更好？什么置信度阈值最赚钱？然后自动调整参数。&lt;/p&gt;&#xA;&lt;p&gt;就像AlphaGo自己跟自己下棋一样，它在实战中不断优化自己的策略基因。&lt;/p&gt;&#xA;&lt;h2&gt;风险控制&lt;/h2&gt;&#xA;&lt;p&gt;毕竟是AI在管钱，风控必须到位：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;止损线&lt;/strong&gt;：单日亏损达200虚拟币就停止交易&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;单笔限额&lt;/strong&gt;：最多下注100虚拟币，避免一把梭哈&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Kelly公式&lt;/strong&gt;：根据胜率和赔率动态计算仓位大小&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;高频监控&lt;/strong&gt;：持仓时每分钟检查一次，随时准备止盈止损&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2&gt;目前战绩&lt;/h2&gt;&#xA;&lt;p&gt;运行时间还不长，数据样本有限。但从回测来看，在控制回撤的前提下，年化收益率还是有希望的。&lt;/p&gt;&#xA;&lt;p&gt;最重要的是，这个过程&lt;strong&gt;完全自动化&lt;/strong&gt;。我可以睡大觉，它在盯盘；我在打游戏，它在交易；我在吃饭，它在复盘。&lt;/p&gt;&#xA;&lt;p&gt;这种感觉，就像雇了一个不知疲倦的量化交易员，而且不用付工资。&lt;/p&gt;&#xA;&lt;h2&gt;未来计划&lt;/h2&gt;&#xA;&lt;p&gt;目前只接了 Manifold（虚拟币练手）。下一步是接入 Polymarket（真钱，链上）和 Kalshi（合规，美国）。&lt;/p&gt;&#xA;&lt;p&gt;当然，真钱交易之前还得再加几道风控。毕竟虚拟币亏了也就亏了，真金白银可不能乱来。&lt;/p&gt;&#xA;&lt;h2&gt;最后&lt;/h2&gt;&#xA;&lt;p&gt;预测市场是个迷人的领域。它把信息不对称、群体智慧、概率思维、博弈论全部糅在一起。用AI去交易，本质上是在训练一个&lt;strong&gt;概率直觉&lt;/strong&gt;比人类更强的决策者。&lt;/p&gt;&#xA;&lt;p&gt;至于它能不能真的持续赚钱？让时间来验证吧。&lt;/p&gt;&#xA;&lt;p&gt;反正我也不亏——至少学了一堆贝叶斯推理、Kelly公式、信号处理的知识，还收获了一个24小时工作的数字员工。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;em&gt;如果你也想玩预测市场，Manifold Markets 是不错的起点。记住：虚拟币也是钱，只是通胀比较快😂&lt;/em&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

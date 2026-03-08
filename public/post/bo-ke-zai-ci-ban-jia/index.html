@@ -1,10 +1,232 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1">搬家缘由<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<h2 style="" id="%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88">搬家方案<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<h2 style="" id="%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88">修改ssl方案<p style="">后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n<h2 style="" id="%E7%BB%93%E6%9D%9F%E8%AF%AD">结束语<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'><title>博客再次搬家</title><link rel=canonical href=https://liuhp.net/post/bo-ke-zai-ci-ban-jia/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="博客再次搬家"><meta property='og:description' content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1">搬家缘由<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<h2 style="" id="%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88">搬家方案<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<h2 style="" id="%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88">修改ssl方案<p style="">后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n<h2 style="" id="%E7%BB%93%E6%9D%9F%E8%AF%AD">结束语<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'><meta property='og:url' content='https://liuhp.net/post/bo-ke-zai-ci-ban-jia/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-07-30T09:13:54+00:00'><meta property='article:modified_time' content='2025-07-30T09:13:54+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="博客再次搬家"><meta name=twitter:description content='[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["<h2 style="" id="%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1">搬家缘由<p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n<p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n<h2 style="" id="%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88">搬家方案<p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n<p style="">最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n<h2 style="" id="%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88">修改ssl方案<p style="">后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n<h2 style="" id="%E7%BB%93%E6%9D%9F%E8%AF%AD">结束语<p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/ style=background-color:#beefd2;color:#0f3d22>默认分类</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/bo-ke-zai-ci-ban-jia/>博客再次搬家</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2025-07-30T09:13:54Z>Wednesday, July 30, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装<em>Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。</em></p>&lt;p style=""><em>在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。</em></p>&lt;p style=""><em>目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。</em></p>&lt;p style=""><em>最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！</em></p>&lt;p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？</p>"]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:["&lt;h2 style="" id="%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1">搬家缘由</h2>&lt;p style="">好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。</p>&lt;p style="">在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。</p>&lt;h2 style="" id="%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88">搬家方案</h2>&lt;p style="">目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 <s>Nas</s> Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。</p>&lt;p style=""><s>最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！</s></p>&lt;h2 style="" id="%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88">修改ssl方案</h2>&lt;p style="">后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。</p>&lt;h2 style="" id="%E7%BB%93%E6%9D%9F%E8%AF%AD">结束语</h2>&lt;p style="">夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？</p>"]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
-2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1&quot;&gt;搬家缘由&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88&quot;&gt;搬家方案&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;h2 style=&quot;&quot; id=&quot;%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88&quot;&gt;修改ssl方案&lt;p style=&quot;&quot;&gt;后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n&lt;h2 style=&quot;&quot; id=&quot;%E7%BB%93%E6%9D%9F%E8%AF%AD&quot;&gt;结束语&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+<title>博客再次搬家</title>
+
+<link rel='canonical' href='https://liuhp.net/post/bo-ke-zai-ci-ban-jia/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="博客再次搬家">
+<meta property='og:description' content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1&quot;&gt;搬家缘由&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88&quot;&gt;搬家方案&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;h2 style=&quot;&quot; id=&quot;%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88&quot;&gt;修改ssl方案&lt;p style=&quot;&quot;&gt;后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n&lt;h2 style=&quot;&quot; id=&quot;%E7%BB%93%E6%9D%9F%E8%AF%AD&quot;&gt;结束语&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+<meta property='og:url' content='https://liuhp.net/post/bo-ke-zai-ci-ban-jia/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-30T09:13:54&#43;00:00'/><meta property='article:modified_time' content='2025-07-30T09:13:54&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="博客再次搬家">
+<meta name="twitter:description" content="[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1&quot;&gt;搬家缘由&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。\n&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。\n&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88&quot;&gt;搬家方案&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 Nas Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。\n&lt;p style=&quot;&quot;&gt;最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！\n&lt;h2 style=&quot;&quot; id=&quot;%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88&quot;&gt;修改ssl方案&lt;p style=&quot;&quot;&gt;后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。\n&lt;h2 style=&quot;&quot; id=&quot;%E7%BB%93%E6%9D%9F%E8%AF%AD&quot;&gt;结束语&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？\n&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" style="background-color: hsl(145, 60%, 84%); color: hsl(145, 60%, 15%);">
+                默认分类
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/bo-ke-zai-ci-ban-jia/">博客再次搬家</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2025-07-30T09:13:54Z'>Wednesday, July 30, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>[{&ldquo;source&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装<em>Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。</em></p>&lt;p style=&quot;&quot;&gt;<em>在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。</em></p>&lt;p style=&quot;&quot;&gt;<em>目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的nas里面的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。</em></p>&lt;p style=&quot;&quot;&gt;<em>最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！</em></p>&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？</p>&quot;]},&ldquo;target&rdquo;:{&ldquo;position&rdquo;:0,&ldquo;lines&rdquo;:[&quot;&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E7%BC%98%E7%94%B1&quot;&gt;搬家缘由</h2>&lt;p style=&quot;&quot;&gt;好几年没有折腾博客了，最近闲来无聊，准备折腾NAS里面的docker。原本准备在里面安装Minecraft服务器，结果怎么弄都没有搞好，折腾了两天，人也乏了。</p>&lt;p style=&quot;&quot;&gt;在我准备放弃不玩的时候，看到了halo这个开源博客，查看了下也能docker安装，于是就开始了博客的搬家之旅。</p>&lt;h2 style=&quot;&quot; id=&quot;%E6%90%AC%E5%AE%B6%E6%96%B9%E6%A1%88&quot;&gt;搬家方案</h2>&lt;p style=&quot;&quot;&gt;目前的方案是美国的一个垃圾小鸡，作为出口。然后通过内网穿透到家里的 <s>Nas</s> Arm硬件刷的istoreOS，在里面安装的halo服务器，数据转换也是比较顺滑。从typecho转换到halo没有出现数据丢失，就是图片没转移过来。索性我就搞了个很简洁的纯文字版本的博客算了。</p>&lt;p style=&quot;&quot;&gt;<s>最后用的cloudflare的网页加密的灵活方式ssl，加密了国内到cloudflare服务器之前的数据，cloudflare到美国服务器的这段没有加密。无所谓了，只要不在国内泄露数据就可以了，国外的人家才不会理我呢！</s></p>&lt;h2 style=&quot;&quot; id=&quot;%E4%BF%AE%E6%94%B9ssl%E6%96%B9%E6%A1%88&quot;&gt;修改ssl方案</h2>&lt;p style=&quot;&quot;&gt;后面想到一个新的方案，用caddy来自动申请ssl证书，再反代到穿透的端口就可以实现完美的效果。这样避免了cloudflaer到服务器这一段的无加密的情况。</p>&lt;h2 style=&quot;&quot; id=&quot;%E7%BB%93%E6%9D%9F%E8%AF%AD&quot;&gt;结束语</h2>&lt;p style=&quot;&quot;&gt;夏天来了，今年的夏天格外的热，一年比一年热。是因为年龄越来越大的缘故吗？</p>&quot;]},&ldquo;type&rdquo;:&ldquo;CHANGE&rdquo;}]</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -28,4 +250,23 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

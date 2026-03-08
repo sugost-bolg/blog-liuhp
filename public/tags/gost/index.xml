@@ -1,24 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gost on My Life is Going On</title><link>https://liuhp.net/tags/gost/</link><description>Recent content in Gost on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 28 Aug 2020 05:17:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/gost/index.xml" rel="self" type="application/rss+xml"/><item><title>构建GOST隧道中转</title><link>https://liuhp.net/post/86/</link><pubDate>Fri, 28 Aug 2020 05:17:00 +0000</pubDate><guid>https://liuhp.net/post/86/</guid><description>&lt;pre&gt;&lt;code&gt;wget -N --no-check-certificate https://github.com/ginuerzh/gost/releases/download/v2.11.0/gost-linux-amd64-2.11.0.gz &amp;amp;&amp;amp; gzip -d gost-linux-amd64-2.11.0.gz
-mv gost-linux-amd64-2.11.0 gost
-chmod +x gost
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;中转机安装gost
-中转机的gost安装和落地机是一模一样，但是很多国内的机器无法下载或是对于github的下载很是缓慢，所以我们这边直接给它上传一个gost包。&lt;/p&gt;
-&lt;p&gt;然后改名为gost（改名的目的只是让我们等下的运行命令简单些而已，没什么鸟用。。。）&lt;/p&gt;
-&lt;p&gt;然后赋予权限&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;chmod +x gost
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;开始中转
-中转需要用到以下命令，请自行区分中转机和落地机。&lt;/p&gt;
-&lt;p&gt;落地机命令（不用修改 7443落地机监听端口，8443为服务软件端口）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;nohup ./gost -L relay+tls://:7443/127.0.0.1:8443 &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;中转机命令（7443落地机监听端口，8443为中转机监听端口）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;nohup ./gost -L udp://:8443 -L tcp://:8443 -F relay+tls://落地机ip:7443 &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;不加密转发（转发本地7443端口到远程443端口）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;nohup ./gost -L :7443/v.winecoo.com:443?ttl=60s &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;关闭gost进程&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;kill -9 $(ps aux | grep &amp;quot;gost&amp;quot; | sed '/grep/d' | awk '{print $2}')
-&lt;/code&gt;&lt;/pre&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Gost on My Life is Going On</title>
+        <link>https://liuhp.net/tags/gost/</link>
+        <description>Recent content in Gost on My Life is Going On</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Fri, 28 Aug 2020 05:17:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/gost/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>构建GOST隧道中转</title>
+            <link>https://liuhp.net/post/86/</link>
+            <pubDate>Fri, 28 Aug 2020 05:17:00 +0000</pubDate>
+            <guid>https://liuhp.net/post/86/</guid>
+            <description>&lt;pre&gt;&lt;code&gt;wget -N --no-check-certificate https://github.com/ginuerzh/gost/releases/download/v2.11.0/gost-linux-amd64-2.11.0.gz &amp;amp;&amp;amp; gzip -d gost-linux-amd64-2.11.0.gz&#xD;&#xA;mv gost-linux-amd64-2.11.0 gost&#xD;&#xA;chmod +x gost&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;中转机安装gost&#xA;中转机的gost安装和落地机是一模一样，但是很多国内的机器无法下载或是对于github的下载很是缓慢，所以我们这边直接给它上传一个gost包。&lt;/p&gt;&#xA;&lt;p&gt;然后改名为gost（改名的目的只是让我们等下的运行命令简单些而已，没什么鸟用。。。）&lt;/p&gt;&#xA;&lt;p&gt;然后赋予权限&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;chmod +x gost&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;开始中转&#xA;中转需要用到以下命令，请自行区分中转机和落地机。&lt;/p&gt;&#xA;&lt;p&gt;落地机命令（不用修改 7443落地机监听端口，8443为服务软件端口）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;nohup ./gost -L relay+tls://:7443/127.0.0.1:8443 &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;中转机命令（7443落地机监听端口，8443为中转机监听端口）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;nohup ./gost -L udp://:8443 -L tcp://:8443 -F relay+tls://落地机ip:7443 &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;不加密转发（转发本地7443端口到远程443端口）&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;nohup ./gost -L :7443/v.winecoo.com:443?ttl=60s &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;关闭gost进程&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;kill -9 $(ps aux | grep &amp;quot;gost&amp;quot; | sed &#39;/grep/d&#39; | awk &#39;{print $2}&#39;)&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;</description>
+        </item></channel>
+</rss>
