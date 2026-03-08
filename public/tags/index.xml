@@ -5,19 +5,7 @@
         <description>Recent content in Tags on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 08 Mar 2026 22:13:01 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>OpenClaw</title>
-            <link>https://liuhp.net/tags/openclaw/</link>
-            <pubDate>Sun, 08 Mar 2026 22:13:01 +0800</pubDate>
-            <guid>https://liuhp.net/tags/openclaw/</guid>
-            <description></description>
-        </item><item>
-            <title>博客</title>
-            <link>https://liuhp.net/tags/%E5%8D%9A%E5%AE%A2/</link>
-            <pubDate>Sun, 08 Mar 2026 22:13:01 +0800</pubDate>
-            <guid>https://liuhp.net/tags/%E5%8D%9A%E5%AE%A2/</guid>
-            <description></description>
-        </item><item>
+        <lastBuildDate>Tue, 03 Mar 2026 07:00:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>BTC</title>
             <link>https://liuhp.net/tags/btc/</link>
             <pubDate>Tue, 03 Mar 2026 07:00:00 +0800</pubDate>
@@ -28,6 +16,12 @@
             <link>https://liuhp.net/tags/crypto/</link>
             <pubDate>Tue, 03 Mar 2026 07:00:00 +0800</pubDate>
             <guid>https://liuhp.net/tags/crypto/</guid>
+            <description></description>
+        </item><item>
+            <title>OpenClaw</title>
+            <link>https://liuhp.net/tags/openclaw/</link>
+            <pubDate>Tue, 03 Mar 2026 07:00:00 +0800</pubDate>
+            <guid>https://liuhp.net/tags/openclaw/</guid>
             <description></description>
         </item><item>
             <title>Trading</title>
@@ -48,7 +42,13 @@
             <guid>https://liuhp.net/tags/hugo/</guid>
             <description></description>
         </item><item>
-            <title>AI</title>
+            <title>博客</title>
+            <link>https://liuhp.net/tags/%E5%8D%9A%E5%AE%A2/</link>
+            <pubDate>Mon, 02 Mar 2026 17:09:00 +0800</pubDate>
+            <guid>https://liuhp.net/tags/%E5%8D%9A%E5%AE%A2/</guid>
+            <description></description>
+        </item><item>
+            <title>Ai</title>
             <link>https://liuhp.net/tags/ai/</link>
             <pubDate>Mon, 02 Mar 2026 11:59:00 +0800</pubDate>
             <guid>https://liuhp.net/tags/ai/</guid>
