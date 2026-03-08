@@ -1,189 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r&quot;server&quot;: &quot;0.0.0.0&quot;,\r&quot;nameserver&quot;: &quot;8.8.8.8&quot;,\r&quot;server\\_port&quot;: 10808,\r&quot;password&quot;: &quot;hk123456&quot;,\r&quot;method&quot;: &quot;chacha20-ietf-poly1305&quot;,\r&quot;timeout&quot;: 600,\r&quot;no\\_delay&quot;: true,\r&quot;mode&quot;: &quot;tcp\\_and\\_udp&quot;,\r&quot;plugin&quot;: &quot;&quot;,\r&quot;plugin\\_opts&quot;: &quot;&quot;\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json &gt; /dev/null 2&gt;&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n">
-<title>Centos 7-8 通过snap安装配置shadowsocks-libev</title>
-
-<link rel='canonical' href='https://liuhp.net/post/146/'>
-
-<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="Centos 7-8 通过snap安装配置shadowsocks-libev">
-<meta property='og:description' content="1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r&quot;server&quot;: &quot;0.0.0.0&quot;,\r&quot;nameserver&quot;: &quot;8.8.8.8&quot;,\r&quot;server\\_port&quot;: 10808,\r&quot;password&quot;: &quot;hk123456&quot;,\r&quot;method&quot;: &quot;chacha20-ietf-poly1305&quot;,\r&quot;timeout&quot;: 600,\r&quot;no\\_delay&quot;: true,\r&quot;mode&quot;: &quot;tcp\\_and\\_udp&quot;,\r&quot;plugin&quot;: &quot;&quot;,\r&quot;plugin\\_opts&quot;: &quot;&quot;\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json &gt; /dev/null 2&gt;&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n">
-<meta property='og:url' content='https://liuhp.net/post/146/'>
-<meta property='og:site_name' content='My Life is Going On'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-07-09T02:18:00&#43;00:00'/><meta property='article:modified_time' content='2021-07-09T02:18:00&#43;00:00'/>
-<meta name="twitter:site" content="@sugost">
-    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="Centos 7-8 通过snap安装配置shadowsocks-libev">
-<meta name="twitter:description" content="1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r&quot;server&quot;: &quot;0.0.0.0&quot;,\r&quot;nameserver&quot;: &quot;8.8.8.8&quot;,\r&quot;server\\_port&quot;: 10808,\r&quot;password&quot;: &quot;hk123456&quot;,\r&quot;method&quot;: &quot;chacha20-ietf-poly1305&quot;,\r&quot;timeout&quot;: 600,\r&quot;no\\_delay&quot;: true,\r&quot;mode&quot;: &quot;tcp\\_and\\_udp&quot;,\r&quot;plugin&quot;: &quot;&quot;,\r&quot;plugin\\_opts&quot;: &quot;&quot;\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json &gt; /dev/null 2&gt;&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n">
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
-            <h2 class="site-description"></h2>
-        </div>
-    </header><ol class="menu" id="main-menu">
-        
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    
-
-            <main class="main full-width">
-    <article class="main-article">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            
-            
-            
-            <a href="/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/" style="background-color: hsl(287, 60%, 84%); color: hsl(287, 60%, 15%);">
-                电脑网络
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/post/146/">Centos 7-8 通过snap安装配置shadowsocks-libev</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published" datetime='2021-07-09T02:18:00Z'>Friday, July 9, 2021</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    1 minute read
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    
-
-    <section class="article-content">
-    
-    
-    <p>1、安装和启用EPEL Repository</p>
-<pre><code>yum install epel-release -y
-</code></pre>
-<p>2、安装snap
-通过snap来安装应用可以运行在单独的环境不影响主机系统。</p>
-<pre><code>yum install snapd
-</code></pre>
-<p>添加snap启动通信 socket</p>
-<pre><code>systemctl enable --now snapd.socket
-</code></pre>
-<p>创建链接（snap软件包一般安装在/snap目录下）</p>
-<pre><code>ln -s /var/lib/snapd/snap /snap
-</code></pre>
-<p>3、安装shadowsocks-libev稳定版</p>
-<pre><code>snap install shadowsocks-libev
-</code></pre>
-<p>4、建立shadowsocks-libev配置文件</p>
-<pre><code>vim /snap/bin/config.json
-</code></pre>
-<p>注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json</p>
-<p>输入以下内容：</p>
-<pre><code>{
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r"server": "0.0.0.0",\r"nameserver": "8.8.8.8",\r"server\\_port": 10808,\r"password": "hk123456",\r"method": "chacha20-ietf-poly1305",\r"timeout": 600,\r"no\\_delay": true,\r"mode": "tcp\\_and\\_udp",\r"plugin": "",\r"plugin\\_opts": ""\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json > /dev/null 2>&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n'><title>Centos 7-8 通过snap安装配置shadowsocks-libev</title><link rel=canonical href=https://liuhp.net/post/146/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="Centos 7-8 通过snap安装配置shadowsocks-libev"><meta property='og:description' content='1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r"server": "0.0.0.0",\r"nameserver": "8.8.8.8",\r"server\\_port": 10808,\r"password": "hk123456",\r"method": "chacha20-ietf-poly1305",\r"timeout": 600,\r"no\\_delay": true,\r"mode": "tcp\\_and\\_udp",\r"plugin": "",\r"plugin\\_opts": ""\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json > /dev/null 2>&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n'><meta property='og:url' content='https://liuhp.net/post/146/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2021-07-09T02:18:00+00:00'><meta property='article:modified_time' content='2021-07-09T02:18:00+00:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="Centos 7-8 通过snap安装配置shadowsocks-libev"><meta name=twitter:description content='1、安装和启用EPEL Repository\nyum install epel-release -y\r2、安装snap 通过snap来安装应用可以运行在单独的环境不影响主机系统。\nyum install snapd\r添加snap启动通信 socket\nsystemctl enable --now snapd.socket\r创建链接（snap软件包一般安装在/snap目录下）\nln -s /var/lib/snapd/snap /snap\r3、安装shadowsocks-libev稳定版\nsnap install shadowsocks-libev\r4、建立shadowsocks-libev配置文件\nvim /snap/bin/config.json\r注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json\n输入以下内容：\n{\r"server": "0.0.0.0",\r"nameserver": "8.8.8.8",\r"server\\_port": 10808,\r"password": "hk123456",\r"method": "chacha20-ietf-poly1305",\r"timeout": 600,\r"no\\_delay": true,\r"mode": "tcp\\_and\\_udp",\r"plugin": "",\r"plugin\\_opts": ""\r}\r5、建立shadowsocks-libev的service单元配置文件\nvim /lib/systemd/system/ss.service\r输入以下内容：\n[Unit]\rDescription=Shadowsocks Server\rAfter=network.target\r[Service]\rRestart=on-abnormal\rExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json > /dev/null 2>&amp;1\r[Install]\rWantedBy=multi-user.target\r6、设置开机启动shadowsocks-libev\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/ style=background-color:#e4beef;color:#330f3d>电脑网络</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/146/>Centos 7-8 通过snap安装配置shadowsocks-libev</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2021-07-09T02:18:00Z>Friday, July 9, 2021</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>1 minute read</time></div></footer></div></header><section class=article-content><p>1、安装和启用EPEL Repository</p><pre><code>yum install epel-release -y
+</code></pre><p>2、安装snap
+通过snap来安装应用可以运行在单独的环境不影响主机系统。</p><pre><code>yum install snapd
+</code></pre><p>添加snap启动通信 socket</p><pre><code>systemctl enable --now snapd.socket
+</code></pre><p>创建链接（snap软件包一般安装在/snap目录下）</p><pre><code>ln -s /var/lib/snapd/snap /snap
+</code></pre><p>3、安装shadowsocks-libev稳定版</p><pre><code>snap install shadowsocks-libev
+</code></pre><p>4、建立shadowsocks-libev配置文件</p><pre><code>vim /snap/bin/config.json
+</code></pre><p>注意：配置文件位置变了，不同于直接安装时 /etc/shadowsocks/config.json</p><p>输入以下内容：</p><pre><code>{
 &quot;server&quot;: &quot;0.0.0.0&quot;,
 &quot;nameserver&quot;: &quot;8.8.8.8&quot;,
 &quot;server\_port&quot;: 10808,
@@ -195,12 +22,8 @@
 &quot;plugin&quot;: &quot;&quot;,
 &quot;plugin\_opts&quot;: &quot;&quot;
 }
-</code></pre>
-<p>5、建立shadowsocks-libev的service单元配置文件</p>
-<pre><code>vim /lib/systemd/system/ss.service
-</code></pre>
-<p>输入以下内容：</p>
-<pre><code>[Unit]
+</code></pre><p>5、建立shadowsocks-libev的service单元配置文件</p><pre><code>vim /lib/systemd/system/ss.service
+</code></pre><p>输入以下内容：</p><pre><code>[Unit]
 Description=Shadowsocks Server
 After=network.target
 
@@ -210,98 +33,17 @@ ExecStart=/snap/bin/shadowsocks-libev.ss-server -c /snap/bin/config.json &gt; /d
 
 [Install]
 WantedBy=multi-user.target
-</code></pre>
-<p>6、设置开机启动shadowsocks-libev</p>
-<pre><code>systemctl daemon-reload
+</code></pre><p>6、设置开机启动shadowsocks-libev</p><pre><code>systemctl daemon-reload
 systemctl start ss.service
 systemctl enable ss.service
-</code></pre>
-<ol start="7">
-<li>
-<p>防火墙开放shadowsocks-libev服务端口：</p>
-<p>firewall-cmd &ndash;permanent &ndash;add-port=自定义服务端口/tcp
+</code></pre><ol start=7><li><p>防火墙开放shadowsocks-libev服务端口：</p><p>firewall-cmd &ndash;permanent &ndash;add-port=自定义服务端口/tcp
 firewall-cmd &ndash;permanent &ndash;add-port=自定义服务端口/udp
-firewall-cmd &ndash;reload</p>
-</li>
-<li>
-<p>常用操作
-停止shadowsocks-libev服务</p>
-<p>systemctl stop ss.service</p>
-</li>
-</ol>
-<p>取消shadowsocks-libev开机自启</p>
-<pre><code>systemctl disable ss.service
-</code></pre>
-<p>升级shadowsocks-libev版本</p>
-<pre><code>snap refresh shadowsocks-libev
-</code></pre>
-<p>移除shadowsocks-libev应用（还需要手工清理上文第四节第五节涉及的配置文件）</p>
-<pre><code>snap remove shadowsocks-libev
-</code></pre>
-
-</section>
-
-
-    <footer class="article-footer">
-    
-
-    </footer>
-
-
-    
-</article>
-
-    
-
-    
-
-     
-    
-        
-    <div class="disqus-container">
-    
-</div>
-
-<style>
-    .disqus-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-    }
-</style>
-
-<script>
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (typeof DISQUS == 'object') {
-            DISQUS.reset({
-                reload: true
-            });
-        }
-    })
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-        2026 My Life is Going On
-    </section>
-    
-    <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
-    </section>
-</footer>
-
-
-    
-
-
-
-<script type="module">
+firewall-cmd &ndash;reload</p></li><li><p>常用操作
+停止shadowsocks-libev服务</p><p>systemctl stop ss.service</p></li></ol><p>取消shadowsocks-libev开机自启</p><pre><code>systemctl disable ss.service
+</code></pre><p>升级shadowsocks-libev版本</p><pre><code>snap refresh shadowsocks-libev
+</code></pre><p>移除shadowsocks-libev应用（还需要手工清理上文第四节第五节涉及的配置文件）</p><pre><code>snap remove shadowsocks-libev
+</code></pre></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -325,23 +67,4 @@ firewall-cmd &ndash;reload</p>
         });
         lightbox.init();
     }
-</script>
-    
-
-            </main>
-        </div>
-        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-
-    </body>
-</html>
+</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

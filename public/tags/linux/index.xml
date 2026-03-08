@@ -1,15 +1,80 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Linux on My Life is Going On</title>
-        <link>https://liuhp.net/tags/linux/</link>
-        <description>Recent content in Linux on My Life is Going On</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Wed, 17 Mar 2021 19:49:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>Manjaro KDE 裝機記錄</title>
-            <link>https://liuhp.net/post/124/</link>
-            <pubDate>Wed, 17 Mar 2021 19:49:00 +0000</pubDate>
-            <guid>https://liuhp.net/post/124/</guid>
-            <description>&lt;p&gt;先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。&lt;/p&gt;&#xA;&lt;p&gt;Manjaro KDE 切换国内源及软件安装&lt;/p&gt;&#xA;&lt;p&gt;1.配置镜像源:&lt;/p&gt;&#xA;&lt;p&gt;sudo pacman-mirrors -i -c China -m rank&lt;/p&gt;&#xA;&lt;p&gt;3.更新源列表&lt;/p&gt;&#xA;&lt;p&gt;sudo pacman-mirrors -g&lt;/p&gt;&#xA;&lt;p&gt;4.更新pacman数据库并全面更新系统&lt;/p&gt;&#xA;&lt;h2 id=&#34;sudo-pacman--syyu&#34;&gt;sudo pacman -Syyu&#xA;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;更新完後開始裝軟件和配置主題&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;一、安装fcitx5、配置工具、rime&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;二、在fcitx5中填加RIME输入法&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;三、设置fcitx5为开机启动&lt;/p&gt;&#xA;&lt;p&gt;1、在用户文件夹下创建.xprofile配置文件&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  输入命令&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;sudo vim ~/.xprofile&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  然后插入如下内容&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;export GTK_IM_MODULE=fcitx5&lt;/p&gt;&#xA;&lt;p&gt;export QT_IM_MODULE=fcitx5&lt;/p&gt;&#xA;&lt;p&gt;export XMODIFIERS=@im=fcitx&lt;/p&gt;&#xA;&lt;p&gt;2、设置fcitx5为开机启动&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  ①: 直接在~/.xprofile中插入下面这行&#xD;&#xA;&#xD;&#xA;  fcitx5 &amp;amp;&#xD;&#xA;&#xD;&#xA;  ②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;四、安装RIME五笔方案&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;1、五笔码表下载地址https://github.com/rime/rime-wubi&#xD;&#xA;&#xD;&#xA;2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中&#xD;&#xA;&#xD;&#xA;3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入&#xD;&#xA;&#xD;&#xA;schema: wubi86&#xD;&#xA;&#xD;&#xA;schema: wubi_pinyin&#xD;&#xA;&#xD;&#xA;schema: wubi_trad&#xD;&#xA;&#xD;&#xA;4、重启fcitx5&#xD;&#xA;&#xD;&#xA;5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;strong&gt;主題安裝&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;主題中心下載 全局主題 layan 設置完後，可能需要調整面板位置，&lt;/p&gt;&#xA;&lt;p&gt;到軟件中心下載 latte 這個是底部的dock，設置完需要顯示的效果&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;strong&gt;裝到這裏後就可以去選擇自己想要的軟件安裝了。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;記錄下自己常用的軟件，在軟件中心可以直接安裝的有一下：&lt;/p&gt;&#xA;&lt;p&gt;telegram  聊天軟件&lt;/p&gt;&#xA;&lt;p&gt;vlc  音樂播放器&lt;/p&gt;&#xA;&lt;p&gt;remmina  遠程桌面登錄&lt;/p&gt;&#xA;&lt;p&gt;simplescreenrecorder  錄屏軟件&lt;/p&gt;&#xA;&lt;p&gt;FileZilla  ftp客戶端&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;軟件中心沒有谷歌裝，需要手動編譯&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;git clone https://aur.archlinux.org/google-chrome.git&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;進入下載後的目錄一般在$home下，進入谷歌軟件的目錄執行 &lt;code&gt;makepkg -si&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;編譯好後會下載一些文件，如果有看到chrome-*.tar.zst 這樣的文件就可以直接安裝，如果沒有的話就執行&lt;code&gt;sudo pacman -U google-chrome*.tar.xz&lt;/code&gt; 會編譯下載來的deb的安裝包。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;pre&gt;&lt;code&gt;v2rayA下载安装及使用教程 支持VMess/VLESS/SS/SSR/Trojan&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;archlinux/manjaro v2raya已发布于AUR中：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;git clone https://aur.archlinux.org/v2raya.git /tmp/v2raya&#xD;&#xA;cd /tmp/v2raya&#xD;&#xA;makepkg -si&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;如果makepkg失败，运行以下命令再试：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;sudo pacman -S base-devel&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;部署完毕后，访问该机器的2017端口即可使用，如http://localhost:2017。&#xA;由於源用國內源，安裝過程需要翻牆。&lt;/p&gt;&#xA;</description>
-        </item></channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on My Life is Going On</title><link>https://liuhp.net/tags/linux/</link><description>Recent content in Linux on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 17 Mar 2021 19:49:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Manjaro KDE 裝機記錄</title><link>https://liuhp.net/post/124/</link><pubDate>Wed, 17 Mar 2021 19:49:00 +0000</pubDate><guid>https://liuhp.net/post/124/</guid><description>&lt;p&gt;先到國內鏡像網站下載安裝鏡像然後用rufus-3.0或者一下的版本選擇 DD模式 燒錄進u盤，如果以後系統版本更新或者不要DD模式，具體看燒錄的效果，不行再換其他的燒錄。&lt;/p&gt;
+&lt;p&gt;Manjaro KDE 切换国内源及软件安装&lt;/p&gt;
+&lt;p&gt;1.配置镜像源:&lt;/p&gt;
+&lt;p&gt;sudo pacman-mirrors -i -c China -m rank&lt;/p&gt;
+&lt;p&gt;3.更新源列表&lt;/p&gt;
+&lt;p&gt;sudo pacman-mirrors -g&lt;/p&gt;
+&lt;p&gt;4.更新pacman数据库并全面更新系统&lt;/p&gt;
+&lt;h2 id="sudo-pacman--syyu"&gt;sudo pacman -Syyu
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;更新完後開始裝軟件和配置主題&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一、安装fcitx5、配置工具、rime&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;二、在fcitx5中填加RIME输入法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; 打开fcitx5设置工具，然后点击填加输入法，找到RIME，然后填加
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;三、设置fcitx5为开机启动&lt;/p&gt;
+&lt;p&gt;1、在用户文件夹下创建.xprofile配置文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; 输入命令
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;sudo vim ~/.xprofile&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; 然后插入如下内容
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;export GTK_IM_MODULE=fcitx5&lt;/p&gt;
+&lt;p&gt;export QT_IM_MODULE=fcitx5&lt;/p&gt;
+&lt;p&gt;export XMODIFIERS=@im=fcitx&lt;/p&gt;
+&lt;p&gt;2、设置fcitx5为开机启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; ①: 直接在~/.xprofile中插入下面这行
+
+ fcitx5 &amp;amp;
+
+ ②: 如果是KDE用户，可在系统设置-启动和关闭-自启动中填加fcitx5为开机自启动
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;四、安装RIME五笔方案&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1、五笔码表下载地址https://github.com/rime/rime-wubi
+
+2、将下载的文件解压并将其中的.yaml文件复到/usr/share/rime-data中
+
+3、编辑/usr/share/rime-data/default.yaml并在scheama_list段落下插入
+
+schema: wubi86
+
+schema: wubi_pinyin
+
+schema: wubi_trad
+
+4、重启fcitx5
+
+5、切换输入法为RIME，按F4,然后用上下箭头选择五笔或所要使用的输入法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;主題安裝&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;主題中心下載 全局主題 layan 設置完後，可能需要調整面板位置，&lt;/p&gt;
+&lt;p&gt;到軟件中心下載 latte 這個是底部的dock，設置完需要顯示的效果&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;裝到這裏後就可以去選擇自己想要的軟件安裝了。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;記錄下自己常用的軟件，在軟件中心可以直接安裝的有一下：&lt;/p&gt;
+&lt;p&gt;telegram 聊天軟件&lt;/p&gt;
+&lt;p&gt;vlc 音樂播放器&lt;/p&gt;
+&lt;p&gt;remmina 遠程桌面登錄&lt;/p&gt;
+&lt;p&gt;simplescreenrecorder 錄屏軟件&lt;/p&gt;
+&lt;p&gt;FileZilla ftp客戶端&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;軟件中心沒有谷歌裝，需要手動編譯&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://aur.archlinux.org/google-chrome.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;進入下載後的目錄一般在$home下，進入谷歌軟件的目錄執行 &lt;code&gt;makepkg -si&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;編譯好後會下載一些文件，如果有看到chrome-*.tar.zst 這樣的文件就可以直接安裝，如果沒有的話就執行&lt;code&gt;sudo pacman -U google-chrome*.tar.xz&lt;/code&gt; 會編譯下載來的deb的安裝包。&lt;/p&gt;
+&lt;hr&gt;
+&lt;pre&gt;&lt;code&gt;v2rayA下载安装及使用教程 支持VMess/VLESS/SS/SSR/Trojan
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;archlinux/manjaro v2raya已发布于AUR中：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://aur.archlinux.org/v2raya.git /tmp/v2raya
+cd /tmp/v2raya
+makepkg -si
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果makepkg失败，运行以下命令再试：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo pacman -S base-devel
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;部署完毕后，访问该机器的2017端口即可使用，如http://localhost:2017。
+由於源用國內源，安裝過程需要翻牆。&lt;/p&gt;</description></item></channel></rss>

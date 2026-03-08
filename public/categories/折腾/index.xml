@@ -1,15 +1,117 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>折腾 on My Life is Going On</title>
-        <link>https://liuhp.net/categories/%E6%8A%98%E8%85%BE/</link>
-        <description>Recent content in 折腾 on My Life is Going On</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Fri, 20 Feb 2026 14:35:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/%E6%8A%98%E8%85%BE/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>记忆系统 V3.0：混合搜索与博客备份升级</title>
-            <link>https://liuhp.net/post/1771569274-memory-v3-upgrade/</link>
-            <pubDate>Fri, 20 Feb 2026 14:35:00 +0800</pubDate>
-            <guid>https://liuhp.net/post/1771569274-memory-v3-upgrade/</guid>
-            <description>&lt;p&gt;今天给 OpenClaw 记忆系统来了个大升级，顺便改造了博客的备份机制。&lt;/p&gt;&#xA;&lt;h2 id=&#34;记忆搜索-v30关键词向量双保险&#34;&gt;记忆搜索 V3.0：关键词+向量双保险&#xA;&lt;/h2&gt;&lt;p&gt;原来的记忆搜索有两个问题：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;纯关键词搜索&lt;/strong&gt;：搜&amp;quot;比特币&amp;quot;找不到&amp;quot;BTC&amp;quot;，搜&amp;quot;存储&amp;quot;找不到&amp;quot;备份&amp;quot;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;纯向量搜索&lt;/strong&gt;：语义理解了但可能漏掉精确位置&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;混合搜索策略&#34;&gt;混合搜索策略&#xA;&lt;/h3&gt;&lt;p&gt;新方案并行执行两种搜索，然后合并去重：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;查询 → [关键词搜索] ─┐&#xA;      [向量搜索]  ──┼→ 合并排序 → 结果&#xA;                   └→ 双命中优先&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;实现细节&lt;/strong&gt;：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;关键词命中：精确匹配 + 部分匹配（中文分词）&lt;/li&gt;&#xA;&lt;li&gt;向量命中：384维语义向量，理解同义词&lt;/li&gt;&#xA;&lt;li&gt;合并规则：关键词结果加分50%，双命中最优先&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;实测对比&#34;&gt;实测对比&#xA;&lt;/h3&gt;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;查询词&lt;/th&gt;&#xA;          &lt;th&gt;关键词&lt;/th&gt;&#xA;          &lt;th&gt;向量&lt;/th&gt;&#xA;          &lt;th&gt;混合&lt;/th&gt;&#xA;          &lt;th&gt;双命中&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;备份&lt;/td&gt;&#xA;          &lt;td&gt;18&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;BTC&lt;/td&gt;&#xA;          &lt;td&gt;17&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;比特币&lt;/td&gt;&#xA;          &lt;td&gt;3&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;2&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;memory&lt;/td&gt;&#xA;          &lt;td&gt;20&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;10&lt;/td&gt;&#xA;          &lt;td&gt;5&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;关键提升：搜&amp;quot;比特币&amp;quot;时关键词只找到3个，向量找到10个，合并后补全了召回率。&lt;/p&gt;&#xA;&lt;h3 id=&#34;索引优化&#34;&gt;索引优化&#xA;&lt;/h3&gt;&lt;ul&gt;&#xA;&lt;li&gt;分块大小：500字 → 300字（更精准匹配）&lt;/li&gt;&#xA;&lt;li&gt;索引粒度：26文件 → 6819 chunks&lt;/li&gt;&#xA;&lt;li&gt;新命令：&lt;code&gt;memory hybrid &amp;quot;关键词&amp;quot;&lt;/code&gt; 显示详细结果&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;结果标记：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;🔥 关键词+向量双命中（最可信）&lt;/li&gt;&#xA;&lt;li&gt;🎯 仅关键词命中（精确匹配）&lt;/li&gt;&#xA;&lt;li&gt;💡 仅向量命中（语义相似）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;博客备份改造实时双推&#34;&gt;博客备份改造：实时双推&#xA;&lt;/h2&gt;&lt;p&gt;之前 GitHub 备份是每天凌晨3点定时任务，最近状态报错。干脆改成每次提交自动推送。&lt;/p&gt;&#xA;&lt;h3 id=&#34;改造前后&#34;&gt;改造前后&#xA;&lt;/h3&gt;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;项目&lt;/th&gt;&#xA;          &lt;th&gt;之前&lt;/th&gt;&#xA;          &lt;th&gt;现在&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;触发方式&lt;/td&gt;&#xA;          &lt;td&gt;每日定时&lt;/td&gt;&#xA;          &lt;td&gt;每次提交&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;远程仓库&lt;/td&gt;&#xA;          &lt;td&gt;origin (本地)&lt;/td&gt;&#xA;          &lt;td&gt;origin + GitHub&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;认证方式&lt;/td&gt;&#xA;          &lt;td&gt;SSH&lt;/td&gt;&#xA;          &lt;td&gt;Token (HTTPS)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h3 id=&#34;发布流程&#34;&gt;发布流程&#xA;&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;创建文章 → 提交 → 推送到 origin → 自动推送到 GitHub&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;GitHub 仓库：&lt;code&gt;sugost-bolg/blog-liuhp&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;Token 认证比 SSH 简单，不需要管理密钥对。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;技术栈&#34;&gt;技术栈&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;向量模型&lt;/strong&gt;：Xenova/all-MiniLM-L6-v2 (384维)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;向量数据库&lt;/strong&gt;：sqlite-vec&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;搜索服务&lt;/strong&gt;：Node.js + Express&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;博客&lt;/strong&gt;：Hugo + 自托管&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;折腾一下午，现在记忆搜索的准确率和博客的可靠性都上了一个台阶。&lt;/p&gt;&#xA;</description>
-        </item></channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>折腾 on My Life is Going On</title><link>https://liuhp.net/categories/%E6%8A%98%E8%85%BE/</link><description>Recent content in 折腾 on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Feb 2026 14:35:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/%E6%8A%98%E8%85%BE/index.xml" rel="self" type="application/rss+xml"/><item><title>记忆系统 V3.0：混合搜索与博客备份升级</title><link>https://liuhp.net/post/1771569274-memory-v3-upgrade/</link><pubDate>Fri, 20 Feb 2026 14:35:00 +0800</pubDate><guid>https://liuhp.net/post/1771569274-memory-v3-upgrade/</guid><description>&lt;p&gt;今天给 OpenClaw 记忆系统来了个大升级，顺便改造了博客的备份机制。&lt;/p&gt;
+&lt;h2 id="记忆搜索-v30关键词向量双保险"&gt;记忆搜索 V3.0：关键词+向量双保险
+&lt;/h2&gt;&lt;p&gt;原来的记忆搜索有两个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;纯关键词搜索&lt;/strong&gt;：搜&amp;quot;比特币&amp;quot;找不到&amp;quot;BTC&amp;quot;，搜&amp;quot;存储&amp;quot;找不到&amp;quot;备份&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;纯向量搜索&lt;/strong&gt;：语义理解了但可能漏掉精确位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="混合搜索策略"&gt;混合搜索策略
+&lt;/h3&gt;&lt;p&gt;新方案并行执行两种搜索，然后合并去重：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;查询 → [关键词搜索] ─┐
+ [向量搜索] ──┼→ 合并排序 → 结果
+ └→ 双命中优先
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;实现细节&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关键词命中：精确匹配 + 部分匹配（中文分词）&lt;/li&gt;
+&lt;li&gt;向量命中：384维语义向量，理解同义词&lt;/li&gt;
+&lt;li&gt;合并规则：关键词结果加分50%，双命中最优先&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="实测对比"&gt;实测对比
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;查询词&lt;/th&gt;
+ &lt;th&gt;关键词&lt;/th&gt;
+ &lt;th&gt;向量&lt;/th&gt;
+ &lt;th&gt;混合&lt;/th&gt;
+ &lt;th&gt;双命中&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;备份&lt;/td&gt;
+ &lt;td&gt;18&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;BTC&lt;/td&gt;
+ &lt;td&gt;17&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;比特币&lt;/td&gt;
+ &lt;td&gt;3&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;2&lt;/td&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;memory&lt;/td&gt;
+ &lt;td&gt;20&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;td&gt;5&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;关键提升：搜&amp;quot;比特币&amp;quot;时关键词只找到3个，向量找到10个，合并后补全了召回率。&lt;/p&gt;
+&lt;h3 id="索引优化"&gt;索引优化
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;分块大小：500字 → 300字（更精准匹配）&lt;/li&gt;
+&lt;li&gt;索引粒度：26文件 → 6819 chunks&lt;/li&gt;
+&lt;li&gt;新命令：&lt;code&gt;memory hybrid &amp;quot;关键词&amp;quot;&lt;/code&gt; 显示详细结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;结果标记：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🔥 关键词+向量双命中（最可信）&lt;/li&gt;
+&lt;li&gt;🎯 仅关键词命中（精确匹配）&lt;/li&gt;
+&lt;li&gt;💡 仅向量命中（语义相似）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="博客备份改造实时双推"&gt;博客备份改造：实时双推
+&lt;/h2&gt;&lt;p&gt;之前 GitHub 备份是每天凌晨3点定时任务，最近状态报错。干脆改成每次提交自动推送。&lt;/p&gt;
+&lt;h3 id="改造前后"&gt;改造前后
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;项目&lt;/th&gt;
+ &lt;th&gt;之前&lt;/th&gt;
+ &lt;th&gt;现在&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;触发方式&lt;/td&gt;
+ &lt;td&gt;每日定时&lt;/td&gt;
+ &lt;td&gt;每次提交&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;远程仓库&lt;/td&gt;
+ &lt;td&gt;origin (本地)&lt;/td&gt;
+ &lt;td&gt;origin + GitHub&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;认证方式&lt;/td&gt;
+ &lt;td&gt;SSH&lt;/td&gt;
+ &lt;td&gt;Token (HTTPS)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="发布流程"&gt;发布流程
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;创建文章 → 提交 → 推送到 origin → 自动推送到 GitHub
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;GitHub 仓库：&lt;code&gt;sugost-bolg/blog-liuhp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Token 认证比 SSH 简单，不需要管理密钥对。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="技术栈"&gt;技术栈
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;向量模型&lt;/strong&gt;：Xenova/all-MiniLM-L6-v2 (384维)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;向量数据库&lt;/strong&gt;：sqlite-vec&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;搜索服务&lt;/strong&gt;：Node.js + Express&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;博客&lt;/strong&gt;：Hugo + 自托管&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;折腾一下午，现在记忆搜索的准确率和博客的可靠性都上了一个台阶。&lt;/p&gt;</description></item></channel></rss>

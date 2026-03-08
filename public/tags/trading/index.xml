@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Trading on My Life is Going On</title><link>https://liuhp.net/tags/trading/</link><description>Recent content in Trading on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 03 Mar 2026 07:00:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/trading/index.xml" rel="self" type="application/rss+xml"/><item><title>Crypto Alpha v4.0 发布：加密货币分析工具全面重构</title><link>https://liuhp.net/post/2026-03-03-crypto-alpha-v4/</link><pubDate>Tue, 03 Mar 2026 07:00:00 +0800</pubDate><guid>https://liuhp.net/post/2026-03-03-crypto-alpha-v4/</guid><description>&lt;h1 id="-crypto-alpha-v40-发布"&gt;🎉 Crypto Alpha v4.0 发布
+&lt;/h1&gt;&lt;h2 id="-背景"&gt;📌 背景
+&lt;/h2&gt;&lt;p&gt;Crypto Alpha 是一个开源的加密货币链上分析工具，通过多维度数据指标生成投资建议。之前叫 &lt;code&gt;btc-alpha&lt;/code&gt;，现在更名为 &lt;code&gt;crypto-alpha&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-更新内容"&gt;🆕 更新内容
+&lt;/h2&gt;&lt;h3 id="1-技能重命名"&gt;1. 技能重命名
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;旧名称&lt;/th&gt;
+ &lt;th&gt;新名称&lt;/th&gt;
+ &lt;th&gt;功能&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;btc-alpha&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;crypto-alpha&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;纯分析，无交易API&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;btc-alpha-trader&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;crypto-trader&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;交易执行，需OKX API&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="2-架构重构"&gt;2. 架构重构
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;scripts/
+├── src/
+│ ├── cli.mjs # 统一入口
+│ ├── commands/ # 命令模块
+│ ├── data/ # 数据获取 + 缓存
+│ ├── ai/ # AI对话
+│ └── strategy/ # 评分策略
+└── vendor/
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="3-评分系统-v20"&gt;3. 评分系统 v2.0
+&lt;/h3&gt;&lt;h4 id="指标权重"&gt;指标权重
+&lt;/h4&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;指标&lt;/th&gt;
+ &lt;th&gt;权重&lt;/th&gt;
+ &lt;th&gt;说明&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;MVRV Z-Score&lt;/td&gt;
+ &lt;td&gt;30%&lt;/td&gt;
+ &lt;td&gt;长期估值&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;SOPR&lt;/td&gt;
+ &lt;td&gt;25%&lt;/td&gt;
+ &lt;td&gt;持有者行为&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;净流入&lt;/td&gt;
+ &lt;td&gt;25%&lt;/td&gt;
+ &lt;td&gt;资金流向&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Puell&lt;/td&gt;
+ &lt;td&gt;20%&lt;/td&gt;
+ &lt;td&gt;挖矿收益&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id="行动建议"&gt;行动建议
+&lt;/h4&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;评分&lt;/th&gt;
+ &lt;th&gt;行动&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;≥15&lt;/td&gt;
+ &lt;td&gt;强烈买入&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;5~15&lt;/td&gt;
+ &lt;td&gt;适度买入&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;-5~5&lt;/td&gt;
+ &lt;td&gt;持有观望&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;-15~-5&lt;/td&gt;
+ &lt;td&gt;适度减仓&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&amp;lt;-15&lt;/td&gt;
+ &lt;td&gt;建议清仓&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="4-telegram-快捷菜单"&gt;4. Telegram 快捷菜单
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;母子菜单结构&lt;/li&gt;
+&lt;li&gt;AI对话理解（3B模型）&lt;/li&gt;
+&lt;li&gt;自然语言执行命令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="5-性能优化"&gt;5. 性能优化
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;数据缓存：5分钟TTL&lt;/li&gt;
+&lt;li&gt;自动重试：失败3次&lt;/li&gt;
+&lt;li&gt;失败降级：返回缓存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="-使用方法"&gt;📊 使用方法
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 分析&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;node crypto-alpha/src/cli.mjs analyze
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 问答&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;node crypto-alpha/src/cli.mjs ask &lt;span style="color:#e6db74"&gt;&amp;#34;现在能买吗？&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 交易&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;node crypto-trader/src/cli.mjs account
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="-技术栈"&gt;🔧 技术栈
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;数据源：Binance API + CoinMetrics API（免费）&lt;/li&gt;
+&lt;li&gt;AI：本地 Ollama qwen2.5:3b&lt;/li&gt;
+&lt;li&gt;交易：OKX Proxy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="-当前指标2026-03-03"&gt;📈 当前指标（2026-03-03）
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;指标&lt;/th&gt;
+ &lt;th&gt;值&lt;/th&gt;
+ &lt;th&gt;状态&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;价格&lt;/td&gt;
+ &lt;td&gt;$69,197&lt;/td&gt;
+ &lt;td&gt;+5.20%&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;MVRV Z&lt;/td&gt;
+ &lt;td&gt;-2.72&lt;/td&gt;
+ &lt;td&gt;偏低&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;SOPR&lt;/td&gt;
+ &lt;td&gt;0.997&lt;/td&gt;
+ &lt;td&gt;正常&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;净流出&lt;/td&gt;
+ &lt;td&gt;-36,360 BTC&lt;/td&gt;
+ &lt;td&gt;流出&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Puell&lt;/td&gt;
+ &lt;td&gt;0.68&lt;/td&gt;
+ &lt;td&gt;积累期&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;评分&lt;/strong&gt;：-1.0 → 持有观望&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-欢迎反馈"&gt;🤝 欢迎反馈
+&lt;/h2&gt;&lt;p&gt;GitHub: github.com/openclaw&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;有问题欢迎提Issue！&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>

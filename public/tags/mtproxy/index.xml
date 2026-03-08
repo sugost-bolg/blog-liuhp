@@ -1,15 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>MTProxy on My Life is Going On</title>
-        <link>https://liuhp.net/tags/mtproxy/</link>
-        <description>Recent content in MTProxy on My Life is Going On</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Mon, 17 Feb 2020 18:54:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/mtproxy/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>MTProxy TLS一键安装绿色极简脚本</title>
-            <link>https://liuhp.net/post/68/</link>
-            <pubDate>Mon, 17 Feb 2020 18:54:00 +0000</pubDate>
-            <guid>https://liuhp.net/post/68/</guid>
-            <description>&lt;p&gt;MTProxy TLS一键安装绿色极简脚本&lt;/p&gt;&#xA;&lt;p&gt;这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。&lt;/p&gt;&#xA;&lt;p&gt;减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。&lt;/p&gt;&#xA;&lt;p&gt;需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。&lt;/p&gt;&#xA;&lt;p&gt;所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。&lt;/p&gt;&#xA;&lt;p&gt;除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：&lt;/p&gt;&#xA;&lt;p&gt;如：443、2053、2083、2087、2096、8443&lt;/p&gt;&#xA;&lt;p&gt;安装方式&#xA;执行如下代码进行安装&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;mkdir /home/mtproxy &amp;amp;&amp;amp; cd /home/mtproxy&#xD;&#xA;curl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;amp;&amp;amp; chmod +x mtproxy.sh &amp;amp;&amp;amp; bash mtproxy.sh&#xD;&#xA;mtproxy.sh&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;使用方式&#xA;运行服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash mtproxy.sh start&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;调试运行&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash mtproxy.sh debug&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;停止服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash mtproxy.sh stop&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;重启服务&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash mtproxy.sh restart&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;卸载安装&#xA;因为是绿色版卸载极其简单，直接删除所在目录即可。&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;rm -rf /home/mtproxy&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;ps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --add-port=443/tcp --permanent&#xD;&#xA;firewall-cmd --reload&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;关闭端口命令如下：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --remove-port=443/tcp --permanent&#xD;&#xA;firewall-cmd --reload&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;卸载&#xA;因为是绿色版卸载极其简单，直接删除程序目录即可；&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;rm -rf /home/mtproxy&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;开机启动&#xA;编辑/etc/rc.local开机自启服务文件，将如下代码添加到开机自启脚本中；&lt;/p&gt;&#xA;&lt;p&gt;编辑自启文件&#xA;vi /etc/rc.local&lt;/p&gt;&#xA;&lt;p&gt;添加如下代码&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;bash /home/mtproxy/mtproxy.sh start &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;添加rc.local执行权限&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;chmod +x /etc/rc.d/rc.local&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;重启系统查看是否成功启动&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;reboot&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;文章转发至&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm&lt;/a&gt;&lt;/p&gt;&#xA;</description>
-        </item></channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MTProxy on My Life is Going On</title><link>https://liuhp.net/tags/mtproxy/</link><description>Recent content in MTProxy on My Life is Going On</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 17 Feb 2020 18:54:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/mtproxy/index.xml" rel="self" type="application/rss+xml"/><item><title>MTProxy TLS一键安装绿色极简脚本</title><link>https://liuhp.net/post/68/</link><pubDate>Mon, 17 Feb 2020 18:54:00 +0000</pubDate><guid>https://liuhp.net/post/68/</guid><description>&lt;p&gt;MTProxy TLS一键安装绿色极简脚本&lt;/p&gt;
+&lt;p&gt;这个脚本相对于之前其他人发的，额外集成了mtproxy的新特性，根据指定的域名自动进行伪装。&lt;/p&gt;
+&lt;p&gt;减少被运营商检测的风险，更优于普通的代理或者随机字串数据包的形式。&lt;/p&gt;
+&lt;p&gt;需要注意的是，这里的TLS是假的（Fake TLS）。这会让你的IP访问起来更像是一个正常的网站。&lt;/p&gt;
+&lt;p&gt;所以，在这里推荐你使用默认端口：443，如果端口被占用或者NAT内网主机，可以设置其他端口。&lt;/p&gt;
+&lt;p&gt;除过443以外，还推荐你使用如下端口，都是常见的https端口，也可以进行一定程度的伪装：&lt;/p&gt;
+&lt;p&gt;如：443、2053、2083、2087、2096、8443&lt;/p&gt;
+&lt;p&gt;安装方式
+执行如下代码进行安装&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir /home/mtproxy &amp;amp;&amp;amp; cd /home/mtproxy
+curl -s -o mtproxy.sh https://raw.githubusercontent.com/ellermister/mtproxy/master/mtproxy.sh &amp;amp;&amp;amp; chmod +x mtproxy.sh &amp;amp;&amp;amp; bash mtproxy.sh
+mtproxy.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用方式
+运行服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash mtproxy.sh start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;调试运行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash mtproxy.sh debug
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;停止服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash mtproxy.sh stop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash mtproxy.sh restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;卸载安装
+因为是绿色版卸载极其简单，直接删除所在目录即可。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf /home/mtproxy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;ps:安装完成后还要开启相对应的端口，本实例需开启443端口，代码如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;关闭端口命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --remove-port=443/tcp --permanent
+firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;卸载
+因为是绿色版卸载极其简单，直接删除程序目录即可；&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf /home/mtproxy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;开机启动
+编辑/etc/rc.local开机自启服务文件，将如下代码添加到开机自启脚本中；&lt;/p&gt;
+&lt;p&gt;编辑自启文件
+vi /etc/rc.local&lt;/p&gt;
+&lt;p&gt;添加如下代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash /home/mtproxy/mtproxy.sh start &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;添加rc.local执行权限&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chmod +x /etc/rc.d/rc.local
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启系统查看是否成功启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;文章转发至&lt;a class="link" href="https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm" target="_blank" rel="noopener"
+ &gt;https://docs.google.com/document/d/1KSTfz6quYplQ6Z-wSJz3CrtQDwcLd2eupj0cd_0qLyU/edit#heading=h.dgkuk2kfjjnm&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

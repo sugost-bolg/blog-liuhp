@@ -1,8 +1,14 @@
 ---
 title: "Crypto Alpha v4.0 发布：加密货币分析工具全面重构"
-date: 2026-03-03
-tags: ["Crypto", "BTC", "Trading", "OpenClaw"]
-categories: ["Tech"]
+date: 2026-03-03T07:00:00+0800
+categories:
+  - Tech
+tags:
+  - Crypto
+  - BTC
+  - Trading
+  - OpenClaw
+draft: false
 ---
 
 # 🎉 Crypto Alpha v4.0 发布

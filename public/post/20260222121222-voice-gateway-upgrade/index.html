@@ -1,410 +1,43 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为&quot;高品质选项&quot;，新增 EdgeTTS 作为&quot;快速响应选项&quot;。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n">
-<title>语音服务改造：从 CosyVoice 到双引擎架构</title>
-
-<link rel='canonical' href='https://liuhp.net/post/20260222121222-voice-gateway-upgrade/'>
-
-<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="语音服务改造：从 CosyVoice 到双引擎架构">
-<meta property='og:description' content="今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为&quot;高品质选项&quot;，新增 EdgeTTS 作为&quot;快速响应选项&quot;。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n">
-<meta property='og:url' content='https://liuhp.net/post/20260222121222-voice-gateway-upgrade/'>
-<meta property='og:site_name' content='My Life is Going On'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='语音合成' /><meta property='article:tag' content='TTS' /><meta property='article:tag' content='EdgeTTS' /><meta property='article:published_time' content='2026-02-22T12:12:22&#43;08:00'/><meta property='article:modified_time' content='2026-02-22T12:12:22&#43;08:00'/>
-<meta name="twitter:site" content="@sugost">
-    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="语音服务改造：从 CosyVoice 到双引擎架构">
-<meta name="twitter:description" content="今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为&quot;高品质选项&quot;，新增 EdgeTTS 作为&quot;快速响应选项&quot;。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n">
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
-            <h2 class="site-description"></h2>
-        </div>
-    </header><ol class="menu" id="main-menu">
-        
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    
-
-            <main class="main full-width">
-    <article class="main-article">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            
-            
-            
-            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
-                技术
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/post/20260222121222-voice-gateway-upgrade/">语音服务改造：从 CosyVoice 到双引擎架构</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published" datetime='2026-02-22T12:12:22&#43;08:00'>Sunday, February 22, 2026</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    2 minutes read
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    
-
-    <section class="article-content">
-    
-    
-    <p>今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。</p>
-<h2 id="背景">背景
-</h2><p>之前语音服务只有一个 CosyVoice 本地模型，部署在 <code>10.10.10.233:8000</code>。虽然音质不错，但有几个问题：</p>
-<ol>
-<li><strong>速度慢</strong> — 本地推理需要 3-5 秒才能生成音频</li>
-<li><strong>音色少</strong> — 只有 4 个预设音色</li>
-<li><strong>不稳定</strong> — 偶尔会因为显存不足而失败</li>
-<li><strong>格式问题</strong> — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败）</li>
-</ol>
-<h2 id="方案双引擎架构">方案：双引擎架构
-</h2><p>保留 CosyVoice 作为&quot;高品质选项&quot;，新增 EdgeTTS 作为&quot;快速响应选项&quot;。</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>引擎</th>
-          <th>部署位置</th>
-          <th>端口</th>
-          <th>特点</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>CosyVoice</td>
-          <td>10.10.10.233</td>
-          <td>8000</td>
-          <td>本地模型，4音色，音质好，速度慢</td>
-      </tr>
-      <tr>
-          <td>EdgeTTS</td>
-          <td>10.10.10.233</td>
-          <td>8002</td>
-          <td>微软API，8音色，速度快，免费</td>
-      </tr>
-  </tbody>
-</table></div>
-<h2 id="edgetts-部署">EdgeTTS 部署
-</h2><p>EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 安装依赖</span>
-</span></span><span style="display:flex;"><span>pip install edge-tts fastapi uvicorn
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动服务</span>
-</span></span><span style="display:flex;"><span>python main.py --port <span style="color:#ae81ff">8002</span>
-</span></span></code></pre></div><p>提供 8 个中文音色：</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>音色ID</th>
-          <th>名称</th>
-          <th>风格</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>xiaoxiao</td>
-          <td>晓晓</td>
-          <td>温柔女声</td>
-      </tr>
-      <tr>
-          <td>xiaoyi</td>
-          <td>晓伊</td>
-          <td>活泼女声（默认）</td>
-      </tr>
-      <tr>
-          <td>yunxi</td>
-          <td>云希</td>
-          <td>年轻男声</td>
-      </tr>
-      <tr>
-          <td>yunjian</td>
-          <td>云健</td>
-          <td>成熟男声</td>
-      </tr>
-      <tr>
-          <td>xiaochen</td>
-          <td>晓晨</td>
-          <td>知性女声</td>
-      </tr>
-      <tr>
-          <td>xiaohan</td>
-          <td>晓涵</td>
-          <td>温暖女声</td>
-      </tr>
-      <tr>
-          <td>hsiaochen</td>
-          <td>晓臻</td>
-          <td>台湾女声</td>
-      </tr>
-      <tr>
-          <td>hiugaai</td>
-          <td>晓佳</td>
-          <td>粤语女声</td>
-      </tr>
-  </tbody>
-</table></div>
-<h2 id="遇到的坑">遇到的坑
-</h2><h3 id="1-中文乱码">1. 中文乱码
-</h3><p>最初用 Form 编码传参数，结果中文会乱码。改用 JSON body 解决：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 错误：Form 编码</span>
-</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;text&#34;</span>)  <span style="color:#75715e"># 中文乱码</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 正确：JSON body</span>
-</span></span><span style="display:flex;"><span>request<span style="color:#f92672">.</span>json[<span style="color:#e6db74">&#34;text&#34;</span>]  <span style="color:#75715e"># 正常</span>
-</span></span></code></pre></div><h3 id="2-流式响应">2. 流式响应
-</h3><p>大段文字生成时间较长，改为流式返回：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> fastapi.responses <span style="color:#f92672">import</span> StreamingResponse
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_audio_stream</span>(text, voice):
-</span></span><span style="display:flex;"><span>    communicate <span style="color:#f92672">=</span> edge_tts<span style="color:#f92672">.</span>Communicate(text, voice)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">for</span> chunk <span style="color:#f92672">in</span> communicate<span style="color:#f92672">.</span>stream():
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> chunk[<span style="color:#e6db74">&#34;type&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;audio&#34;</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> chunk[<span style="color:#e6db74">&#34;data&#34;</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> StreamingResponse(generate_audio_stream(text, voice))
-</span></span></code></pre></div><h3 id="3-openclaw-内置-tts-问题">3. OpenClaw 内置 TTS 问题
-</h3><p>发现 OpenClaw 的 <code>tts</code> 工具生成的是空文件，原因是 MP3 转换环节失败。临时解决方案是绕过内置工具，直接调用语音服务器 API 生成 WAV。</p>
-<h2 id="使用方式">使用方式
-</h2><h3 id="asr-语音识别">ASR 语音识别
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST <span style="color:#e6db74">&#34;http://10.10.10.233:8000/asr&#34;</span> <span style="color:#ae81ff">\\</span>
-</span></span><span style="display:flex;"><span>  -F <span style="color:#e6db74">&#34;file=@audio.ogg&#34;</span> <span style="color:#ae81ff">\\</span>
-</span></span><span style="display:flex;"><span>  -F <span style="color:#e6db74">&#34;language=zh&#34;</span>
-</span></span></code></pre></div><h3 id="tts-语音合成">TTS 语音合成
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST <span style="color:#e6db74">&#34;http://10.10.10.233:8002/tts&#34;</span> <span style="color:#ae81ff">\\</span>
-</span></span><span style="display:flex;"><span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\\</span>
-</span></span><span style="display:flex;"><span>  -d <span style="color:#f92672">{</span>text: 你好世界, voice: xiaoyi<span style="color:#f92672">}</span> <span style="color:#ae81ff">\\</span>
-</span></span><span style="display:flex;"><span>  --output output.wav
-</span></span></code></pre></div><h2 id="效果">效果
-</h2><p>改造后响应速度对比：</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>引擎</th>
-          <th>短句（&lt;20字）</th>
-          <th>长句（100字）</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>CosyVoice</td>
-          <td>3-5秒</td>
-          <td>8-12秒</td>
-      </tr>
-      <tr>
-          <td>EdgeTTS</td>
-          <td>0.5-1秒</td>
-          <td>1-2秒</td>
-      </tr>
-  </tbody>
-</table></div>
-<p>现在默认用 EdgeTTS 快速响应，需要高音质场景可以切到 CosyVoice。</p>
-<h2 id="配置">配置
-</h2><p>SSH 免密登录：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ~/.ssh/config</span>
-</span></span><span style="display:flex;"><span>Host voice
-</span></span><span style="display:flex;"><span>    HostName 10.10.10.233
-</span></span><span style="display:flex;"><span>    User root
-</span></span><span style="display:flex;"><span>    IdentityFile ~/.ssh/id_ed25519
-</span></span></code></pre></div><p>现在可以直接 <code>ssh voice</code> 管理语音服务器。</p>
-<h2 id="总结">总结
-</h2><p>双引擎架构是个不错的折中方案：</p>
-<ul>
-<li>日常对话用 EdgeTTS，快且稳定</li>
-<li>特殊场景用 CosyVoice，音质更好</li>
-<li>两者互补，不会互相影响</li>
-</ul>
-<p>下一步可以考虑把 ASR 也换成更快的方案，目前用的 whisper.cpp 在小机器上还是有点慢。</p>
-<hr>
-<p><strong>EdgeTTS 代码</strong>：<code>voice-server/</code><br>
-<strong>服务地址</strong>：<code>http://10.10.10.233:8002</code><br>
-<strong>部署文档</strong>：<code>voice-server/DEPLOY.md</code></p>
-
-</section>
-
-
-    <footer class="article-footer">
-    
-    <section class="article-tags">
-        
-            <a href="/tags/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90/">语音合成</a>
-        
-            <a href="/tags/tts/">TTS</a>
-        
-            <a href="/tags/edgetts/">EdgeTTS</a>
-        
-    </section>
-
-
-    </footer>
-
-
-    
-</article>
-
-    
-
-    
-
-     
-    
-        
-    <div class="disqus-container">
-    
-</div>
-
-<style>
-    .disqus-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-    }
-</style>
-
-<script>
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (typeof DISQUS == 'object') {
-            DISQUS.reset({
-                reload: true
-            });
-        }
-    })
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-        2026 My Life is Going On
-    </section>
-    
-    <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
-    </section>
-</footer>
-
-
-    
-
-
-
-<script type="module">
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为"高品质选项"，新增 EdgeTTS 作为"快速响应选项"。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n'><title>语音服务改造：从 CosyVoice 到双引擎架构</title><link rel=canonical href=https://liuhp.net/post/20260222121222-voice-gateway-upgrade/><link rel=stylesheet href=/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css><meta property='og:title' content="语音服务改造：从 CosyVoice 到双引擎架构"><meta property='og:description' content='今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为"高品质选项"，新增 EdgeTTS 作为"快速响应选项"。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n'><meta property='og:url' content='https://liuhp.net/post/20260222121222-voice-gateway-upgrade/'><meta property='og:site_name' content='My Life is Going On'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='语音合成'><meta property='article:tag' content='TTS'><meta property='article:tag' content='EdgeTTS'><meta property='article:published_time' content='2026-02-22T12:12:22+08:00'><meta property='article:modified_time' content='2026-02-22T12:12:22+08:00'><meta name=twitter:site content="@sugost"><meta name=twitter:creator content="@sugost"><meta name=twitter:title content="语音服务改造：从 CosyVoice 到双引擎架构"><meta name=twitter:description content='今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。\n背景 之前语音服务只有一个 CosyVoice 本地模型，部署在 10.10.10.233:8000。虽然音质不错，但有几个问题：\n速度慢 — 本地推理需要 3-5 秒才能生成音频 音色少 — 只有 4 个预设音色 不稳定 — 偶尔会因为显存不足而失败 格式问题 — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败） 方案：双引擎架构 保留 CosyVoice 作为"高品质选项"，新增 EdgeTTS 作为"快速响应选项"。\n引擎 部署位置 端口 特点 CosyVoice 10.10.10.233 8000 本地模型，4音色，音质好，速度慢 EdgeTTS 10.10.10.233 8002 微软API，8音色，速度快，免费 EdgeTTS 部署 EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：\n# 安装依赖 pip install edge-tts fastapi uvicorn # 启动服务 python main.py --port 8002 提供 8 个中文音色：\n'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>My Life is Going On</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E6%8A%80%E6%9C%AF/ style=background-color:#beefd9;color:#0f3d29>技术</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/20260222121222-voice-gateway-upgrade/>语音服务改造：从 CosyVoice 到双引擎架构</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2026-02-22T12:12:22+08:00>Sunday, February 22, 2026</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>2 minutes read</time></div></footer></div></header><section class=article-content><p>今天上午对语音服务做了一次架构升级，从单一的 CosyVoice 本地模型扩展为双引擎架构，解决了响应速度和音色选择的问题。</p><h2 id=背景>背景</h2><p>之前语音服务只有一个 CosyVoice 本地模型，部署在 <code>10.10.10.233:8000</code>。虽然音质不错，但有几个问题：</p><ol><li><strong>速度慢</strong> — 本地推理需要 3-5 秒才能生成音频</li><li><strong>音色少</strong> — 只有 4 个预设音色</li><li><strong>不稳定</strong> — 偶尔会因为显存不足而失败</li><li><strong>格式问题</strong> — OpenClaw 内置 TTS 工具生成的文件是空的（MP3 转换失败）</li></ol><h2 id=方案双引擎架构>方案：双引擎架构</h2><p>保留 CosyVoice 作为"高品质选项"，新增 EdgeTTS 作为"快速响应选项"。</p><div class=table-wrapper><table><thead><tr><th>引擎</th><th>部署位置</th><th>端口</th><th>特点</th></tr></thead><tbody><tr><td>CosyVoice</td><td>10.10.10.233</td><td>8000</td><td>本地模型，4音色，音质好，速度慢</td></tr><tr><td>EdgeTTS</td><td>10.10.10.233</td><td>8002</td><td>微软API，8音色，速度快，免费</td></tr></tbody></table></div><h2 id=edgetts-部署>EdgeTTS 部署</h2><p>EdgeTTS 是基于微软 Azure 免费 TTS 的开源封装，部署很简单：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装依赖</span>
+</span></span><span style=display:flex><span>pip install edge-tts fastapi uvicorn
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动服务</span>
+</span></span><span style=display:flex><span>python main.py --port <span style=color:#ae81ff>8002</span>
+</span></span></code></pre></div><p>提供 8 个中文音色：</p><div class=table-wrapper><table><thead><tr><th>音色ID</th><th>名称</th><th>风格</th></tr></thead><tbody><tr><td>xiaoxiao</td><td>晓晓</td><td>温柔女声</td></tr><tr><td>xiaoyi</td><td>晓伊</td><td>活泼女声（默认）</td></tr><tr><td>yunxi</td><td>云希</td><td>年轻男声</td></tr><tr><td>yunjian</td><td>云健</td><td>成熟男声</td></tr><tr><td>xiaochen</td><td>晓晨</td><td>知性女声</td></tr><tr><td>xiaohan</td><td>晓涵</td><td>温暖女声</td></tr><tr><td>hsiaochen</td><td>晓臻</td><td>台湾女声</td></tr><tr><td>hiugaai</td><td>晓佳</td><td>粤语女声</td></tr></tbody></table></div><h2 id=遇到的坑>遇到的坑</h2><h3 id=1-中文乱码>1. 中文乱码</h3><p>最初用 Form 编码传参数，结果中文会乱码。改用 JSON body 解决：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 错误：Form 编码</span>
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> request<span style=color:#f92672>.</span>form<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;text&#34;</span>)  <span style=color:#75715e># 中文乱码</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 正确：JSON body</span>
+</span></span><span style=display:flex><span>request<span style=color:#f92672>.</span>json[<span style=color:#e6db74>&#34;text&#34;</span>]  <span style=color:#75715e># 正常</span>
+</span></span></code></pre></div><h3 id=2-流式响应>2. 流式响应</h3><p>大段文字生成时间较长，改为流式返回：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> fastapi.responses <span style=color:#f92672>import</span> StreamingResponse
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>generate_audio_stream</span>(text, voice):
+</span></span><span style=display:flex><span>    communicate <span style=color:#f92672>=</span> edge_tts<span style=color:#f92672>.</span>Communicate(text, voice)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>async</span> <span style=color:#66d9ef>for</span> chunk <span style=color:#f92672>in</span> communicate<span style=color:#f92672>.</span>stream():
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> chunk[<span style=color:#e6db74>&#34;type&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;audio&#34;</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>yield</span> chunk[<span style=color:#e6db74>&#34;data&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> StreamingResponse(generate_audio_stream(text, voice))
+</span></span></code></pre></div><h3 id=3-openclaw-内置-tts-问题>3. OpenClaw 内置 TTS 问题</h3><p>发现 OpenClaw 的 <code>tts</code> 工具生成的是空文件，原因是 MP3 转换环节失败。临时解决方案是绕过内置工具，直接调用语音服务器 API 生成 WAV。</p><h2 id=使用方式>使用方式</h2><h3 id=asr-语音识别>ASR 语音识别</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl -X POST <span style=color:#e6db74>&#34;http://10.10.10.233:8000/asr&#34;</span> <span style=color:#ae81ff>\\</span>
+</span></span><span style=display:flex><span>  -F <span style=color:#e6db74>&#34;file=@audio.ogg&#34;</span> <span style=color:#ae81ff>\\</span>
+</span></span><span style=display:flex><span>  -F <span style=color:#e6db74>&#34;language=zh&#34;</span>
+</span></span></code></pre></div><h3 id=tts-语音合成>TTS 语音合成</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl -X POST <span style=color:#e6db74>&#34;http://10.10.10.233:8002/tts&#34;</span> <span style=color:#ae81ff>\\</span>
+</span></span><span style=display:flex><span>  -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span> <span style=color:#ae81ff>\\</span>
+</span></span><span style=display:flex><span>  -d <span style=color:#f92672>{</span>text: 你好世界, voice: xiaoyi<span style=color:#f92672>}</span> <span style=color:#ae81ff>\\</span>
+</span></span><span style=display:flex><span>  --output output.wav
+</span></span></code></pre></div><h2 id=效果>效果</h2><p>改造后响应速度对比：</p><div class=table-wrapper><table><thead><tr><th>引擎</th><th>短句（&lt;20字）</th><th>长句（100字）</th></tr></thead><tbody><tr><td>CosyVoice</td><td>3-5秒</td><td>8-12秒</td></tr><tr><td>EdgeTTS</td><td>0.5-1秒</td><td>1-2秒</td></tr></tbody></table></div><p>现在默认用 EdgeTTS 快速响应，需要高音质场景可以切到 CosyVoice。</p><h2 id=配置>配置</h2><p>SSH 免密登录：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># ~/.ssh/config</span>
+</span></span><span style=display:flex><span>Host voice
+</span></span><span style=display:flex><span>    HostName 10.10.10.233
+</span></span><span style=display:flex><span>    User root
+</span></span><span style=display:flex><span>    IdentityFile ~/.ssh/id_ed25519
+</span></span></code></pre></div><p>现在可以直接 <code>ssh voice</code> 管理语音服务器。</p><h2 id=总结>总结</h2><p>双引擎架构是个不错的折中方案：</p><ul><li>日常对话用 EdgeTTS，快且稳定</li><li>特殊场景用 CosyVoice，音质更好</li><li>两者互补，不会互相影响</li></ul><p>下一步可以考虑把 ASR 也换成更快的方案，目前用的 whisper.cpp 在小机器上还是有点慢。</p><hr><p><strong>EdgeTTS 代码</strong>：<code>voice-server/</code><br><strong>服务地址</strong>：<code>http://10.10.10.233:8002</code><br><strong>部署文档</strong>：<code>voice-server/DEPLOY.md</code></p></section><footer class=article-footer><section class=article-tags><a href=/tags/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90/>语音合成</a>
+<a href=/tags/tts/>TTS</a>
+<a href=/tags/edgetts/>EdgeTTS</a></section></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2026 My Life is Going On</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -428,23 +61,4 @@
         });
         lightbox.init();
     }
-</script>
-    
-
-            </main>
-        </div>
-        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-
-    </body>
-</html>
+</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
