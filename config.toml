@@ -2,6 +2,7 @@ baseURL = "https://liuhp.net"
 languageCode = "zh-cn"
 title = "My Life is Going On"
 theme = "stack"
+buildFuture = true
 
 [markup.goldmark.renderer]
   unsafe = true
