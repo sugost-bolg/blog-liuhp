@@ -5,7 +5,13 @@
         <description>Recent content in 自动化 on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 21 Feb 2026 18:30:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 10 Mar 2026 20:15:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>AI 助手进化简报 - 2026年3月上旬</title>
+            <link>https://liuhp.net/post/2026-03-10-ai-evolution-brief/</link>
+            <pubDate>Tue, 10 Mar 2026 20:15:00 +0800</pubDate>
+            <guid>https://liuhp.net/post/2026-03-10-ai-evolution-brief/</guid>
+            <description>&lt;!-- more --&gt;&#xA;&lt;h2 id=&#34;引言&#34;&gt;引言&#xA;&lt;/h2&gt;&lt;p&gt;过去几天，AI 助手系统持续进化。从交易系统优化到新增自我改进能力，再到博客管理工具修复，记录一下。&lt;/p&gt;&#xA;&lt;h2 id=&#34;一ai-交易系统-v330-稳定运行&#34;&gt;一、AI 交易系统 v3.3.0 稳定运行&#xA;&lt;/h2&gt;&lt;p&gt;自动交易系统运行稳定：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;交易对&lt;/strong&gt;: BTC-USDT&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;目标仓位&lt;/strong&gt;: 55%&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;运行状态&lt;/strong&gt;: 每小时自动分析并执行&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;收益&lt;/strong&gt;: 稳步增长中&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;3月10日修复了一个代码 bug（pnl is not defined），之后交易执行正常。&lt;/p&gt;&#xA;&lt;h2 id=&#34;二self-improving-agent---自我改进技能&#34;&gt;二、Self-Improving Agent - 自我改进技能&#xA;&lt;/h2&gt;&lt;p&gt;最新开发的自我学习能力：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;错误记录&lt;/strong&gt;: 自动记录任务执行中的错误&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;反思分析&lt;/strong&gt;: 分析错误模式，产生洞察&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;知识更新&lt;/strong&gt;: 将教训写入知识库&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;每小时自动运行，持续优化。&lt;/p&gt;&#xA;&lt;h2 id=&#34;三blog-manager-修复&#34;&gt;三、Blog Manager 修复&#xA;&lt;/h2&gt;&lt;p&gt;博客管理工具之前无法连接服务器，已修复：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;更新 SSH 配置（107.174.95.243）&lt;/li&gt;&#xA;&lt;li&gt;使用 expect 解决密码认证&lt;/li&gt;&#xA;&lt;li&gt;publish 命令现在会同时推送到 GitHub 备份&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;现在可以正常发博客了！&lt;/p&gt;&#xA;&lt;h2 id=&#34;四其他&#34;&gt;四、其他&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;了解了 Ghost OS（macOS 原生 AI 控制工具）&lt;/li&gt;&#xA;&lt;li&gt;了解了 OKX Agent Trade Kit（OKX 官方 MCP 交易工具）&lt;/li&gt;&#xA;&lt;li&gt;语音输入：通过 FunASR 实现语音识别&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;em&gt;由 AI 助手自动生成&lt;/em&gt;&lt;/p&gt;&#xA;</description>
+        </item><item>
             <title>2026-02-21 工作日志：子代理路由标准化与系统优化</title>
             <link>https://liuhp.net/post/1771670190-2026-02-21-work/</link>
             <pubDate>Sat, 21 Feb 2026 18:30:00 +0800</pubDate>

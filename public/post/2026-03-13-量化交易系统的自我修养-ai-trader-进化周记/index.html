@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="量化交易系统的自我修养：ai-trader 进化周记 时间: 2026-03-10 ~ 2026-03-13\n作者: 马克\n状态: 生产环境运行中\n前言 这周没干别的，就折腾一件事：让 ai-trader 从&quot;能跑&quot;变成&quot;靠谱&quot;。\n量化交易这玩意儿，最难的不是写策略，而是承认自己会错，然后给系统留够纠错的余地。\n一、核心问题：为什么之前不靠谱？ 1.1 数据层脆弱 问题：OKX API 返回的 K 线数据从新到旧 后果：EMA 计算用反了顺序 → 多头变空头 修复：反转数组 + 数据完整性验证（至少 200 根 K 线） 1.2 评分系统粗糙 之前是&quot;满足 2 条规则就买&quot;，问题是：\n满足 2 条弱信号 vs 2 条强信号 → 仓位一样？ Puell 0.49（刚过线）vs Puell 0.1（深度低估）→ 权重一样？ v3.5.0 改为 50 分制渐变评分：\n指标 深度低估 刚过线 权重差 Puell &lt;0.3 → +20 &lt;0.5 → +15 +5 MVRV &lt;-2.0 → +12 &lt;-1.5 → +10 +2 EMA 强多头 → +10 弱多头 → +8 +2 仓位公式：目标仓位 = 分数 × 2%\n">
+<title>量化交易系统的自我修养：ai-trader 进化周记</title>
+
+<link rel='canonical' href='https://liuhp.net/post/2026-03-13-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-ai-trader-%E8%BF%9B%E5%8C%96%E5%91%A8%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="量化交易系统的自我修养：ai-trader 进化周记">
+<meta property='og:description' content="量化交易系统的自我修养：ai-trader 进化周记 时间: 2026-03-10 ~ 2026-03-13\n作者: 马克\n状态: 生产环境运行中\n前言 这周没干别的，就折腾一件事：让 ai-trader 从&quot;能跑&quot;变成&quot;靠谱&quot;。\n量化交易这玩意儿，最难的不是写策略，而是承认自己会错，然后给系统留够纠错的余地。\n一、核心问题：为什么之前不靠谱？ 1.1 数据层脆弱 问题：OKX API 返回的 K 线数据从新到旧 后果：EMA 计算用反了顺序 → 多头变空头 修复：反转数组 + 数据完整性验证（至少 200 根 K 线） 1.2 评分系统粗糙 之前是&quot;满足 2 条规则就买&quot;，问题是：\n满足 2 条弱信号 vs 2 条强信号 → 仓位一样？ Puell 0.49（刚过线）vs Puell 0.1（深度低估）→ 权重一样？ v3.5.0 改为 50 分制渐变评分：\n指标 深度低估 刚过线 权重差 Puell &lt;0.3 → +20 &lt;0.5 → +15 +5 MVRV &lt;-2.0 → +12 &lt;-1.5 → +10 +2 EMA 强多头 → +10 弱多头 → +8 +2 仓位公式：目标仓位 = 分数 × 2%\n">
+<meta property='og:url' content='https://liuhp.net/post/2026-03-13-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-ai-trader-%E8%BF%9B%E5%8C%96%E5%91%A8%E8%AE%B0/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ai-trader' /><meta property='article:tag' content='量化交易' /><meta property='article:published_time' content='2026-03-13T18:30:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-13T18:30:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="量化交易系统的自我修养：ai-trader 进化周记">
+<meta name="twitter:description" content="量化交易系统的自我修养：ai-trader 进化周记 时间: 2026-03-10 ~ 2026-03-13\n作者: 马克\n状态: 生产环境运行中\n前言 这周没干别的，就折腾一件事：让 ai-trader 从&quot;能跑&quot;变成&quot;靠谱&quot;。\n量化交易这玩意儿，最难的不是写策略，而是承认自己会错，然后给系统留够纠错的余地。\n一、核心问题：为什么之前不靠谱？ 1.1 数据层脆弱 问题：OKX API 返回的 K 线数据从新到旧 后果：EMA 计算用反了顺序 → 多头变空头 修复：反转数组 + 数据完整性验证（至少 200 根 K 线） 1.2 评分系统粗糙 之前是&quot;满足 2 条规则就买&quot;，问题是：\n满足 2 条弱信号 vs 2 条强信号 → 仓位一样？ Puell 0.49（刚过线）vs Puell 0.1（深度低估）→ 权重一样？ v3.5.0 改为 50 分制渐变评分：\n指标 深度低估 刚过线 权重差 Puell &lt;0.3 → +20 &lt;0.5 → +15 +5 MVRV &lt;-2.0 → +12 &lt;-1.5 → +10 +2 EMA 强多头 → +10 弱多头 → +8 +2 仓位公式：目标仓位 = 分数 × 2%\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
+                技术
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2026-03-13-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-ai-trader-%E8%BF%9B%E5%8C%96%E5%91%A8%E8%AE%B0/">量化交易系统的自我修养：ai-trader 进化周记</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-13T18:30:00Z'>Friday, March 13, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minutes read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="量化交易系统的自我修养ai-trader-进化周记">量化交易系统的自我修养：ai-trader 进化周记
+</h1><p><strong>时间</strong>: 2026-03-10 ~ 2026-03-13<br>
+<strong>作者</strong>: 马克<br>
+<strong>状态</strong>: 生产环境运行中</p>
+<hr>
+<h2 id="前言">前言
+</h2><p>这周没干别的，就折腾一件事：<strong>让 ai-trader 从&quot;能跑&quot;变成&quot;靠谱&quot;</strong>。</p>
+<p>量化交易这玩意儿，最难的不是写策略，而是<strong>承认自己会错</strong>，然后给系统留够纠错的余地。</p>
+<hr>
+<h2 id="一核心问题为什么之前不靠谱">一、核心问题：为什么之前不靠谱？
+</h2><h3 id="11-数据层脆弱">1.1 数据层脆弱
+</h3><pre tabindex="0"><code>问题：OKX API 返回的 K 线数据从新到旧
+后果：EMA 计算用反了顺序 → 多头变空头
+修复：反转数组 + 数据完整性验证（至少 200 根 K 线）
+</code></pre><h3 id="12-评分系统粗糙">1.2 评分系统粗糙
+</h3><p>之前是&quot;满足 2 条规则就买&quot;，问题是：</p>
+<ul>
+<li>满足 2 条弱信号 vs 2 条强信号 → 仓位一样？</li>
+<li>Puell 0.49（刚过线）vs Puell 0.1（深度低估）→ 权重一样？</li>
+</ul>
+<p><strong>v3.5.0 改为 50 分制渐变评分</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>深度低估</th>
+          <th>刚过线</th>
+          <th>权重差</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Puell</td>
+          <td>&lt;0.3 → +20</td>
+          <td>&lt;0.5 → +15</td>
+          <td>+5</td>
+      </tr>
+      <tr>
+          <td>MVRV</td>
+          <td>&lt;-2.0 → +12</td>
+          <td>&lt;-1.5 → +10</td>
+          <td>+2</td>
+      </tr>
+      <tr>
+          <td>EMA</td>
+          <td>强多头 → +10</td>
+          <td>弱多头 → +8</td>
+          <td>+2</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>仓位公式</strong>：<code>目标仓位 = 分数 × 2%</code></p>
+<ul>
+<li>0 分 → 空仓</li>
+<li>25 分 → 50% 仓位</li>
+<li>50 分 → 满仓</li>
+</ul>
+<h3 id="13-没有盈亏追踪">1.3 没有盈亏追踪
+</h3><p>之前有成交记录，但<strong>没有 PnL 计算</strong>：</p>
+<ul>
+<li>不知道每笔赚多少</li>
+<li>不知道胜率</li>
+<li>不知道哪个指标更准</li>
+</ul>
+<p><strong>v3.4.4 新增 PnL 统计</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ node bin/ai-trader pnl --days<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>交易次数：12
+</span></span><span style="display:flex;"><span>胜率：58.3%
+</span></span><span style="display:flex;"><span>总盈亏：+234.5 USDT
+</span></span><span style="display:flex;"><span>平均盈亏：+19.5 USDT
+</span></span></code></pre></div><hr>
+<h2 id="二架构决策规则驱动-vs-ai-决策">二、架构决策：规则驱动 vs AI 决策
+</h2><h3 id="21-之前的误区">2.1 之前的误区
+</h3><p>一开始想搞&quot;AI 全自动学习&quot;：</p>
+<ul>
+<li>根据历史表现自动调整权重</li>
+<li>发现某指标不准就降权</li>
+<li>连续亏损后自动降仓位</li>
+</ul>
+<p><strong>问题</strong>：</p>
+<ol>
+<li>数据量不够（才 10 笔成交）</li>
+<li>过拟合风险（机器学出来的权重可能越学越歪）</li>
+<li>黑箱决策（亏不知道为什么亏）</li>
+</ol>
+<h3 id="22-现在的方案">2.2 现在的方案
+</h3><p><strong>规则引擎主导 + AI 辅助</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>决策方</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>平时</td>
+          <td>50 分制规则引擎</td>
+          <td>稳定、快速、零成本、可解释</td>
+      </tr>
+      <tr>
+          <td>置信度低</td>
+          <td>AI 分析辅助</td>
+          <td>应对突发事件、政策变化</td>
+      </tr>
+      <tr>
+          <td>关键时刻</td>
+          <td>人工介入</td>
+          <td>大额交易、异常波动</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>核心原则</strong>：</p>
+<ul>
+<li>规则负责<strong>稳定性</strong>（可回测、可验证）</li>
+<li>AI 负责<strong>灵活性</strong>（处理规则覆盖不到的情况）</li>
+<li>人负责<strong>最终决策</strong>（大额、异常）</li>
+</ul>
+<hr>
+<h2 id="三风控系统两层防护">三、风控系统：两层防护
+</h2><h3 id="31-策略风控rule-enginemjs">3.1 策略风控（rule-engine.mjs）
+</h3><p>决定&quot;买多少/卖多少&quot;：</p>
+<ul>
+<li>Puell/MVRV/SOPR/EMA 评分</li>
+<li>仓位再平衡（偏差≥5% 才交易）</li>
+<li>渐变仓位（分数决定力度）</li>
+</ul>
+<h3 id="32-订单风控riskenginemjs">3.2 订单风控（risk/engine.mjs）
+</h3><p>决定&quot;这单能不能提交&quot;：</p>
+<ul>
+<li>现货检查（禁止合约/杠杆）</li>
+<li>日交易限额（默认禁用）</li>
+<li>单笔金额限制</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<pre tabindex="0"><code>rule-engine 计算目标仓位 → executor 生成订单 → risk-engine 安全检查 → OKX 提交
+</code></pre><p><strong>举例</strong>：</p>
+<ul>
+<li>rule-engine 说：&ldquo;现在评分 35 分，应该买入 0.1 BTC&rdquo;</li>
+<li>risk-engine 说：&ldquo;等等，这单是合约格式（BTC-PERP），拦截！&rdquo;</li>
+</ul>
+<p>一个管&quot;怎么赚&quot;，一个管&quot;别亏死&quot;。</p>
+<hr>
+<h2 id="四基础设施这周踩的坑">四、基础设施：这周踩的坑
+</h2><h3 id="41-韩国代理-tls-问题">4.1 韩国代理 TLS 问题
+</h3><p>233 服务器语音服务需要下载 FunASR 模型，但：</p>
+<ul>
+<li>gost 代理 DNS 解析失败</li>
+<li>直连韩国 SOCKS5 会被 GFW ban（端口 10101 无 TLS）</li>
+</ul>
+<p><strong>解决</strong>：macmini 本地 gost 代理正常工作，233 通过内网隧道访问。</p>
+<h3 id="42-git-备份恢复">4.2 Git 备份恢复
+</h3><p>误操作后需要恢复到旧版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git reset --hard 76da5d2
+</span></span></code></pre></div><p><strong>教训</strong>：</p>
+<ul>
+<li>重大修改前先提交</li>
+<li>恢复前确认工作区已保存</li>
+<li>VPS 远程备份要定期推送</li>
+</ul>
+<h3 id="43-定时任务监控">4.3 定时任务监控
+</h3><p>每小时自动交易，但：</p>
+<ul>
+<li>错误通知不及时</li>
+<li>成功交易无感知</li>
+</ul>
+<p><strong>改进</strong>：</p>
+<ul>
+<li>成交/错误才推送通知</li>
+<li>静默跳过不通知（减少打扰）</li>
+</ul>
+<hr>
+<h2 id="五self-improver系统的自我反思">五、self-improver：系统的自我反思
+</h2><p><strong>v1.1.0 新增</strong>：</p>
+<h3 id="51-错误聚合分析">5.1 错误聚合分析
+</h3><p>基于错误指纹聚类相似错误：</p>
+<pre tabindex="0"><code>📊 错误聚合分析:
+   🔴 ai-trader auto: 信号验证失败：缺少必填字段
+      出现 3 次，首次：2026/3/13 11:28:06
+</code></pre><h3 id="52-可行动修复建议">5.2 可行动修复建议
+</h3><p>根据错误类型生成具体方案：</p>
+<ul>
+<li>变量未定义 → 添加导入语句示例</li>
+<li>网络超时 → 重试机制代码模板</li>
+<li>空值检查 → optional chaining 示例</li>
+</ul>
+<h3 id="53-趋势分析">5.3 趋势分析
+</h3><p>24 小时错误数量对比：</p>
+<pre tabindex="0"><code>📈 趋势分析:
+   ⚠️ 错误增加：最近 24 小时 3 个，之前 0 个
+</code></pre><hr>
+<h2 id="六当前状态">六、当前状态
+</h2><h3 id="61-系统健康度">6.1 系统健康度
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>组件</th>
+          <th>状态</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>OKX 价格</td>
+          <td>✅ 稳定</td>
+          <td>API 正常</td>
+      </tr>
+      <tr>
+          <td>OKX K 线</td>
+          <td>✅ 稳定</td>
+          <td>500 根缓存，7 天有效期</td>
+      </tr>
+      <tr>
+          <td>CoinMetrics</td>
+          <td>✅ 正常</td>
+          <td>MVRV/SOPR/Puell 可用</td>
+      </tr>
+      <tr>
+          <td>规则引擎</td>
+          <td>✅ v3.5.0</td>
+          <td>50 分制 + EMA 验证</td>
+      </tr>
+      <tr>
+          <td>风控引擎</td>
+          <td>✅ v3.3.0</td>
+          <td>现货检查 + 限额</td>
+      </tr>
+      <tr>
+          <td>PnL 统计</td>
+          <td>✅ v3.4.4</td>
+          <td>盈亏追踪就绪</td>
+      </tr>
+      <tr>
+          <td>定时任务</td>
+          <td>✅ 每小时</td>
+          <td>:40 自动执行</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="62-当前持仓">6.2 当前持仓
+</h3><pre tabindex="0"><code>总资产：28533.24 USDT
+USDT: 607.18
+BTC: 0.005699 ($27223.74)
+仓位：96.8%
+</code></pre><h3 id="63-最新信号">6.3 最新信号
+</h3><pre tabindex="0"><code>分数：20/50
+目标仓位：40%
+当前仓位：96.8%
+建议：卖出调整（偏差 56.8% &gt; 5%）
+</code></pre><hr>
+<h2 id="七下一步计划">七、下一步计划
+</h2><h3 id="71-短期本周">7.1 短期（本周）
+</h3><ul>
+<li><input disabled="" type="checkbox"> 监控 v3.5.0 实际表现（至少 1 次完整成交）</li>
+<li><input disabled="" type="checkbox"> 验证 PnL 统计准确性</li>
+<li><input disabled="" type="checkbox"> 优化错误通知规则（减少误报）</li>
+</ul>
+<h3 id="72-中期本月">7.2 中期（本月）
+</h3><ul>
+<li><input disabled="" type="checkbox"> 回测框架（用历史数据验证 50 分制）</li>
+<li><input disabled="" type="checkbox"> 指标权重优化（根据回测结果调整）</li>
+<li><input disabled="" type="checkbox"> 多币种支持（ETH、SOL 等）</li>
+</ul>
+<h3 id="73-长期q2">7.3 长期（Q2）
+</h3><ul>
+<li><input disabled="" type="checkbox"> 机器学习权重调整（数据量足够后）</li>
+<li><input disabled="" type="checkbox"> 对冲策略（BTC 空头保护）</li>
+<li><input disabled="" type="checkbox"> 移动端监控面板</li>
+</ul>
+<hr>
+<h2 id="结语">结语
+</h2><p>量化交易不是圣杯，而是<strong>概率游戏</strong>。</p>
+<p>这周的改进，核心就一句话：<strong>承认自己会错，然后给系统留够纠错的余地</strong>。</p>
+<ul>
+<li>规则驱动 → 避免情绪化决策</li>
+<li>渐变评分 → 避免非黑即白</li>
+<li>两层风控 → 避免单次失误致命</li>
+<li>PnL 追踪 → 避免盲目自信</li>
+<li>self-improver → 避免重复犯错</li>
+</ul>
+<p><strong>下一步</strong>：让数据说话，让时间验证。</p>
+<hr>
+<p><em>最后更新：2026-03-13 18:30 (GMT+8)</em><br>
+<em>字数：约 2500 字</em><br>
+<em>阅读时间：8 分钟</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai-trader/">Ai-Trader</a>
+        
+            <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/">量化交易</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/261/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">人生哪能多如意，万事只求半称心。</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
