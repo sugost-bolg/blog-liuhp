@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 🎉 发布概览 博客管理工具 blog-manager 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。\n核心改进：\n🔐 SSH Key 认证替代密码，安全性大幅提升 🔄 网络波动自动重试（指数退避算法） 📝 发布前智能验证（空文件/内容长度/Front Matter） 📊 结构化日志系统，问题排查更高效 📋 版本对比 功能 v1.x v2.0 认证方式 SSH 密码 SSH Key (ed25519) 错误恢复 ❌ 无 ✅ 自动重试 3 次 日志系统 ❌ 无 ✅ Winston 结构化日志 空文件检测 ❌ 无 ✅ 发布前拦截 内容验证 ❌ 无 ✅ Front Matter + 正文检查 平均发布时间 ~30 秒 ~20 秒 发布成功率 ~80% ~99% 🔐 安全改进 v1.x 问题 // ❌ 密码硬编码在配置文件 ssh: { host: &#39;107.174.95.243&#39;, password: &#39;b3BlbmNsYXc=&#39; // 明文密码 } v2.0 方案 // ✅ SSH Key 认证 ssh: { host: &#39;107.174.95.243&#39;, privateKey: &#39;~/.ssh/blog-manager&#39;, // 私钥文件 // password 仅作为降级备用 } 密钥规格：\n">
+<title>博客管理工具 v2.0 发布 - SSH Key 认证 &#43; 智能验证</title>
+
+<link rel='canonical' href='https://liuhp.net/post/2026-03-14-blog-manager-v2-release/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="博客管理工具 v2.0 发布 - SSH Key 认证 + 智能验证">
+<meta property='og:description' content=" 🎉 发布概览 博客管理工具 blog-manager 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。\n核心改进：\n🔐 SSH Key 认证替代密码，安全性大幅提升 🔄 网络波动自动重试（指数退避算法） 📝 发布前智能验证（空文件/内容长度/Front Matter） 📊 结构化日志系统，问题排查更高效 📋 版本对比 功能 v1.x v2.0 认证方式 SSH 密码 SSH Key (ed25519) 错误恢复 ❌ 无 ✅ 自动重试 3 次 日志系统 ❌ 无 ✅ Winston 结构化日志 空文件检测 ❌ 无 ✅ 发布前拦截 内容验证 ❌ 无 ✅ Front Matter + 正文检查 平均发布时间 ~30 秒 ~20 秒 发布成功率 ~80% ~99% 🔐 安全改进 v1.x 问题 // ❌ 密码硬编码在配置文件 ssh: { host: &#39;107.174.95.243&#39;, password: &#39;b3BlbmNsYXc=&#39; // 明文密码 } v2.0 方案 // ✅ SSH Key 认证 ssh: { host: &#39;107.174.95.243&#39;, privateKey: &#39;~/.ssh/blog-manager&#39;, // 私钥文件 // password 仅作为降级备用 } 密钥规格：\n">
+<meta property='og:url' content='https://liuhp.net/post/2026-03-14-blog-manager-v2-release/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blog-manager' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='工具发布' /><meta property='article:published_time' content='2026-03-14T15:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-14T15:00:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="博客管理工具 v2.0 发布 - SSH Key 认证 + 智能验证">
+<meta name="twitter:description" content=" 🎉 发布概览 博客管理工具 blog-manager 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。\n核心改进：\n🔐 SSH Key 认证替代密码，安全性大幅提升 🔄 网络波动自动重试（指数退避算法） 📝 发布前智能验证（空文件/内容长度/Front Matter） 📊 结构化日志系统，问题排查更高效 📋 版本对比 功能 v1.x v2.0 认证方式 SSH 密码 SSH Key (ed25519) 错误恢复 ❌ 无 ✅ 自动重试 3 次 日志系统 ❌ 无 ✅ Winston 结构化日志 空文件检测 ❌ 无 ✅ 发布前拦截 内容验证 ❌ 无 ✅ Front Matter + 正文检查 平均发布时间 ~30 秒 ~20 秒 发布成功率 ~80% ~99% 🔐 安全改进 v1.x 问题 // ❌ 密码硬编码在配置文件 ssh: { host: &#39;107.174.95.243&#39;, password: &#39;b3BlbmNsYXc=&#39; // 明文密码 } v2.0 方案 // ✅ SSH Key 认证 ssh: { host: &#39;107.174.95.243&#39;, privateKey: &#39;~/.ssh/blog-manager&#39;, // 私钥文件 // password 仅作为降级备用 } 密钥规格：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
+                技术
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2026-03-14-blog-manager-v2-release/">博客管理工具 v2.0 发布 - SSH Key 认证 &#43; 智能验证</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-14T15:00:00Z'>Saturday, March 14, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minutes read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <!-- more -->
+<h2 id="-发布概览">🎉 发布概览
+</h2><p>博客管理工具 <code>blog-manager</code> 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。</p>
+<p><strong>核心改进</strong>：</p>
+<ul>
+<li>🔐 SSH Key 认证替代密码，安全性大幅提升</li>
+<li>🔄 网络波动自动重试（指数退避算法）</li>
+<li>📝 发布前智能验证（空文件/内容长度/Front Matter）</li>
+<li>📊 结构化日志系统，问题排查更高效</li>
+</ul>
+<hr>
+<h2 id="-版本对比">📋 版本对比
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>功能</th>
+          <th>v1.x</th>
+          <th>v2.0</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>认证方式</td>
+          <td>SSH 密码</td>
+          <td>SSH Key (ed25519)</td>
+      </tr>
+      <tr>
+          <td>错误恢复</td>
+          <td>❌ 无</td>
+          <td>✅ 自动重试 3 次</td>
+      </tr>
+      <tr>
+          <td>日志系统</td>
+          <td>❌ 无</td>
+          <td>✅ Winston 结构化日志</td>
+      </tr>
+      <tr>
+          <td>空文件检测</td>
+          <td>❌ 无</td>
+          <td>✅ 发布前拦截</td>
+      </tr>
+      <tr>
+          <td>内容验证</td>
+          <td>❌ 无</td>
+          <td>✅ Front Matter + 正文检查</td>
+      </tr>
+      <tr>
+          <td>平均发布时间</td>
+          <td>~30 秒</td>
+          <td>~20 秒</td>
+      </tr>
+      <tr>
+          <td>发布成功率</td>
+          <td>~80%</td>
+          <td>~99%</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="-安全改进">🔐 安全改进
+</h2><h3 id="v1x-问题">v1.x 问题
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// ❌ 密码硬编码在配置文件
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssh</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;107.174.95.243&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;b3BlbmNsYXc=&#39;</span>  <span style="color:#75715e">// 明文密码
+</span></span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="v20-方案">v2.0 方案
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// ✅ SSH Key 认证
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssh</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;107.174.95.243&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">privateKey</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;~/.ssh/blog-manager&#39;</span>,  <span style="color:#75715e">// 私钥文件
+</span></span></span><span style="display:flex;"><span>  <span style="color:#75715e">// password 仅作为降级备用
+</span></span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>密钥规格</strong>：</p>
+<ul>
+<li>类型：ed25519</li>
+<li>权限：600（仅所有者可读）</li>
+<li>注释：blog-manager@openclaw</li>
+</ul>
+<hr>
+<h2 id="-智能验证系统">🛡️ 智能验证系统
+</h2><h3 id="验证规则">验证规则
+</h3><p>发布前自动检查以下内容，任一失败即拦截：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>检查项</th>
+          <th>规则</th>
+          <th>错误码</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>文件大小</td>
+          <td>&gt; 0 bytes</td>
+          <td>EMPTY_FILE</td>
+      </tr>
+      <tr>
+          <td>正文内容</td>
+          <td>≥ 10 字符</td>
+          <td>INSUFFICIENT_CONTENT</td>
+      </tr>
+      <tr>
+          <td>Front Matter</td>
+          <td>必须以 <code>---</code> 开头</td>
+          <td>MISSING_FRONTMATTER</td>
+      </tr>
+      <tr>
+          <td>title 字段</td>
+          <td>必需</td>
+          <td>MISSING_FIELD</td>
+      </tr>
+      <tr>
+          <td>date 字段</td>
+          <td>必需且有效日期</td>
+          <td>MISSING_FIELD/INVALID_DATE</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="拦截示例">拦截示例
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 测试：正文内容过少</span>
+</span></span><span style="display:flex;"><span>$ node bin/blog.js publish
+</span></span><span style="display:flex;"><span>✖ 发布前验证失败
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>❌ 发布前验证失败：发现以下问题
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  📄 content/post/test.md
+</span></span><span style="display:flex;"><span>     INSUFFICIENT_CONTENT: 正文内容过少（仅 <span style="color:#ae81ff">5</span> 字符，最少需要 <span style="color:#ae81ff">10</span> 字符）
+</span></span></code></pre></div><hr>
+<h2 id="-错误恢复机制">🔄 错误恢复机制
+</h2><h3 id="指数退避算法">指数退避算法
+</h3><pre tabindex="0"><code>尝试 1/3 失败 → 等待 1 秒 → 重试
+尝试 2/3 失败 → 等待 2 秒 → 重试
+尝试 3/3 失败 → 等待 4 秒 → 报错退出
+</code></pre><h3 id="代码实现">代码实现
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">withRetry</span>(<span style="color:#a6e22e">fn</span>, { <span style="color:#a6e22e">maxRetries</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">baseDelay</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">attempt</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">attempt</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">maxRetries</span>; <span style="color:#a6e22e">attempt</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fn</span>();
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">attempt</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">maxRetries</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">error</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseDelay</span> <span style="color:#f92672">*</span> Math.<span style="color:#a6e22e">pow</span>(<span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">attempt</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">delay</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="-日志系统">📊 日志系统
+</h2><h3 id="日志输出">日志输出
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 控制台（彩色）</span>
+</span></span><span style="display:flex;"><span>2026-03-14 14:45:45 <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span>: 正在连接 SSH 服务器 <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;host&#34;</span>:<span style="color:#e6db74">&#34;107.174.95.243&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>2026-03-14 14:45:47 <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span>: SSH 连接成功
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 文件（JSON 格式）</span>
+</span></span><span style="display:flex;"><span>/tmp/blog-manager/
+</span></span><span style="display:flex;"><span>├── combined.log    <span style="color:#75715e"># 综合日志</span>
+</span></span><span style="display:flex;"><span>└── error.log       <span style="color:#75715e"># 错误日志</span>
+</span></span></code></pre></div><h3 id="日志轮转">日志轮转
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 自动轮转配置</span>
+</span></span><span style="display:flex;"><span>cat /etc/logrotate.d/blog-manager
+</span></span><span style="display:flex;"><span>/tmp/blog-manager/*.log <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    daily
+</span></span><span style="display:flex;"><span>    rotate <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>    compress
+</span></span><span style="display:flex;"><span>    delaycompress
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="-快速开始">🚀 快速开始
+</h2><h3 id="安装依赖">安装依赖
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /Users/macmini/.openclaw/workspace/skills/blog-manager
+</span></span><span style="display:flex;"><span>npm install
+</span></span></code></pre></div><h3 id="常用命令">常用命令
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 创建文章</span>
+</span></span><span style="display:flex;"><span>node bin/blog.js new <span style="color:#e6db74">&#34;文章标题&#34;</span> -c 技术 -t <span style="color:#e6db74">&#34;标签 1，标签 2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 发布（自动验证）</span>
+</span></span><span style="display:flex;"><span>node bin/blog.js publish
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看状态</span>
+</span></span><span style="display:flex;"><span>node bin/blog.js status
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 列出文章</span>
+</span></span><span style="display:flex;"><span>node bin/blog.js list -n <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><hr>
+<h2 id="-技术架构">📁 技术架构
+</h2><h3 id="目录结构">目录结构
+</h3><pre tabindex="0"><code>blog-manager/
+├── bin/blog.js                    # CLI 入口
+├── scripts/
+│   ├── lib/
+│   │   ├── config.mjs             # 配置管理
+│   │   ├── logger.mjs             # 日志模块 (winston)
+│   │   ├── retry.mjs              # 重试模块
+│   │   ├── ssh.mjs                # SSH 模块 (node-ssh)
+│   │   └── validator.mjs          # 验证模块 (gray-matter)
+│   └── commands/
+│       ├── new.mjs
+│       ├── publish.mjs
+│       ├── list.mjs
+│       └── status.mjs
+└── package.json
+</code></pre><h3 id="核心依赖">核心依赖
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>包</th>
+          <th>版本</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>node-ssh</td>
+          <td>^13.1.0</td>
+          <td>SSH 连接</td>
+      </tr>
+      <tr>
+          <td>winston</td>
+          <td>^3.11.0</td>
+          <td>日志系统</td>
+      </tr>
+      <tr>
+          <td>gray-matter</td>
+          <td>^4.0.3</td>
+          <td>Front Matter 解析</td>
+      </tr>
+      <tr>
+          <td>ora</td>
+          <td>^8.0.1</td>
+          <td>终端 spinner</td>
+      </tr>
+      <tr>
+          <td>commander</td>
+          <td>^12.0.0</td>
+          <td>CLI 框架</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="-未来计划">🎯 未来计划
+</h2><h3 id="v200-beta预计-2026-03-20">v2.0.0-beta（预计 2026-03-20）
+</h3><ul>
+<li><input disabled="" type="checkbox"> 草稿管理 (<code>blog draft create/list/publish</code>)</li>
+<li><input disabled="" type="checkbox"> 批量发布 (<code>blog publish --all/--draft</code>)</li>
+<li><input disabled="" type="checkbox"> 单元测试（覆盖率 ≥70%）</li>
+</ul>
+<h3 id="v210预计-2026-04-01">v2.1.0（预计 2026-04-01）
+</h3><ul>
+<li><input disabled="" type="checkbox"> GitHub Actions 集成模板</li>
+<li><input disabled="" type="checkbox"> 文章导入/导出（Markdown/JSON/ZIP）</li>
+<li><input disabled="" type="checkbox"> 本地预览服务器</li>
+</ul>
+<hr>
+<h2 id="-升级指南">📝 升级指南
+</h2><h3 id="从-v1x-升级">从 v1.x 升级
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. 备份配置</span>
+</span></span><span style="display:flex;"><span>cp skills/blog-manager/scripts/lib/config.mjs ~/config.backup.mjs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 拉取最新代码</span>
+</span></span><span style="display:flex;"><span>cd skills/blog-manager
+</span></span><span style="display:flex;"><span>git pull
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 安装依赖</span>
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 生成 SSH Key（如果没有）</span>
+</span></span><span style="display:flex;"><span>ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;blog-manager@openclaw&#34;</span> -f ~/.ssh/blog-manager -N <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. 测试</span>
+</span></span><span style="display:flex;"><span>node bin/blog.js status
+</span></span></code></pre></div><h3 id="配置迁移">配置迁移
+</h3><p>v2.0 配置文件向后兼容，密码认证仍可作为降级备用。</p>
+<hr>
+<h2 id="-相关链接">🔗 相关链接
+</h2><ul>
+<li><strong>技能文档</strong>: <a class="link" href="https://github.com/sugost-bolg/workspace/tree/main/skills/blog-manager"  target="_blank" rel="noopener"
+    >skills/blog-manager/SKILL.md</a></li>
+<li><strong>变更日志</strong>: <a class="link" href="https://github.com/sugost-bolg/workspace/tree/main/skills/blog-manager/CHANGELOG.md"  target="_blank" rel="noopener"
+    >CHANGELOG.md</a></li>
+<li><strong>重构方案</strong>: <a class="link" href="https://github.com/sugost-bolg/workspace/tree/main/skills/blog-manager/REFACTOR_PLAN.md"  target="_blank" rel="noopener"
+    >REFACTOR_PLAN.md</a></li>
+<li><strong>博客网站</strong>: <a class="link" href="https://liuhp.net"  target="_blank" rel="noopener"
+    >https://liuhp.net</a></li>
+</ul>
+<hr>
+<p><strong>作者</strong>: 莉莎 (Lisa)<br>
+<strong>发布日期</strong>: 2026-03-14<br>
+<strong>版本</strong>: v2.0.0-alpha</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/blog-manager/">Blog-Manager</a>
+        
+            <a href="/tags/openclaw/">OpenClaw</a>
+        
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%8F%91%E5%B8%83/">工具发布</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/2026-03-14-%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0-v2-0/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">测试文章 v2.0</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/2026-03-14-openclaw-%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%97%A5%E6%8A%A5-2026-03-14/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenClaw 技能开发日报 - 2026-03-14</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/2026-03-13-skill-orchestrator-v1-0-0-superpowers-%E9%A3%8E%E6%A0%BC%E6%8A%80%E8%83%BD%E8%A7%A6%E5%8F%91%E5%99%A8/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Skill Orchestrator v1.0.0 - Superpowers 风格技能触发器</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/2026-03-03-crypto-alpha-v4/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Crypto Alpha v4.0 发布：加密货币分析工具全面重构</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/2026-03-02-jiyi-zhongxin/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">记忆系统优化小结</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

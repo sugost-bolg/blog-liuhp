@@ -3,24 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://liuhp.net/tags/blog-manager/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/categories/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://liuhp.net/tags/openclaw/</loc>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/post/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/tags/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://liuhp.net/tags/v2.0/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
+    <loc>https://liuhp.net/post/2026-03-14-blog-manager-v2-release/</loc>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://liuhp.net/tags/%E5%B7%A5%E5%85%B7%E5%8F%91%E5%B8%83/</loc>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-03-14T15:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://liuhp.net/tags/v2.0/</loc>
     <lastmod>2026-03-14T06:37:46+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/post/2026-03-14-%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0-v2-0/</loc>
@@ -37,9 +46,6 @@
   </url><url>
     <loc>https://liuhp.net/post/2026-03-14-openclaw-%E5%BC%80%E5%8F%91%E6%97%A5%E6%8A%A5-2026-03-14/</loc>
     <lastmod>2026-03-14T04:56:31+00:00</lastmod>
-  </url><url>
-    <loc>https://liuhp.net/tags/openclaw/</loc>
-    <lastmod>2026-03-13T22:30:00+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/post/2026-03-13-skill-orchestrator-v1-0-0-superpowers-%E9%A3%8E%E6%A0%BC%E6%8A%80%E8%83%BD%E8%A7%A6%E5%8F%91%E5%99%A8/</loc>
     <lastmod>2026-03-13T22:30:00+00:00</lastmod>
