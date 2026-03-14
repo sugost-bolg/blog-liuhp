@@ -2,16 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://liuhp.net/</loc>
+    <lastmod>2026-03-14T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://liuhp.net/post/</loc>
+    <lastmod>2026-03-14T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://liuhp.net/post/test-empty-content/</loc>
+    <lastmod>2026-03-14T12:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://liuhp.net/tags/blog-manager/</loc>
     <lastmod>2026-03-14T06:37:46+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/categories/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
-  </url><url>
-    <loc>https://liuhp.net/</loc>
-    <lastmod>2026-03-14T06:37:46+00:00</lastmod>
-  </url><url>
-    <loc>https://liuhp.net/post/</loc>
     <lastmod>2026-03-14T06:37:46+00:00</lastmod>
   </url><url>
     <loc>https://liuhp.net/tags/</loc>
