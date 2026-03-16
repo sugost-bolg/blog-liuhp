@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Gost v3 链式 TLS 加密隧道代理配置指南 发布日期: 2026-03-17\n分类: 技术教程\n标签: gost v3, 代理，TLS 加密，链式代理，负载均衡\n📋 场景说明 在企业网络环境中，构建一个高可用、全加密的代理系统。本文介绍如何使用 gost v3.2.6 搭建一个三层链式代理 + 负载均衡的完整方案。\n架构设计 客户端 → A(入口/负载均衡) → B(双链路中转) → C(SOCKS5 出口) → 互联网 │ │ │ │ └─ 10000 ─┴─ 10000/20000 ──────┴─ 30000 ───────────┘ 服务器角色:\n服务器 IP 角色 端口 架构 A 10.10.10.254 入口 + 负载均衡 10000 ARM64 (OpenWRT) B 47.80.22.21 双链路中转 10000, 20000 AMD64 (Debian) C 47.238.159.48 SOCKS5 出口 30000 AMD64 (Debian) 🔐 加密与鉴权策略 链路 协议 加密 鉴权 客户端 → A SOCKS5 ❌ 明文 (本地可信) ❌ 免鉴权 A → B HTTP ✅ TLS ✅ wine:1234 B → C SOCKS5 ✅ TLS ✅ wine:1234 设计原则:\n">
+<title>Gost v3 链式 TLS 加密隧道代理配置指南</title>
+
+<link rel='canonical' href='https://liuhp.net/post/gost-tls-chain-proxy/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="Gost v3 链式 TLS 加密隧道代理配置指南">
+<meta property='og:description' content="Gost v3 链式 TLS 加密隧道代理配置指南 发布日期: 2026-03-17\n分类: 技术教程\n标签: gost v3, 代理，TLS 加密，链式代理，负载均衡\n📋 场景说明 在企业网络环境中，构建一个高可用、全加密的代理系统。本文介绍如何使用 gost v3.2.6 搭建一个三层链式代理 + 负载均衡的完整方案。\n架构设计 客户端 → A(入口/负载均衡) → B(双链路中转) → C(SOCKS5 出口) → 互联网 │ │ │ │ └─ 10000 ─┴─ 10000/20000 ──────┴─ 30000 ───────────┘ 服务器角色:\n服务器 IP 角色 端口 架构 A 10.10.10.254 入口 + 负载均衡 10000 ARM64 (OpenWRT) B 47.80.22.21 双链路中转 10000, 20000 AMD64 (Debian) C 47.238.159.48 SOCKS5 出口 30000 AMD64 (Debian) 🔐 加密与鉴权策略 链路 协议 加密 鉴权 客户端 → A SOCKS5 ❌ 明文 (本地可信) ❌ 免鉴权 A → B HTTP ✅ TLS ✅ wine:1234 B → C SOCKS5 ✅ TLS ✅ wine:1234 设计原则:\n">
+<meta property='og:url' content='https://liuhp.net/post/gost-tls-chain-proxy/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='gost' /><meta property='article:tag' content='代理' /><meta property='article:tag' content='TLS' /><meta property='article:tag' content='加密' /><meta property='article:tag' content='负载均衡' /><meta property='article:tag' content='链式代理' /><meta property='article:published_time' content='2026-03-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-17T00:00:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="Gost v3 链式 TLS 加密隧道代理配置指南">
+<meta name="twitter:description" content="Gost v3 链式 TLS 加密隧道代理配置指南 发布日期: 2026-03-17\n分类: 技术教程\n标签: gost v3, 代理，TLS 加密，链式代理，负载均衡\n📋 场景说明 在企业网络环境中，构建一个高可用、全加密的代理系统。本文介绍如何使用 gost v3.2.6 搭建一个三层链式代理 + 负载均衡的完整方案。\n架构设计 客户端 → A(入口/负载均衡) → B(双链路中转) → C(SOCKS5 出口) → 互联网 │ │ │ │ └─ 10000 ─┴─ 10000/20000 ──────┴─ 30000 ───────────┘ 服务器角色:\n服务器 IP 角色 端口 架构 A 10.10.10.254 入口 + 负载均衡 10000 ARM64 (OpenWRT) B 47.80.22.21 双链路中转 10000, 20000 AMD64 (Debian) C 47.238.159.48 SOCKS5 出口 30000 AMD64 (Debian) 🔐 加密与鉴权策略 链路 协议 加密 鉴权 客户端 → A SOCKS5 ❌ 明文 (本地可信) ❌ 免鉴权 A → B HTTP ✅ TLS ✅ wine:1234 B → C SOCKS5 ✅ TLS ✅ wine:1234 设计原则:\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/gost-tls-chain-proxy/">Gost v3 链式 TLS 加密隧道代理配置指南</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-17T00:00:00Z'>Tuesday, March 17, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minutes read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="gost-v3-链式-tls-加密隧道代理配置指南">Gost v3 链式 TLS 加密隧道代理配置指南
+</h1><p><strong>发布日期</strong>: 2026-03-17<br>
+<strong>分类</strong>: 技术教程<br>
+<strong>标签</strong>: gost v3, 代理，TLS 加密，链式代理，负载均衡</p>
+<hr>
+<h2 id="-场景说明">📋 场景说明
+</h2><p>在企业网络环境中，构建一个高可用、全加密的代理系统。本文介绍如何使用 <strong>gost v3.2.6</strong> 搭建一个三层链式代理 + 负载均衡的完整方案。</p>
+<h3 id="架构设计">架构设计
+</h3><pre tabindex="0"><code>客户端 → A(入口/负载均衡) → B(双链路中转) → C(SOCKS5 出口) → 互联网
+     │         │                    │                    │
+     └─ 10000 ─┴─ 10000/20000 ──────┴─ 30000 ───────────┘
+</code></pre><p><strong>服务器角色</strong>:</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>服务器</th>
+          <th>IP</th>
+          <th>角色</th>
+          <th>端口</th>
+          <th>架构</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>A</strong></td>
+          <td>10.10.10.254</td>
+          <td>入口 + 负载均衡</td>
+          <td>10000</td>
+          <td>ARM64 (OpenWRT)</td>
+      </tr>
+      <tr>
+          <td><strong>B</strong></td>
+          <td>47.80.22.21</td>
+          <td>双链路中转</td>
+          <td>10000, 20000</td>
+          <td>AMD64 (Debian)</td>
+      </tr>
+      <tr>
+          <td><strong>C</strong></td>
+          <td>47.238.159.48</td>
+          <td>SOCKS5 出口</td>
+          <td>30000</td>
+          <td>AMD64 (Debian)</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="-加密与鉴权策略">🔐 加密与鉴权策略
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>链路</th>
+          <th>协议</th>
+          <th>加密</th>
+          <th>鉴权</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>客户端 → A</td>
+          <td>SOCKS5</td>
+          <td>❌ 明文 (本地可信)</td>
+          <td>❌ 免鉴权</td>
+      </tr>
+      <tr>
+          <td>A → B</td>
+          <td>HTTP</td>
+          <td>✅ TLS</td>
+          <td>✅ wine:1234</td>
+      </tr>
+      <tr>
+          <td>B → C</td>
+          <td>SOCKS5</td>
+          <td>✅ TLS</td>
+          <td>✅ wine:1234</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>设计原则</strong>:</p>
+<ol>
+<li>客户端免鉴权 - 简化使用</li>
+<li>中间链路全加密 - 公网传输安全</li>
+<li>双链路负载均衡 - 提高可用性</li>
+</ol>
+<hr>
+<h2 id="-安装-gost">📦 安装 gost
+</h2><h3 id="a-服务器-arm64">A 服务器 (ARM64)
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /etc/gost <span style="color:#f92672">&amp;&amp;</span> cd /etc/gost
+</span></span><span style="display:flex;"><span>curl -sL -o gost.tar.gz https://github.com/go-gost/gost/releases/download/v3.2.6/gost_3.2.6_linux_arm64.tar.gz
+</span></span><span style="display:flex;"><span>tar xzf gost.tar.gz <span style="color:#f92672">&amp;&amp;</span> chmod +x gost <span style="color:#f92672">&amp;&amp;</span> rm gost.tar.gz
+</span></span><span style="display:flex;"><span>./gost -V  <span style="color:#75715e"># 验证版本</span>
+</span></span></code></pre></div><h3 id="bc-服务器-amd64">B/C 服务器 (AMD64)
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /etc/gost <span style="color:#f92672">&amp;&amp;</span> cd /etc/gost
+</span></span><span style="display:flex;"><span>curl -sL -o gost.tar.gz https://github.com/go-gost/gost/releases/download/v3.2.6/gost_3.2.6_linux_amd64.tar.gz
+</span></span><span style="display:flex;"><span>tar xzf gost.tar.gz <span style="color:#f92672">&amp;&amp;</span> chmod +x gost <span style="color:#f92672">&amp;&amp;</span> rm gost.tar.gz
+</span></span><span style="display:flex;"><span>./gost -V  <span style="color:#75715e"># 验证版本</span>
+</span></span></code></pre></div><hr>
+<h2 id="-生成-tls-证书">🔑 生成 TLS 证书
+</h2><p>三台服务器分别生成自签名证书：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># A 服务器</span>
+</span></span><span style="display:flex;"><span>openssl req -x509 -newkey rsa:2048 -keyout /etc/gost/key.pem -out /etc/gost/cert.pem -days <span style="color:#ae81ff">365</span> -nodes -subj <span style="color:#e6db74">&#39;/CN=10.10.10.254&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># B 服务器</span>
+</span></span><span style="display:flex;"><span>openssl req -x509 -newkey rsa:2048 -keyout /etc/gost/key.pem -out /etc/gost/cert.pem -days <span style="color:#ae81ff">365</span> -nodes -subj <span style="color:#e6db74">&#39;/CN=47.80.22.21&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># C 服务器</span>
+</span></span><span style="display:flex;"><span>openssl req -x509 -newkey rsa:2048 -keyout /etc/gost/key.pem -out /etc/gost/cert.pem -days <span style="color:#ae81ff">365</span> -nodes -subj <span style="color:#e6db74">&#39;/CN=47.238.159.48&#39;</span>
+</span></span></code></pre></div><hr>
+<h2 id="-配置启动">⚙️ 配置启动
+</h2><h3 id="c-服务器-socks5-出口">C 服务器 (SOCKS5 出口)
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 命令行启动</span>
+</span></span><span style="display:flex;"><span>nohup /etc/gost/gost -L <span style="color:#e6db74">&#34;socks5+tls://wine:1234@:30000?cert=/etc/gost/cert.pem&amp;key=/etc/gost/key.pem&#34;</span> &gt; /tmp/gost.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># systemd 自启</span>
+</span></span><span style="display:flex;"><span>cat &gt; /etc/systemd/system/gost.service <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Unit]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Description=gost SOCKS5 Proxy (Exit Node)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">After=network.target
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Service]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Type=simple
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStart=/etc/gost/gost -L &#34;socks5+tls://wine:1234@:30000?cert=/etc/gost/cert.pem&amp;key=/etc/gost/key.pem&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Restart=always
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">RestartSec=10
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Install]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">WantedBy=multi-user.target
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl enable gost <span style="color:#f92672">&amp;&amp;</span> systemctl start gost
+</span></span></code></pre></div><h3 id="b-服务器-双链路中转">B 服务器 (双链路中转)
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 链路 1 (10000 端口)</span>
+</span></span><span style="display:flex;"><span>nohup /etc/gost/gost -L <span style="color:#e6db74">&#34;http+tls://:10000?cert=/etc/gost/cert.pem&amp;key=/etc/gost/key.pem&#34;</span> -F <span style="color:#e6db74">&#34;socks5+tls://wine:1234@47.238.159.48:30000?insecure=true&#34;</span> &gt; /tmp/gost.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 链路 2 (20000 端口)</span>
+</span></span><span style="display:flex;"><span>nohup /etc/gost/gost -L <span style="color:#e6db74">&#34;http+tls://:20000?cert=/etc/gost/cert.pem&amp;key=/etc/gost/key.pem&#34;</span> -F <span style="color:#e6db74">&#34;socks5+tls://wine:1234@47.238.159.48:30000?insecure=true&#34;</span> &gt; /tmp/gost.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># systemd 模板服务</span>
+</span></span><span style="display:flex;"><span>cat &gt; /etc/systemd/system/gost@.service <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Unit]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Description=gost Proxy (Relay Node) - Port %i
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">After=network.target
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Service]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Type=simple
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStart=/etc/gost/gost -L &#34;http+tls://:%i?cert=/etc/gost/cert.pem&amp;key=/etc/gost/key.pem&#34; -F &#34;socks5+tls://wine:1234@47.238.159.48:30000?insecure=true&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Restart=always
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">RestartSec=10
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Install]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">WantedBy=multi-user.target
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl enable gost@10000.service gost@20000.service
+</span></span><span style="display:flex;"><span>systemctl start gost@10000.service gost@20000.service
+</span></span></code></pre></div><h3 id="a-服务器-入口--负载均衡">A 服务器 (入口 + 负载均衡)
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 命令行启动 (负载均衡到 B 的两个端口)</span>
+</span></span><span style="display:flex;"><span>nohup /etc/gost/gost -L<span style="color:#f92672">=</span>:10000 -F <span style="color:#e6db74">&#34;http+tls://47.80.22.21:10000?insecure=true,http+tls://47.80.22.21:20000?insecure=true&#34;</span> &gt; /tmp/gost.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OpenWRT 自启</span>
+</span></span><span style="display:flex;"><span>cat &gt; /etc/init.d/gost <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#!/bin/sh /etc/rc.common
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">USE_PROCD=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">START=95
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">start_service() {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  procd_open_instance
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  procd_set_param command /etc/gost/gost -L=:10000 -F &#34;http+tls://47.80.22.21:10000?insecure=true,http+tls://47.80.22.21:20000?insecure=true&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  procd_set_param respawn
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  procd_set_param respawn_threshold 10
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  procd_close_instance
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod +x /etc/init.d/gost <span style="color:#f92672">&amp;&amp;</span> /etc/init.d/gost enable <span style="color:#f92672">&amp;&amp;</span> /etc/init.d/gost start
+</span></span></code></pre></div><hr>
+<h2 id="-测试验证">✅ 测试验证
+</h2><h3 id="测试链路">测试链路
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 从 A 服务器测试完整链路</span>
+</span></span><span style="display:flex;"><span>curl -s --socks5-hostname localhost:10000 https://api.ip.sb/ip
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输出：47.238.159.48 (C 服务器出口 IP)</span>
+</span></span></code></pre></div><h3 id="客户端配置">客户端配置
+</h3><pre tabindex="0"><code>代理地址：10.10.10.254
+端口：10000
+协议：SOCKS5
+用户名：(留空)
+密码：(留空)
+</code></pre><hr>
+<h2 id="-故障排查">🔍 故障排查
+</h2><h3 id="检查进程">检查进程
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># A 服务器</span>
+</span></span><span style="display:flex;"><span>ps | grep gost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># B/C 服务器</span>
+</span></span><span style="display:flex;"><span>ps aux | grep gost
+</span></span><span style="display:flex;"><span>netstat -tlnp | grep -E <span style="color:#e6db74">&#39;10000|20000|30000&#39;</span>
+</span></span></code></pre></div><h3 id="查看日志">查看日志
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># systemd 服务</span>
+</span></span><span style="display:flex;"><span>journalctl -u gost.service -f
+</span></span><span style="display:flex;"><span>journalctl -u gost@10000.service -f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># nohup 日志</span>
+</span></span><span style="display:flex;"><span>tail -f /tmp/gost.log
+</span></span></code></pre></div><h3 id="常见问题">常见问题
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>问题</th>
+          <th>原因</th>
+          <th>解决</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>端口被占用</td>
+          <td>旧进程未清理</td>
+          <td><code>pkill -9 gost</code></td>
+      </tr>
+      <tr>
+          <td>TLS 握手失败</td>
+          <td>证书路径错误</td>
+          <td>检查 <code>cert.pem</code> 和 <code>key.pem</code></td>
+      </tr>
+      <tr>
+          <td>连接被拒</td>
+          <td>防火墙阻止</td>
+          <td>检查安全组规则</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="-性能优化建议">📊 性能优化建议
+</h2><ol>
+<li>
+<p><strong>启用 BBR</strong> - 提高 TCP 传输效率</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span style="display:flex;"><span>sysctl -p
+</span></span></code></pre></div></li>
+<li>
+<p><strong>调整文件描述符</strong> - 支持更多并发</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ulimit -n <span style="color:#ae81ff">65535</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>监控流量</strong> - 使用 <code>iftop</code> 或 <code>nethogs</code></p>
+</li>
+</ol>
+<hr>
+<h2 id="-安全建议">🔒 安全建议
+</h2><ol>
+<li><strong>定期更新证书</strong> - 建议每年更换</li>
+<li><strong>限制访问 IP</strong> - 防火墙只允许可信 IP</li>
+<li><strong>修改默认鉴权</strong> - 使用强密码</li>
+<li><strong>监控异常流量</strong> - 设置告警</li>
+</ol>
+<hr>
+<h2 id="总结">总结
+</h2><p>本方案实现了：</p>
+<ul>
+<li>✅ 三层链式代理</li>
+<li>✅ 全链路 TLS 加密</li>
+<li>✅ 双链路负载均衡</li>
+<li>✅ 客户端免鉴权</li>
+<li>✅ 开机自启</li>
+</ul>
+<p>适合需要高可用、高安全性的代理场景。</p>
+<hr>
+<p><strong>参考链接</strong>:</p>
+<ul>
+<li><a class="link" href="https://docs.gost.run/"  target="_blank" rel="noopener"
+    >gost 官方文档</a></li>
+<li><a class="link" href="https://github.com/go-gost/gost"  target="_blank" rel="noopener"
+    >gost GitHub</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/gost/">Gost</a>
+        
+            <a href="/tags/%E4%BB%A3%E7%90%86/">代理</a>
+        
+            <a href="/tags/tls/">TLS</a>
+        
+            <a href="/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+        
+            <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a>
+        
+            <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/">链式代理</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/86/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">构建GOST隧道中转</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
