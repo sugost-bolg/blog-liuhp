@@ -10,7 +10,7 @@
 <meta property='og:description' content=" 🎉 发布概览 博客管理工具 blog-manager 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。\n核心改进：\n🔐 SSH Key 认证替代密码，安全性大幅提升 🔄 网络波动自动重试（指数退避算法） 📝 发布前智能验证（空文件/内容长度/Front Matter） 📊 结构化日志系统，问题排查更高效 📋 版本对比 功能 v1.x v2.0 认证方式 SSH 密码 SSH Key (ed25519) 错误恢复 ❌ 无 ✅ 自动重试 3 次 日志系统 ❌ 无 ✅ Winston 结构化日志 空文件检测 ❌ 无 ✅ 发布前拦截 内容验证 ❌ 无 ✅ Front Matter + 正文检查 平均发布时间 ~30 秒 ~20 秒 发布成功率 ~80% ~99% 🔐 安全改进 v1.x 问题 // ❌ 密码硬编码在配置文件 ssh: { host: &#39;107.174.95.243&#39;, password: &#39;b3BlbmNsYXc=&#39; // 明文密码 } v2.0 方案 // ✅ SSH Key 认证 ssh: { host: &#39;107.174.95.243&#39;, privateKey: &#39;~/.ssh/blog-manager&#39;, // 私钥文件 // password 仅作为降级备用 } 密钥规格：\n">
 <meta property='og:url' content='https://liuhp.net/post/2026-03-14-blog-manager-v2-release/'>
 <meta property='og:site_name' content='My Life is Going On'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blog-manager' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='工具发布' /><meta property='article:published_time' content='2026-03-14T15:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-14T15:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blog-manager' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='工具发布' /><meta property='article:published_time' content='2026-03-14T15:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-14T15:00:00&#43;08:00'/>
 <meta name="twitter:site" content="@sugost">
     <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="博客管理工具 v2.0 发布 - SSH Key 认证 + 智能验证">
 <meta name="twitter:description" content=" 🎉 发布概览 博客管理工具 blog-manager 今日发布 v2.0.0-alpha 版本，带来架构级的全面重构。\n核心改进：\n🔐 SSH Key 认证替代密码，安全性大幅提升 🔄 网络波动自动重试（指数退避算法） 📝 发布前智能验证（空文件/内容长度/Front Matter） 📊 结构化日志系统，问题排查更高效 📋 版本对比 功能 v1.x v2.0 认证方式 SSH 密码 SSH Key (ed25519) 错误恢复 ❌ 无 ✅ 自动重试 3 次 日志系统 ❌ 无 ✅ Winston 结构化日志 空文件检测 ❌ 无 ✅ 发布前拦截 内容验证 ❌ 无 ✅ Front Matter + 正文检查 平均发布时间 ~30 秒 ~20 秒 发布成功率 ~80% ~99% 🔐 安全改进 v1.x 问题 // ❌ 密码硬编码在配置文件 ssh: { host: &#39;107.174.95.243&#39;, password: &#39;b3BlbmNsYXc=&#39; // 明文密码 } v2.0 方案 // ✅ SSH Key 认证 ssh: { host: &#39;107.174.95.243&#39;, privateKey: &#39;~/.ssh/blog-manager&#39;, // 私钥文件 // password 仅作为降级备用 } 密钥规格：\n">
@@ -130,7 +130,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-03-14T15:00:00Z'>Saturday, March 14, 2026</time>
+                <time class="article-time--published" datetime='2026-03-14T15:00:00&#43;08:00'>Saturday, March 14, 2026</time>
             </div>
         
 
