@@ -45,8 +45,8 @@ tags:
 ```javascript
 // ❌ 密码硬编码在配置文件
 ssh: {
-  host: '107.174.95.243',
-  password: 'b3BlbmNsYXc='  // 明文密码
+  host: '[博客服务器 IP]',
+  password: "[已隐藏]"  // 明文密码
 }
 ```
 
@@ -55,7 +55,7 @@ ssh: {
 ```javascript
 // ✅ SSH Key 认证
 ssh: {
-  host: '107.174.95.243',
+  host: '[博客服务器 IP]',
   privateKey: '~/.ssh/blog-manager',  // 私钥文件
   // password 仅作为降级备用
 }
@@ -131,7 +131,7 @@ async function withRetry(fn, { maxRetries = 3, baseDelay = 1000 }) {
 
 ```bash
 # 控制台（彩色）
-2026-03-14 14:45:45 [info]: 正在连接 SSH 服务器 {"host":"107.174.95.243"}
+2026-03-14 14:45:45 [info]: 正在连接 SSH 服务器 {"host":"[博客服务器 IP]"}
 2026-03-14 14:45:47 [info]: SSH 连接成功
 
 # 文件（JSON 格式）
