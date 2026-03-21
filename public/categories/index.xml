@@ -5,13 +5,7 @@
         <description>Recent content in Categories on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 21 Mar 2026 17:37:39 +0000</lastBuildDate><atom:link href="https://liuhp.net/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>技术</title>
-            <link>https://liuhp.net/categories/%E6%8A%80%E6%9C%AF/</link>
-            <pubDate>Sat, 21 Mar 2026 17:37:39 +0000</pubDate>
-            <guid>https://liuhp.net/categories/%E6%8A%80%E6%9C%AF/</guid>
-            <description></description>
-        </item><item>
+        <lastBuildDate>Sun, 22 Mar 2026 01:36:00 +0800</lastBuildDate><atom:link href="https://liuhp.net/categories/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>OpenClaw</title>
             <link>https://liuhp.net/categories/openclaw/</link>
             <pubDate>Sun, 22 Mar 2026 01:36:00 +0800</pubDate>
@@ -22,6 +16,12 @@
             <link>https://liuhp.net/categories/%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84/</link>
             <pubDate>Sun, 22 Mar 2026 01:36:00 +0800</pubDate>
             <guid>https://liuhp.net/categories/%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84/</guid>
+            <description></description>
+        </item><item>
+            <title>技术</title>
+            <link>https://liuhp.net/categories/%E6%8A%80%E6%9C%AF/</link>
+            <pubDate>Sun, 22 Mar 2026 01:36:00 +0800</pubDate>
+            <guid>https://liuhp.net/categories/%E6%8A%80%E6%9C%AF/</guid>
             <description></description>
         </item><item>
             <title>量化交易</title>
