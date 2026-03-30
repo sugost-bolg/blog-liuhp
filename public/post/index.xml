@@ -5,7 +5,13 @@
         <description>Recent content in Posts on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 29 Mar 2026 09:01:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 30 Mar 2026 10:07:23 +0000</lastBuildDate><atom:link href="https://liuhp.net/post/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>OpenClaw 子代理编排系统上线</title>
+            <link>https://liuhp.net/post/2026-03-30-openclaw-%E5%AD%90%E4%BB%A3%E7%90%86%E7%BC%96%E6%8E%92%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BA%BF/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/post/2026-03-30-openclaw-%E5%AD%90%E4%BB%A3%E7%90%86%E7%BC%96%E6%8E%92%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BA%BF/</guid>
+            <description>&lt;!-- more --&gt;&#xA;&lt;h2 id=&#34;引言&#34;&gt;引言&#xA;&lt;/h2&gt;&lt;p&gt;在这里开始写你的文章&amp;hellip;&lt;/p&gt;&#xA;&lt;h2 id=&#34;正文&#34;&gt;正文&#xA;&lt;/h2&gt;&lt;p&gt;继续撰写内容&amp;hellip;&lt;/p&gt;&#xA;&lt;h2 id=&#34;总结&#34;&gt;总结&#xA;&lt;/h2&gt;&lt;p&gt;总结本文要点&amp;hellip;&lt;/p&gt;&#xA;</description>
+        </item><item>
             <title>BTC量化模型数据泄露修复与回测验证</title>
             <link>https://liuhp.net/post/2026-03-29-btc%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2%E4%BF%AE%E5%A4%8D%E4%B8%8E%E5%9B%9E%E6%B5%8B%E9%AA%8C%E8%AF%81/</link>
             <pubDate>Sun, 29 Mar 2026 09:01:00 +0000</pubDate>

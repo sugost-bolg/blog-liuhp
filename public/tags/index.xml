@@ -5,7 +5,37 @@
         <description>Recent content in Tags on My Life is Going On</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 29 Mar 2026 09:01:00 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 30 Mar 2026 10:07:23 +0000</lastBuildDate><atom:link href="https://liuhp.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Colima</title>
+            <link>https://liuhp.net/tags/colima/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/tags/colima/</guid>
+            <description></description>
+        </item><item>
+            <title>DeerFlow</title>
+            <link>https://liuhp.net/tags/deerflow/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/tags/deerflow/</guid>
+            <description></description>
+        </item><item>
+            <title>Docker</title>
+            <link>https://liuhp.net/tags/docker/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/tags/docker/</guid>
+            <description></description>
+        </item><item>
+            <title>OpenClaw</title>
+            <link>https://liuhp.net/tags/openclaw/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/tags/openclaw/</guid>
+            <description></description>
+        </item><item>
+            <title>子代理</title>
+            <link>https://liuhp.net/tags/%E5%AD%90%E4%BB%A3%E7%90%86/</link>
+            <pubDate>Mon, 30 Mar 2026 10:07:23 +0000</pubDate>
+            <guid>https://liuhp.net/tags/%E5%AD%90%E4%BB%A3%E7%90%86/</guid>
+            <description></description>
+        </item><item>
             <title>XGBoost</title>
             <link>https://liuhp.net/tags/xgboost/</link>
             <pubDate>Sun, 29 Mar 2026 09:01:00 +0000</pubDate>
@@ -36,12 +66,6 @@
             <guid>https://liuhp.net/tags/ai-trader/</guid>
             <description></description>
         </item><item>
-            <title>OpenClaw</title>
-            <link>https://liuhp.net/tags/openclaw/</link>
-            <pubDate>Sun, 22 Mar 2026 01:36:00 +0800</pubDate>
-            <guid>https://liuhp.net/tags/openclaw/</guid>
-            <description></description>
-        </item><item>
             <title>代码标准</title>
             <link>https://liuhp.net/tags/%E4%BB%A3%E7%A0%81%E6%A0%87%E5%87%86/</link>
             <pubDate>Sun, 22 Mar 2026 01:36:00 +0800</pubDate>
@@ -60,7 +84,7 @@
             <guid>https://liuhp.net/tags/%E7%B1%BB%E5%9E%8B-c-%E5%85%83%E6%8A%80%E8%83%BD/</guid>
             <description></description>
         </item><item>
-            <title>AI</title>
+            <title>Ai</title>
             <link>https://liuhp.net/tags/ai/</link>
             <pubDate>Sat, 14 Mar 2026 17:57:00 +0800</pubDate>
             <guid>https://liuhp.net/tags/ai/</guid>
@@ -214,12 +238,6 @@
             <link>https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E4%BA%A4%E6%98%93/</link>
             <pubDate>Thu, 01 Jan 2026 12:11:44 +0000</pubDate>
             <guid>https://liuhp.net/tags/%E8%87%AA%E5%8A%A8%E4%BA%A4%E6%98%93/</guid>
-            <description></description>
-        </item><item>
-            <title>Docker</title>
-            <link>https://liuhp.net/tags/docker/</link>
-            <pubDate>Fri, 01 Aug 2025 17:34:03 +0000</pubDate>
-            <guid>https://liuhp.net/tags/docker/</guid>
             <description></description>
         </item><item>
             <title>Caddy</title>
