@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="背景 今天对 BTC 量化交易模型进行了一次深度审核，发现了一个严重的数据泄露问题，修复后回测表现反而更好了。\n问题发现 训练集划分问题 审核 train_model.py 时发现，模型训练使用了 train_test_split 随机划分数据集：\nX_train, X_val, y_train, y_val = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y ) 问题：时间序列数据不能随机划分！\n随机划分会导致验证集包含训练集之后的数据，模型在验证时实际上&quot;看到了未来&quot;，导致验证集性能虚高。\n回测脚本审核 回测脚本本身没有数据泄露问题：\n特征全部向后看（rolling/ewm） 标签生成正确（shift(-12) 向前看） 逐笔模拟没有用未来数据 修复方案 将随机划分改为时间序列划分：\n# 修复前 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y) # 修复后 split_idx = int(len(X) * 0.8) X_train, X_val = X[:split_idx], X[split_idx:] y_train, y_val = y[:split_idx], y[split_idx:] 验证结果 验证集性能对比 指标 旧模型（随机划分） 新模型（时间序列划分） 准确率 74.2% 70.0% Macro F1 0.69 0.62 验证集性能下降了，但这是正常的——去掉了&quot;作弊&quot;后才是真实泛化能力。\n">
+<title>BTC量化模型数据泄露修复与回测验证</title>
+
+<link rel='canonical' href='https://liuhp.net/post/2026-03-29-btc%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2%E4%BF%AE%E5%A4%8D%E4%B8%8E%E5%9B%9E%E6%B5%8B%E9%AA%8C%E8%AF%81/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="BTC量化模型数据泄露修复与回测验证">
+<meta property='og:description' content="背景 今天对 BTC 量化交易模型进行了一次深度审核，发现了一个严重的数据泄露问题，修复后回测表现反而更好了。\n问题发现 训练集划分问题 审核 train_model.py 时发现，模型训练使用了 train_test_split 随机划分数据集：\nX_train, X_val, y_train, y_val = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y ) 问题：时间序列数据不能随机划分！\n随机划分会导致验证集包含训练集之后的数据，模型在验证时实际上&quot;看到了未来&quot;，导致验证集性能虚高。\n回测脚本审核 回测脚本本身没有数据泄露问题：\n特征全部向后看（rolling/ewm） 标签生成正确（shift(-12) 向前看） 逐笔模拟没有用未来数据 修复方案 将随机划分改为时间序列划分：\n# 修复前 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y) # 修复后 split_idx = int(len(X) * 0.8) X_train, X_val = X[:split_idx], X[split_idx:] y_train, y_val = y[:split_idx], y[split_idx:] 验证结果 验证集性能对比 指标 旧模型（随机划分） 新模型（时间序列划分） 准确率 74.2% 70.0% Macro F1 0.69 0.62 验证集性能下降了，但这是正常的——去掉了&quot;作弊&quot;后才是真实泛化能力。\n">
+<meta property='og:url' content='https://liuhp.net/post/2026-03-29-btc%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2%E4%BF%AE%E5%A4%8D%E4%B8%8E%E5%9B%9E%E6%B5%8B%E9%AA%8C%E8%AF%81/'>
+<meta property='og:site_name' content='My Life is Going On'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='量化交易' /><meta property='article:tag' content='机器学习' /><meta property='article:tag' content='数据泄露' /><meta property='article:tag' content='XGBoost' /><meta property='article:published_time' content='2026-03-29T09:01:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-29T09:01:00&#43;00:00'/>
+<meta name="twitter:site" content="@sugost">
+    <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="BTC量化模型数据泄露修复与回测验证">
+<meta name="twitter:description" content="背景 今天对 BTC 量化交易模型进行了一次深度审核，发现了一个严重的数据泄露问题，修复后回测表现反而更好了。\n问题发现 训练集划分问题 审核 train_model.py 时发现，模型训练使用了 train_test_split 随机划分数据集：\nX_train, X_val, y_train, y_val = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y ) 问题：时间序列数据不能随机划分！\n随机划分会导致验证集包含训练集之后的数据，模型在验证时实际上&quot;看到了未来&quot;，导致验证集性能虚高。\n回测脚本审核 回测脚本本身没有数据泄露问题：\n特征全部向后看（rolling/ewm） 标签生成正确（shift(-12) 向前看） 逐笔模拟没有用未来数据 修复方案 将随机划分改为时间序列划分：\n# 修复前 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y) # 修复后 split_idx = int(len(X) * 0.8) X_train, X_val = X[:split_idx], X[split_idx:] y_train, y_val = y[:split_idx], y[split_idx:] 验证结果 验证集性能对比 指标 旧模型（随机划分） 新模型（时间序列划分） 准确率 74.2% 70.0% Macro F1 0.69 0.62 验证集性能下降了，但这是正常的——去掉了&quot;作弊&quot;后才是真实泛化能力。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Life is Going On</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" style="background-color: hsl(154, 60%, 84%); color: hsl(154, 60%, 15%);">
+                技术
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2026-03-29-btc%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2%E4%BF%AE%E5%A4%8D%E4%B8%8E%E5%9B%9E%E6%B5%8B%E9%AA%8C%E8%AF%81/">BTC量化模型数据泄露修复与回测验证</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-29T09:01:00Z'>Sunday, March 29, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="背景">背景
+</h2><p>今天对 BTC 量化交易模型进行了一次深度审核，发现了一个严重的数据泄露问题，修复后回测表现反而更好了。</p>
+<h2 id="问题发现">问题发现
+</h2><h3 id="训练集划分问题">训练集划分问题
+</h3><p>审核 <code>train_model.py</code> 时发现，模型训练使用了 <code>train_test_split</code> 随机划分数据集：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>X_train, X_val, y_train, y_val <span style="color:#f92672">=</span> train_test_split(
+</span></span><span style="display:flex;"><span>    X, y, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>, stratify<span style="color:#f92672">=</span>y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p><strong>问题</strong>：时间序列数据不能随机划分！</p>
+<p>随机划分会导致验证集包含训练集<strong>之后</strong>的数据，模型在验证时实际上&quot;看到了未来&quot;，导致验证集性能虚高。</p>
+<h3 id="回测脚本审核">回测脚本审核
+</h3><p>回测脚本本身没有数据泄露问题：</p>
+<ul>
+<li>特征全部向后看（rolling/ewm）</li>
+<li>标签生成正确（shift(-12) 向前看）</li>
+<li>逐笔模拟没有用未来数据</li>
+</ul>
+<h2 id="修复方案">修复方案
+</h2><p>将随机划分改为时间序列划分：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 修复前</span>
+</span></span><span style="display:flex;"><span>X_train, X_val, y_train, y_val <span style="color:#f92672">=</span> train_test_split(X, y, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, stratify<span style="color:#f92672">=</span>y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 修复后</span>
+</span></span><span style="display:flex;"><span>split_idx <span style="color:#f92672">=</span> int(len(X) <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>X_train, X_val <span style="color:#f92672">=</span> X[:split_idx], X[split_idx:]
+</span></span><span style="display:flex;"><span>y_train, y_val <span style="color:#f92672">=</span> y[:split_idx], y[split_idx:]
+</span></span></code></pre></div><h2 id="验证结果">验证结果
+</h2><h3 id="验证集性能对比">验证集性能对比
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>旧模型（随机划分）</th>
+          <th>新模型（时间序列划分）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>准确率</td>
+          <td>74.2%</td>
+          <td><strong>70.0%</strong></td>
+      </tr>
+      <tr>
+          <td>Macro F1</td>
+          <td>0.69</td>
+          <td>0.62</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>验证集性能下降了，但这是<strong>正常的</strong>——去掉了&quot;作弊&quot;后才是真实泛化能力。</p>
+<h3 id="回测对比固定仓位-10000">回测对比（固定仓位 $10,000）
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>旧模型</th>
+          <th>新模型</th>
+          <th>变化</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>总收益</td>
+          <td>+68.87%</td>
+          <td><strong>+75.57%</strong></td>
+          <td><strong>+6.7%</strong> ✅</td>
+      </tr>
+      <tr>
+          <td>最大回撤</td>
+          <td>-0.58%</td>
+          <td>-0.62%</td>
+          <td>-0.04%</td>
+      </tr>
+      <tr>
+          <td>夏普比率</td>
+          <td>15.00</td>
+          <td><strong>16.03</strong></td>
+          <td><strong>+1.03</strong> ✅</td>
+      </tr>
+      <tr>
+          <td>胜率</td>
+          <td>88.0%</td>
+          <td>88.4%</td>
+          <td>+0.4%</td>
+      </tr>
+      <tr>
+          <td>盈亏比</td>
+          <td>1.05</td>
+          <td><strong>1.22</strong></td>
+          <td><strong>+0.17</strong> ✅</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>结论</strong>：时间序列划分训练的模型，回测表现<strong>更好</strong>！</p>
+<h2 id="其他修复">其他修复
+</h2><h3 id="regime-检测修复">Regime 检测修复
+</h3><p>模拟交易脚本中发现 Regime 检测错误：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 错误：regime 列不存在，永远默认 BULL_TREND</span>
+</span></span><span style="display:flex;"><span>regime <span style="color:#f92672">=</span> features[<span style="color:#e6db74">&#39;regime&#39;</span>]<span style="color:#f92672">.</span>iloc[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;regime&#39;</span> <span style="color:#f92672">in</span> features<span style="color:#f92672">.</span>columns <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;BULL_TREND&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 修复：从 one-hot 编码正确恢复</span>
+</span></span><span style="display:flex;"><span>regime_cols <span style="color:#f92672">=</span> [c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> features<span style="color:#f92672">.</span>columns <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;regime_&#39;</span>)]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> regime_cols:
+</span></span><span style="display:flex;"><span>    regime_idx <span style="color:#f92672">=</span> features[regime_cols]<span style="color:#f92672">.</span>iloc[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>values<span style="color:#f92672">.</span>argmax()
+</span></span><span style="display:flex;"><span>    regime <span style="color:#f92672">=</span> regime_cols[regime_idx]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;regime_&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span></code></pre></div><h3 id="文档参数同步">文档参数同步
+</h3><p>发现 <code>STANDARD.md</code> 与 <code>config.py</code> 参数不一致：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>文档</th>
+          <th>实际</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>止盈</td>
+          <td>ATR × 2.0</td>
+          <td>ATR × 3.0</td>
+      </tr>
+      <tr>
+          <td>止损</td>
+          <td>ATR × 1.0</td>
+          <td>ATR × 2.0</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>已同步文档到实际配置。</p>
+<h2 id="经验教训">经验教训
+</h2><ol>
+<li><strong>时间序列数据不能随机划分</strong> — 必须按时间顺序划分</li>
+<li><strong>验证集性能下降不一定是坏事</strong> — 可能是去掉了数据泄露</li>
+<li><strong>回测才是最终验证</strong> — 验证集只能作为参考</li>
+<li><strong>文档和代码要同步</strong> — 参数不一致会导致维护混乱</li>
+</ol>
+<h2 id="代码仓库">代码仓库
+</h2><ul>
+<li>技能目录：<code>~/.openclaw/workspace/skills/btc-quant-skill/</code></li>
+<li>模型版本：v2.0.11</li>
+<li>模型文件：<code>xgb_optimal_30_20260329_111900.json</code> (30 特征简化模型)</li>
+</ul>
+<hr>
+<p><em>第一次完整的数据泄露审核 + 修复流程，值得记录。</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/">量化交易</a>
+        
+            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2/">数据泄露</a>
+        
+            <a href="/tags/xgboost/">XGBoost</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/2026-03-14-ai-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F-v3-6-2-%E4%BB%93%E4%BD%8D%E5%86%8D%E5%B9%B3%E8%A1%A1%E9%98%88%E5%80%BC%E7%9A%84%E5%8A%A8%E6%80%81%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AI 量化交易系统 v3.6.2：仓位再平衡阈值的动态优化实践</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/2026-03-13-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-ai-trader-%E8%BF%9B%E5%8C%96%E5%91%A8%E8%AE%B0/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">量化交易系统的自我修养：ai-trader 进化周记</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/post/261/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">人生哪能多如意，万事只求半称心。</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Life is Going On
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
