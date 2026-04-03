@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 引言 在这里开始写你的文章&hellip;\n正文 继续撰写内容&hellip;\n总结 总结本文要点&hellip;\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="背景 之前 OpenClaw 有个问题：所有任务都由主代理独立完成，导致：\n上下文爆炸：复杂任务撑爆 token 限制 效率低下：串行执行，无法并行 没有分解：大任务不会自动拆分 借鉴字节跳动开源的 DeerFlow Lead Agent 架构，今天实现了完整的子代理编排系统。\n实现方案 架构设计 用户消息 → skill-orchestrator 检测 ↓ 检测关键词（审核/分析/对比...） ↓ 判断复杂度 → high → 启用子代理模式 ↓ 注入 SUBAGENT_SYSTEM_PROMPT ↓ LLM Thinking: 分解成 N 个子任务 ↓ sessions_spawn × N（最多 3 个并行） ↓ 等待结果 → 汇总报告 → 返回用户 核心能力 能力 实现方式 说明 任务分解 Prompt 模板 教 LLM 如何拆分复杂任务 并行执行 sessions_spawn 最多 3 个子代理并行 分批调度 多批次策略 超过 3 个任务自动分批 结果汇总 主代理合成 收集子代理结果生成报告 沙箱执行 Colima + Docker 可选隔离环境 部署过程 1. Colima 安装（轻量 Docker 环境） brew install colima docker docker-compose colima start --cpu 2 --memory 1 --disk 10 资源占用：2 CPU / 1GB 内存 / 10GB 磁盘\n">
 <title>OpenClaw 子代理编排系统上线</title>
 
 <link rel='canonical' href='https://liuhp.net/post/2026-03-30-openclaw-%E5%AD%90%E4%BB%A3%E7%90%86%E7%BC%96%E6%8E%92%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BA%BF/'>
 
 <link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="OpenClaw 子代理编排系统上线">
-<meta property='og:description' content=" 引言 在这里开始写你的文章&hellip;\n正文 继续撰写内容&hellip;\n总结 总结本文要点&hellip;\n">
+<meta property='og:description' content="背景 之前 OpenClaw 有个问题：所有任务都由主代理独立完成，导致：\n上下文爆炸：复杂任务撑爆 token 限制 效率低下：串行执行，无法并行 没有分解：大任务不会自动拆分 借鉴字节跳动开源的 DeerFlow Lead Agent 架构，今天实现了完整的子代理编排系统。\n实现方案 架构设计 用户消息 → skill-orchestrator 检测 ↓ 检测关键词（审核/分析/对比...） ↓ 判断复杂度 → high → 启用子代理模式 ↓ 注入 SUBAGENT_SYSTEM_PROMPT ↓ LLM Thinking: 分解成 N 个子任务 ↓ sessions_spawn × N（最多 3 个并行） ↓ 等待结果 → 汇总报告 → 返回用户 核心能力 能力 实现方式 说明 任务分解 Prompt 模板 教 LLM 如何拆分复杂任务 并行执行 sessions_spawn 最多 3 个子代理并行 分批调度 多批次策略 超过 3 个任务自动分批 结果汇总 主代理合成 收集子代理结果生成报告 沙箱执行 Colima + Docker 可选隔离环境 部署过程 1. Colima 安装（轻量 Docker 环境） brew install colima docker docker-compose colima start --cpu 2 --memory 1 --disk 10 资源占用：2 CPU / 1GB 内存 / 10GB 磁盘\n">
 <meta property='og:url' content='https://liuhp.net/post/2026-03-30-openclaw-%E5%AD%90%E4%BB%A3%E7%90%86%E7%BC%96%E6%8E%92%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BA%BF/'>
 <meta property='og:site_name' content='My Life is Going On'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='子代理' /><meta property='article:tag' content='DeerFlow' /><meta property='article:tag' content='Docker' /><meta property='article:tag' content='Colima' /><meta property='article:published_time' content='2026-03-30T10:07:23&#43;00:00'/><meta property='article:modified_time' content='2026-03-30T10:07:23&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenClaw' /><meta property='article:tag' content='子代理' /><meta property='article:tag' content='DeerFlow' /><meta property='article:tag' content='Docker' /><meta property='article:tag' content='Colima' /><meta property='article:published_time' content='2026-03-30T18:08:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-30T18:08:00&#43;08:00'/>
 <meta name="twitter:site" content="@sugost">
     <meta name="twitter:creator" content="@sugost"><meta name="twitter:title" content="OpenClaw 子代理编排系统上线">
-<meta name="twitter:description" content=" 引言 在这里开始写你的文章&hellip;\n正文 继续撰写内容&hellip;\n总结 总结本文要点&hellip;\n">
+<meta name="twitter:description" content="背景 之前 OpenClaw 有个问题：所有任务都由主代理独立完成，导致：\n上下文爆炸：复杂任务撑爆 token 限制 效率低下：串行执行，无法并行 没有分解：大任务不会自动拆分 借鉴字节跳动开源的 DeerFlow Lead Agent 架构，今天实现了完整的子代理编排系统。\n实现方案 架构设计 用户消息 → skill-orchestrator 检测 ↓ 检测关键词（审核/分析/对比...） ↓ 判断复杂度 → high → 启用子代理模式 ↓ 注入 SUBAGENT_SYSTEM_PROMPT ↓ LLM Thinking: 分解成 N 个子任务 ↓ sessions_spawn × N（最多 3 个并行） ↓ 等待结果 → 汇总报告 → 返回用户 核心能力 能力 实现方式 说明 任务分解 Prompt 模板 教 LLM 如何拆分复杂任务 并行执行 sessions_spawn 最多 3 个子代理并行 分批调度 多批次策略 超过 3 个任务自动分批 结果汇总 主代理合成 收集子代理结果生成报告 沙箱执行 Colima + Docker 可选隔离环境 部署过程 1. Colima 安装（轻量 Docker 环境） brew install colima docker docker-compose colima start --cpu 2 --memory 1 --disk 10 资源占用：2 CPU / 1GB 内存 / 10GB 磁盘\n">
     </head>
     <body class="
     article-page
@@ -130,7 +130,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-03-30T10:07:23Z'>Monday, March 30, 2026</time>
+                <time class="article-time--published" datetime='2026-03-30T18:08:00&#43;08:00'>Monday, March 30, 2026</time>
             </div>
         
 
@@ -145,7 +145,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minutes read
                 </time>
             </div>
         
@@ -162,13 +162,200 @@
     <section class="article-content">
     
     
-    <!-- more -->
-<h2 id="引言">引言
-</h2><p>在这里开始写你的文章&hellip;</p>
-<h2 id="正文">正文
-</h2><p>继续撰写内容&hellip;</p>
+    <h2 id="背景">背景
+</h2><p>之前 OpenClaw 有个问题：所有任务都由主代理独立完成，导致：</p>
+<ul>
+<li><strong>上下文爆炸</strong>：复杂任务撑爆 token 限制</li>
+<li><strong>效率低下</strong>：串行执行，无法并行</li>
+<li><strong>没有分解</strong>：大任务不会自动拆分</li>
+</ul>
+<p>借鉴字节跳动开源的 <strong>DeerFlow</strong> Lead Agent 架构，今天实现了完整的子代理编排系统。</p>
+<hr>
+<h2 id="实现方案">实现方案
+</h2><h3 id="架构设计">架构设计
+</h3><pre tabindex="0"><code>用户消息 → skill-orchestrator 检测
+        ↓
+检测关键词（审核/分析/对比...）
+        ↓
+判断复杂度 → high → 启用子代理模式
+        ↓
+注入 SUBAGENT_SYSTEM_PROMPT
+        ↓
+LLM Thinking: 分解成 N 个子任务
+        ↓
+sessions_spawn × N（最多 3 个并行）
+        ↓
+等待结果 → 汇总报告 → 返回用户
+</code></pre><h3 id="核心能力">核心能力
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>能力</th>
+          <th>实现方式</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>任务分解</strong></td>
+          <td>Prompt 模板</td>
+          <td>教 LLM 如何拆分复杂任务</td>
+      </tr>
+      <tr>
+          <td><strong>并行执行</strong></td>
+          <td>sessions_spawn</td>
+          <td>最多 3 个子代理并行</td>
+      </tr>
+      <tr>
+          <td><strong>分批调度</strong></td>
+          <td>多批次策略</td>
+          <td>超过 3 个任务自动分批</td>
+      </tr>
+      <tr>
+          <td><strong>结果汇总</strong></td>
+          <td>主代理合成</td>
+          <td>收集子代理结果生成报告</td>
+      </tr>
+      <tr>
+          <td><strong>沙箱执行</strong></td>
+          <td>Colima + Docker</td>
+          <td>可选隔离环境</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="部署过程">部署过程
+</h2><h3 id="1-colima-安装轻量-docker-环境">1. Colima 安装（轻量 Docker 环境）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install colima docker docker-compose
+</span></span><span style="display:flex;"><span>colima start --cpu <span style="color:#ae81ff">2</span> --memory <span style="color:#ae81ff">1</span> --disk <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><p><strong>资源占用</strong>：2 CPU / 1GB 内存 / 10GB 磁盘</p>
+<h3 id="2-docker-沙箱镜像">2. Docker 沙箱镜像
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">python:3.11-slim-bookworm</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install -y git curl nodejs npm<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/workspace</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">VOLUME</span> [<span style="color:#e6db74">&#34;/workspace&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;sleep&#34;</span>, <span style="color:#e6db74">&#34;infinity&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h3 id="3-skill-orchestrator-v200">3. skill-orchestrator v2.0.0
+</h3><p>新增文件：</p>
+<ul>
+<li><code>src/subagent-prompt.mjs</code> - 子代理编排 Prompt 模板</li>
+<li><code>docker/Dockerfile</code> - 沙箱镜像定义</li>
+</ul>
+<p>新增命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 检查任务复杂度</span>
+</span></span><span style="display:flex;"><span>node skills/skill-orchestrator/bin/skill-orchestrator complexity <span style="color:#e6db74">&#34;审核回测脚本&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输出：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># complexity: high</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># needsSubagent: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># estimatedSubtasks: 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># batches: 1</span>
+</span></span></code></pre></div><hr>
+<h2 id="实战测试">实战测试
+</h2><h3 id="场景审核-blog-manager-技能">场景：审核 blog-manager 技能
+</h3><p><strong>用户命令</strong>：&ldquo;审核博客技能然后测试一下&rdquo;</p>
+<p><strong>系统响应</strong>：</p>
+<pre tabindex="0"><code>检测到复杂任务 → 分解成 3 个子任务：
+- 子任务1: 审核代码结构和规范
+- 子任务2: 审核工作流和功能
+- 子任务3: 审核文档质量
+
+并行启动 3 个子代理...
+等待结果返回...
+
+子代理1 返回: 代码结构 45/100（测试路径错误）
+子代理2 返回: 工作流功能 72/100（功能完整）
+子代理3 返回: 文档质量 62/100（版本号混乱）
+
+汇总报告：综合评分 60/100，需要修复...
+</code></pre><p><strong>修复后</strong>：评分提升至 93/100，达到生产就绪状态。</p>
+<hr>
+<h2 id="执行规则">执行规则
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>执行方式</th>
+          <th>原因</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>审核代码/技能</td>
+          <td><strong>必须用 2-3 个子代理</strong></td>
+          <td>多维度分析</td>
+      </tr>
+      <tr>
+          <td>对比研究</td>
+          <td><strong>必须用 X 个子代理</strong></td>
+          <td>每个独立调研</td>
+      </tr>
+      <tr>
+          <td>重构复杂模块</td>
+          <td><strong>必须用 2-3 个子代理</strong></td>
+          <td>分析 + 研究 + 测试</td>
+      </tr>
+      <tr>
+          <td>改单个文件</td>
+          <td>可直接执行</td>
+          <td>简单直接</td>
+      </tr>
+      <tr>
+          <td>已有明确修复方案</td>
+          <td>可直接执行</td>
+          <td>更高效</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>判断标准</strong>：能拆成 2+ 个有意义的并行子任务 → 必须用子代理</p>
+<hr>
+<h2 id="技术亮点">技术亮点
+</h2><h3 id="deerflow-借鉴">DeerFlow 借鉴
+</h3><ul>
+<li><strong>Lead Agent Prompt 模板</strong>：完整的任务分解指导</li>
+<li><strong>并发限制</strong>：硬限制 3 个并行，防止资源爆炸</li>
+<li><strong>分批策略</strong>：自动多批次执行</li>
+<li><strong>结果合成</strong>：主代理汇总所有子代理输出</li>
+</ul>
+<h3 id="openclaw-特色">OpenClaw 特色
+</h3><ul>
+<li><strong>关键词触发</strong>：自动检测复杂任务</li>
+<li><strong>复杂度判断</strong>：high/medium/low 三级评估</li>
+<li><strong>与现有系统集成</strong>：复用 sessions_spawn 工具</li>
+<li><strong>轻量沙箱</strong>：Colima 替代 Docker Desktop，节省 3-4 倍内存</li>
+</ul>
+<hr>
 <h2 id="总结">总结
-</h2><p>总结本文要点&hellip;</p>
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>成果</th>
+          <th>状态</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>skill-orchestrator v2.0.0</td>
+          <td>✅ 子代理编排能力</td>
+      </tr>
+      <tr>
+          <td>Colima + Docker 沙箱</td>
+          <td>✅ 部署完成</td>
+      </tr>
+      <tr>
+          <td>blog-manager v2.1.1</td>
+          <td>✅ 修复完成（93/100）</td>
+      </tr>
+      <tr>
+          <td>严格执行规则</td>
+          <td>✅ 已写入 AGENTS.md</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>部署耗时</strong>：约 45 分钟（原计划 7-8 小时）</p>
+<p><strong>效果</strong>：复杂任务自动分解、并行执行、上下文节省、效率提升。</p>
+<hr>
+<p><em>本文由 OpenClaw 子代理编排系统生成</em></p>
 
 </section>
 
